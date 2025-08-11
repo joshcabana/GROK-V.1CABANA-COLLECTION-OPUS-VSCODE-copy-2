@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found | CABANA</title>
+    <meta
+      name="description"
+      content="The page you're looking for doesn't exist. Return to CABANA's refined underwear collections."
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Custom styles */
+      .font-heading {
+        font-family: 'Playfair Display', serif;
+      }
+      .font-sans {
+        font-family: 'Inter', sans-serif;
+      }
+
+      /* Letter spacing for luxury feel */
+      .tracking-luxury {
+        letter-spacing: 0.3em;
+      }
+
+      /* 404 number styling */
+      .error-404 {
+        font-size: clamp(8rem, 20vw, 16rem);
+        line-height: 0.8;
+        opacity: 0.1;
+      }
+
+      /* Link hover effect */
+      .cabana-link {
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .cabana-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: #000;
+        transition: width 0.3s ease;
+      }
+
+      .cabana-link:hover::after {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-black font-sans min-h-screen flex flex-col">
+    <!-- Simple Navigation -->
+    <nav class="absolute top-0 left-0 right-0 z-50 p-6 md:p-12">
+      <a href="/index.html" class="font-heading text-2xl tracking-luxury cabana-logo-nav">CABANA</a>
+    </nav>
+
+    <!-- 404 Content -->
+    <main class="flex-1 flex items-center justify-center px-6">
+      <div class="text-center max-w-2xl mx-auto relative">
+        <!-- Large 404 Background -->
+        <div
+          class="error-404 font-heading absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+        >
+          404
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10">
+          <h1 class="font-heading text-4xl md:text-5xl mb-6">Page Not Found</h1>
+          <p class="text-lg text-gray-600 mb-12 max-w-md mx-auto">
+            The page you're looking for seems to have wandered off. Let us guide you back to our
+            collections.
+          </p>
+
+          <!-- Navigation Links -->
+          <div class="flex flex-col sm:flex-row gap-8 justify-center items-center">
+            <a href="/index.html" class="cabana-link text-sm tracking-wider uppercase">
+              Return Home
+            </a>
+            <span class="hidden sm:block text-gray-300">|</span>
+            <a
+              href="/products/mens-boxer-brief-black.html"
+              class="cabana-link text-sm tracking-wider uppercase"
+            >
+              Shop Men
+            </a>
+            <span class="hidden sm:block text-gray-300">|</span>
+            <a
+              href="/products/womens-set.html"
+              class="cabana-link text-sm tracking-wider uppercase"
+            >
+              Shop Women
+            </a>
+            <span class="hidden sm:block text-gray-300">|</span>
+            <a href="/impact.html" class="cabana-link text-sm tracking-wider uppercase">
+              Our Impact
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Simple Footer -->
+    <footer class="p-6 md:p-12 text-center">
+      <p class="text-sm text-gray-600">&copy; 2025 CABANA. All rights reserved.</p>
+    </footer>
+
+    <!-- Minimal JavaScript -->
+    <script>
+      // Simple fade-in animation on load
+      document.addEventListener('DOMContentLoaded', function () {
+        const content = document.querySelector('main > div');
+        content.style.opacity = '0';
+        content.style.transform = 'translateY(20px)';
+
+        setTimeout(() => {
+          content.style.transition = 'all 1s ease';
+          content.style.opacity = '1';
+          content.style.transform = 'translateY(0)';
+        }, 100);
+      });
+    </script>
+  </body>
+</html>

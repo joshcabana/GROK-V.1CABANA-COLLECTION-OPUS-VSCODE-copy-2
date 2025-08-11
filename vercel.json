@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/products/mens-underwear.html",
+      "destination": "/products/mens-boxer-brief-black.html",
+      "permanent": true
+    }
+  ]
+}

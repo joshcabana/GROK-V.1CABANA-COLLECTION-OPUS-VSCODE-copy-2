@@ -1,0 +1,8 @@
+{
+  "livePreview.defaultPreviewPath": "/index.html",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.validate": ["javascript"],
+  "stylelint.validate": ["css"],
+  "files.eol": "\n"
+}
