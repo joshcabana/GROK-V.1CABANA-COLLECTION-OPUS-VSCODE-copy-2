@@ -580,7 +580,9 @@
     <!-- UPDATED: SEO canonical -->
     <link rel="canonical" href="https://cabanacollections.com.au/" />
   </head>
-  <body class="bg-white text-black font-body gradient-champagne-sage luxe-texture pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
+  <body
+    class="bg-white text-black font-body gradient-champagne-sage luxe-texture pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
+  >
     <!-- Impact Banner -->
     <div class="impact-banner fixed top-0 left-0 right-0 z-[60] py-2" id="impactBanner">
       <div class="container mx-auto px-6 flex items-center justify-between">
@@ -732,13 +734,14 @@
     >
       <!-- Background: switch to static image for best LCP -->
       <div class="absolute inset-0 z-0">
-        <video
+          <video
           autoplay
           muted
           loop
           playsinline
           class="w-full h-full object-cover"
           poster="/assets/Images/HERO-BANNER2.png"
+            data-offscreen-pause
         >
           <source src="/assets/Images/HERO-BANNER.mp4" type="video/mp4" />
           <!-- Fallback for browsers that don't support video -->
@@ -855,6 +858,7 @@
             playsinline
             class="w-full h-full object-cover"
             poster="/assets/Images/Women.png"
+            data-offscreen-pause
           >
             <source src="/assets/Images/Women.mp4" type="video/mp4" />
             <!-- Fallback for browsers that don't support video -->

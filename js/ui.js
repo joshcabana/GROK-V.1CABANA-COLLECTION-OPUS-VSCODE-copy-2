@@ -33,19 +33,45 @@
     var menu = document.getElementById('mobileMenu');
     var btn = document.getElementById('mobileMenuBtn');
     if (!menu || !btn) return;
+    function syncAria(openNow){
+      try {
+        btn.setAttribute('aria-expanded', openNow ? 'true' : 'false');
+        menu.setAttribute('aria-hidden', openNow ? 'false' : 'true');
+      } catch(_) {}
+    }
     btn.addEventListener('click', function () {
-      var isOpen = menu.classList.contains('translate-y-0') && !menu.classList.contains('-translate-y-full');
-      // After toggle in page scripts, check again on next tick
+      // After page-level toggle finishes, sync
       setTimeout(function(){
         var openNow = menu.classList.contains('translate-y-0') && !menu.classList.contains('-translate-y-full');
         lockBodyScroll(openNow);
+        syncAria(openNow);
       }, 0);
     });
+  }
+
+  function initOffscreenMediaObserver() {
+    if (!('IntersectionObserver' in window)) return;
+    var mediaEls = document.querySelectorAll('[data-offscreen-pause]');
+    if (!mediaEls.length) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var el = entry.target;
+        if (el.tagName === 'VIDEO') {
+          if (!entry.isIntersecting && !el.paused) {
+            try { el.pause(); } catch(_) {}
+          } else if (entry.isIntersecting && el.autoplay) {
+            try { el.play(); } catch(_) {}
+          }
+        }
+      });
+    }, { threshold: 0.1 });
+    mediaEls.forEach(function(el){ observer.observe(el); });
   }
 
   function init() {
     initNavShadow();
     initMobileDrawerLock();
+    initOffscreenMediaObserver();
   }
 
   if (document.readyState === 'loading') {
@@ -59,5 +85,6 @@
     initNavShadow: initNavShadow,
     initMobileDrawerLock: initMobileDrawerLock,
     lockBodyScroll: lockBodyScroll,
+    initOffscreenMediaObserver: initOffscreenMediaObserver,
   });
 })();
