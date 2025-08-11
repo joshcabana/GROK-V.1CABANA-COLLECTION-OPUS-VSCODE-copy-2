@@ -579,10 +579,13 @@
     </script>
     <!-- UPDATED: SEO canonical -->
     <link rel="canonical" href="https://cabanacollections.com.au/" />
+    <link rel="stylesheet" href="/css/mobile.css" />
+    <script src="/js/header.js" defer></script>
   </head>
   <body
     class="bg-white text-black font-body gradient-champagne-sage luxe-texture pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
   >
+    <div id="site-header"></div>
     <!-- Impact Banner -->
     <div class="impact-banner fixed top-0 left-0 right-0 z-[60] py-2" id="impactBanner">
       <div class="container mx-auto px-6 flex items-center justify-between">
@@ -617,6 +620,8 @@
 
     <!-- Sticky Navigation -->
     <!-- Navigation -->
+    <!-- Legacy nav removed; now injected via partials/header.html -->
+    <!--
     <nav
       class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100 pt-[env(safe-area-inset-top)]"
       role="navigation"
@@ -725,6 +730,7 @@
         </div>
       </div>
     </nav>
+    -->
 
     <!-- Hero Section -->
     <!-- Hero Section (Updated Gucci-Style) -->

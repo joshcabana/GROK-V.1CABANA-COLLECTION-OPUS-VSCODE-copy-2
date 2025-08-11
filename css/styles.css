@@ -1200,6 +1200,87 @@ section {
   width: 100%;
 }
 
+/* Global media safety for small phones (360–430px) */
+@media (max-width: 430px) {
+  .editorial-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ensure media scales and prevents stretching across pages that don't inline critical CSS */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Minimum tap target sizing utility and default for common mobile toggles */
+.min-tap-44 {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Apply to existing ids if present */
+#mobileMenuBtn,
+#mobileMenuBtn svg {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Drawer open: lock body scroll (used by shared header) */
+body.drawer-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
+/* Fix potential transform issues */
+.parallax-slow,
+.hero-breathe,
+.float-gentle {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: auto;
+}
+
+/* Global media safety for small phones (360–430px) */
+@media (max-width: 430px) {
+  .editorial-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ensure media scales and prevents stretching across pages that don't inline critical CSS */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Minimum tap target sizing utility and default for common mobile toggles */
+.min-tap-44 {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Apply to existing ids if present */
+#mobileMenuBtn,
+#mobileMenuBtn svg {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Drawer open: lock body scroll (used by shared header) */
+body.drawer-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
 /* Fix potential transform issues */
 .parallax-slow,
 .hero-breathe,

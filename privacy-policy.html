@@ -44,7 +44,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/mobile.css" />
     <script src="/js/ui.js" defer></script>
+    <script src="/js/header.js" defer></script>
 
     <style>
       /* Custom styles */
@@ -101,9 +103,8 @@
       }
     </style>
   </head>
-  <body
-    class="bg-white text-black font-sans pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
-  >
+  <body class="bg-white text-black font-sans pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
+    <div id="site-header"></div>
     <!-- Skip to content for accessibility -->
     <a
       href="#policy-content"
@@ -111,8 +112,8 @@
       >Skip to policy content</a
     >
 
-    <!-- Navigation -->
-    <nav
+    <!-- Navigation is injected via partials/header.html -->
+    <!-- <nav
       class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-800 pt-[env(safe-area-inset-top)]"
       role="navigation"
       aria-label="Main navigation"
@@ -199,7 +200,7 @@
           <a href="/contact.html" class="link-hover block text-sm tracking-wider">CONTACT</a>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
     <!-- Legal Content -->
     <section class="pt-24 pb-16" id="policy-content">
