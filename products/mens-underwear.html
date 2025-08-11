@@ -349,6 +349,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- UPDATED: global stylesheet -->
     <link rel="stylesheet" href="/css/styles.css" />
+    <!-- Shared UI Enhancements -->
+    <script src="/js/ui.js" defer></script>
 
     <!-- Fonts -->
     <link
@@ -389,7 +391,7 @@
       }
     </script>
   </head>
-  <body class="bg-white text-black font-body">
+  <body class="bg-white text-black font-body pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
     <script>
       // Permanent redirect to new product URL
       (function () {
@@ -409,7 +411,7 @@
 
     <!-- Navigation -->
     <nav
-      class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100"
+      class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100 pt-[env(safe-area-inset-top)]"
       role="navigation"
       aria-label="Main navigation"
     >
@@ -422,30 +424,21 @@
 
           <!-- Navigation Links -->
           <div class="hidden md:flex items-center space-x-10">
+            <a href="/" class="link-hover text-xs tracking-widest font-medium">HOME</a>
             <a
               href="/products/mens-boxer-brief-black.html"
-              class="text-xs tracking-widest font-medium text-gold"
+              class="link-hover text-xs tracking-widest font-medium text-gold"
               aria-current="page"
               >MEN</a
             >
             <a
               href="/products/womens-set.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
+              class="link-hover text-xs tracking-widest font-medium"
               >WOMEN</a
             >
-            <a
-              href="/about.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >ABOUT</a
-            >
-            <a
-              href="/impact.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >IMPACT</a
-            >
-            <a
-              href="/contact.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
+            <a href="/about.html" class="link-hover text-xs tracking-widest font-medium">ABOUT</a>
+            <a href="/impact.html" class="link-hover text-xs tracking-widest font-medium">IMPACT</a>
+            <a href="/contact.html" class="link-hover text-xs tracking-widest font-medium"
               >CONTACT</a
             >
           </div>
@@ -501,15 +494,18 @@
         aria-hidden="true"
       >
         <div class="px-6 py-6 space-y-4">
+          <a href="/" class="link-hover block text-sm tracking-wider">HOME</a>
           <a
             href="/products/mens-boxer-brief-black.html"
-            class="block text-sm tracking-wider text-gold"
+            class="link-hover block text-sm tracking-wider text-gold"
             >MEN</a
           >
-          <a href="/products/womens-set.html" class="block text-sm tracking-wider">WOMEN</a>
-          <a href="/about.html" class="block text-sm tracking-wider">ABOUT</a>
-          <a href="/impact.html" class="block text-sm tracking-wider">IMPACT</a>
-          <a href="/contact.html" class="block text-sm tracking-wider">CONTACT</a>
+          <a href="/products/womens-set.html" class="link-hover block text-sm tracking-wider"
+            >WOMEN</a
+          >
+          <a href="/about.html" class="link-hover block text-sm tracking-wider">ABOUT</a>
+          <a href="/impact.html" class="link-hover block text-sm tracking-wider">IMPACT</a>
+          <a href="/contact.html" class="link-hover block text-sm tracking-wider">CONTACT</a>
         </div>
       </div>
     </nav>
@@ -709,9 +705,16 @@
               <h1 class="font-heading text-4xl md:text-5xl font-light mb-4">
                 CABANA Men’s Boxer Brief
               </h1>
-              <div class="flex items-baseline gap-4 mb-6">
+              <div class="flex items-baseline gap-4 mb-6 flex-wrap">
                 <p class="font-heading text-3xl font-light">$50 AUD</p>
                 <p class="text-xs tracking-wider text-gray-500">INCLUDING GST</p>
+                <a
+                  href="#impact-heading"
+                  id="impactAnchor"
+                  class="ml-auto inline-flex items-center gap-2 text-xs tracking-wider px-3 py-1 rounded-full border border-gray-200 text-gray-700 hover:text-gold hover:border-gold transition-colors duration-200 pill-shimmer"
+                >
+                  <span>Your Impact</span>
+                </a>
               </div>
 
               <!-- Trust Signals -->
@@ -1120,258 +1123,252 @@
           </div>
         </div>
       </div>
-    </main>
-
-    <!-- Live Impact Calculator Section -->
-    <section
-      class="py-20 bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden"
-      aria-labelledby="impact-heading"
-    >
-      <!-- Luxury Background Elements -->
-      <div class="absolute inset-0 opacity-5">
-        <div
-          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-gold/20 to-yellow-400/20 rounded-full blur-3xl"
-        ></div>
-      </div>
-
-      <div class="max-w-6xl mx-auto px-6 md:px-12 relative">
-        <!-- Section Header -->
-        <div class="text-center mb-16">
-          <h2
-            id="impact-heading"
-            class="font-heading text-3xl md:text-4xl font-light mb-6 text-gray-900"
-          >
-            Redefining Purpose Through Craft
-          </h2>
-          <div
-            class="w-20 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6"
-            aria-hidden="true"
-          ></div>
-          <p class="text-gray-600 max-w-3xl mx-auto text-lg font-light leading-relaxed">
-            True refinement isn't just about what you wear—it's about the impact you create. See
-            exactly how your CABANA purchase supports mental health initiatives through our verified
-            partnerships with Australia's leading wellbeing organisations.
-          </p>
-        </div>
-
-        <!-- Interactive Calculator -->
-        <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border border-gray-100">
-          <!-- Quantity Selector -->
-          <div class="text-center mb-12">
-            <h3 class="text-xl font-heading mb-6 text-gray-900">Calculate Your Real Impact</h3>
-            <div class="flex items-center justify-center gap-4 mb-8">
-              <button
-                id="decreaseQty"
-                class="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-gold hover:text-gold hover:scale-110 hover:shadow-lg transition-all duration-300"
-                aria-label="Decrease quantity"
-              >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M20 12H4"
-                  ></path>
-                </svg>
-              </button>
-
-              <div class="text-center mx-8">
-                <div class="text-5xl font-heading font-light mb-2 text-gray-900" id="currentQty">
-                  1
-                </div>
-                <div class="text-sm text-gray-500 uppercase tracking-wider">Items</div>
-              </div>
-
-              <button
-                id="increaseQty"
-                class="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-gold hover:text-gold hover:scale-110 hover:shadow-lg transition-all duration-300"
-                aria-label="Increase quantity"
-              >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 4v16m8-8H4"
-                  ></path>
-                </svg>
-              </button>
-            </div>
-
-            <!-- Investment Display -->
-            <div class="bg-gradient-to-r from-slate-50 to-gray-50 rounded-xl p-6 mb-8">
-              <div class="flex justify-between items-center text-lg mb-3">
-                <span class="text-gray-700 font-medium">Your Investment:</span>
-                <span class="font-heading text-2xl text-gray-900" id="totalPrice">$50 AUD</span>
-              </div>
-              <div class="flex justify-between items-center text-lg">
-                <span class="text-gray-700 font-medium">Mental Health Contribution (15%):</span>
-                <span class="font-heading text-2xl text-gold font-medium" id="donationAmount"
-                  >$7.50 AUD</span
-                >
-              </div>
-            </div>
+      <!-- Live Impact Calculator: moved directly below product gallery -->
+      <section class="pt-8 md:pt-12 relative overflow-hidden" aria-labelledby="impact-heading">
+        <div class="hairline-dark mb-8" aria-hidden="true"></div>
+        <div class="max-w-6xl mx-auto px-6 md:px-12 relative">
+          <!-- Section Header -->
+          <div class="text-center mb-10 md:mb-12">
+            <h2
+              id="impact-heading"
+              class="font-heading text-3xl md:text-4xl font-light mb-6 text-gray-900"
+            >
+              Redefining Purpose Through Craft
+            </h2>
+            <div
+              class="w-20 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6"
+              aria-hidden="true"
+            ></div>
+            <p class="text-gray-600 max-w-3xl mx-auto text-lg font-light leading-relaxed">
+              True refinement isn't just about what you wear—it's about the impact you create. See
+              exactly how your CABANA purchase supports mental health initiatives through our
+              verified partnerships with Australia's leading wellbeing organisations.
+            </p>
           </div>
 
-          <!-- Impact Visualization -->
-          <div class="grid md:grid-cols-1 gap-8 mb-12">
-            <!-- Men's Mental Health Impact -->
-            <div
-              class="impact-card bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-8 border border-gray-200 hover:shadow-lg transition-shadow duration-300"
-            >
-              <div class="flex items-center mb-6">
-                <div
-                  class="w-14 h-14 bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl flex items-center justify-center mr-4 shadow-md"
+          <!-- Interactive Calculator -->
+          <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border border-gray-100">
+            <!-- Quantity Selector -->
+            <div class="text-center mb-12">
+              <h3 class="text-xl font-heading mb-6 text-gray-900">Calculate Your Real Impact</h3>
+              <div class="flex items-center justify-center gap-4 mb-8">
+                <button
+                  id="decreaseQty"
+                  class="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-gold hover:text-gold hover:scale-110 hover:shadow-lg transition-all duration-300"
+                  aria-label="Decrease quantity"
                 >
-                  <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
-                      fill-rule="evenodd"
-                      d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                      clip-rule="evenodd"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M20 12H4"
                     ></path>
                   </svg>
+                </button>
+                <div class="text-center mx-8">
+                  <div class="text-5xl font-heading font-light mb-2 text-gray-900" id="currentQty">
+                    1
+                  </div>
+                  <div class="text-sm text-gray-500 uppercase tracking-wider">Items</div>
                 </div>
-                <div>
-                  <h4 class="text-xl font-heading text-gray-900 mb-1">Men's Mental Health</h4>
-                  <p class="text-gray-700 text-sm">Beyond Blue & MensLine Australia</p>
-                </div>
+                <button
+                  id="increaseQty"
+                  class="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-gold hover:text-gold hover:scale-110 hover:shadow-lg transition-all duration-300"
+                  aria-label="Increase quantity"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4v16m8-8H4"
+                    ></path>
+                  </svg>
+                </button>
               </div>
 
-              <div class="space-y-4 mb-6">
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700">Crisis support resources:</span>
-                  <span class="font-bold text-gray-900 text-lg" id="menSupport">8 people</span>
+              <!-- Investment Display -->
+              <div class="bg-gradient-to-r from-slate-50 to-gray-50 rounded-xl p-6 mb-8">
+                <div class="flex justify-between items-center text-lg mb-3">
+                  <span class="text-gray-700 font-medium">Your Investment:</span>
+                  <span class="font-heading text-2xl text-gray-900" id="totalPrice">$50 AUD</span>
                 </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700">Educational materials:</span>
-                  <span class="font-bold text-gray-900 text-lg" id="menEducation">3 packages</span>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700">Digital resources accessed:</span>
-                  <span class="font-bold text-gray-900 text-lg" id="menDigital">12 sessions</span>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-700">Mental health awareness:</span>
-                  <span class="font-bold text-gray-900 text-lg" id="menAwareness">25 people</span>
+                <div class="flex justify-between items-center text-lg">
+                  <span class="text-gray-700 font-medium">Mental Health Contribution (15%):</span>
+                  <span class="font-heading text-2xl text-gold font-medium" id="donationAmount"
+                    >$7.50 AUD</span
+                  >
                 </div>
               </div>
+            </div>
 
-              <div class="bg-gray-200/70 rounded-lg p-4">
-                <p class="text-sm text-gray-900 italic font-medium leading-relaxed">
-                  "Every dollar funds immediate crisis support and long-term preventive programs for
-                  men facing mental health challenges."
+            <!-- Impact Visualization -->
+            <div class="grid md:grid-cols-1 gap-8 mb-12">
+              <div
+                class="impact-card bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-8 border border-gray-200 hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="flex items-center mb-6">
+                  <div
+                    class="w-14 h-14 bg-gradient-to-r from-gray-800 to-gray-700 rounded-xl flex items-center justify-center mr-4 shadow-md"
+                  >
+                    <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-xl font-heading text-gray-900 mb-1">Men's Mental Health</h4>
+                    <p class="text-gray-700 text-sm">Beyond Blue & MensLine Australia</p>
+                  </div>
+                </div>
+                <div class="space-y-4 mb-6">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Crisis support resources:</span
+                    ><span class="font-bold text-gray-900 text-lg" id="menSupport">8 people</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Educational materials:</span
+                    ><span class="font-bold text-gray-900 text-lg" id="menEducation"
+                      >3 packages</span
+                    >
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Digital resources accessed:</span
+                    ><span class="font-bold text-gray-900 text-lg" id="menDigital"
+                      >12 sessions</span
+                    >
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Mental health awareness:</span
+                    ><span class="font-bold text-gray-900 text-lg" id="menAwareness"
+                      >25 people</span
+                    >
+                  </div>
+                </div>
+                <div class="bg-gray-200/70 rounded-lg p-4">
+                  <p class="text-sm text-gray-900 italic font-medium leading-relaxed">
+                    "Every dollar funds immediate crisis support and long-term preventive programs
+                    for men facing mental health challenges."
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sustainability Impact -->
+            <div
+              class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-8 mb-8 border border-gray-200"
+            >
+              <div class="text-center mb-6">
+                <h4 class="text-2xl font-heading text-gray-900 mb-4">
+                  Environmental Impact Per Item
+                </h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <div class="text-center">
+                    <div class="text-3xl mb-2">💧</div>
+                    <div class="text-2xl font-bold text-gold">-95%</div>
+                    <div class="text-xs text-gray-600 uppercase tracking-wider">
+                      Water Usage vs Cotton
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-3xl mb-2">🌱</div>
+                    <div class="text-2xl font-bold text-gold">100%</div>
+                    <div class="text-xs text-gray-600 uppercase tracking-wider">Biodegradable</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-3xl mb-2">♻️</div>
+                    <div class="text-2xl font-bold text-gold">0</div>
+                    <div class="text-xs text-gray-600 uppercase tracking-wider">
+                      Waste to Landfill
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-3xl mb-2">🌳</div>
+                    <div class="text-2xl font-bold text-gold">1</div>
+                    <div class="text-xs text-gray-600 uppercase tracking-wider">
+                      Tree Equivalent CO₂
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <p class="text-gray-800 font-medium text-sm leading-relaxed max-w-3xl mx-auto">
+                  Our modal fabric comes from sustainably managed beech forests. When your CABANA
+                  piece reaches end-of-life, it returns completely to nature—no microplastics, no
+                  synthetic waste, just earth back to earth.
                 </p>
               </div>
             </div>
-          </div>
 
-          <!-- Sustainability Impact -->
-          <div
-            class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-8 mb-8 border border-gray-200"
-          >
-            <div class="text-center mb-6">
-              <h4 class="text-2xl font-heading text-gray-900 mb-4">
-                Environmental Impact Per Item
-              </h4>
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="text-center">
-                  <div class="text-3xl mb-2">💧</div>
-                  <div class="text-2xl font-bold text-gold">-95%</div>
-                  <div class="text-xs text-gray-600 uppercase tracking-wider">
-                    Water Usage vs Cotton
-                  </div>
-                </div>
-                <div class="text-center">
-                  <div class="text-3xl mb-2">🌱</div>
-                  <div class="text-2xl font-bold text-gold">100%</div>
-                  <div class="text-xs text-gray-600 uppercase tracking-wider">Biodegradable</div>
-                </div>
-                <div class="text-center">
-                  <div class="text-3xl mb-2">♻️</div>
-                  <div class="text-2xl font-bold text-gold">0</div>
-                  <div class="text-xs text-gray-600 uppercase tracking-wider">
-                    Waste to Landfill
-                  </div>
-                </div>
-                <div class="text-center">
-                  <div class="text-3xl mb-2">🌳</div>
-                  <div class="text-2xl font-bold text-gold">1</div>
-                  <div class="text-xs text-gray-600 uppercase tracking-wider">
-                    Tree Equivalent CO₂
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="text-center">
-              <p class="text-gray-800 font-medium text-sm leading-relaxed max-w-3xl mx-auto">
-                Our modal fabric comes from sustainably managed beech forests. When your CABANA
-                piece reaches end-of-life, it returns completely to nature—no microplastics, no
-                synthetic waste, just earth back to earth.
-              </p>
-            </div>
-          </div>
-
-          <!-- Combined Impact Summary -->
-          <div
-            class="bg-gradient-to-b from-neutral-900 via-black to-neutral-900 text-white rounded-xl p-8 border border-neutral-800"
-          >
-            <div class="text-center mb-6">
-              <h4 class="text-2xl font-heading text-white/90 mb-2">Total Lives Impacted</h4>
-              <div class="text-6xl font-heading font-light text-gold mb-2" id="totalLives">70</div>
-              <p class="text-slate-300 font-medium">
-                People directly supported by your conscious choice
-              </p>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div>
-                <div class="text-2xl font-bold text-white" id="totalSupport">8</div>
-                <div class="text-xs text-slate-400 uppercase tracking-wider">Crisis Support</div>
-              </div>
-              <div>
-                <div class="text-2xl font-bold text-white" id="totalEducation">5</div>
-                <div class="text-xs text-slate-400 uppercase tracking-wider">
-                  Education Programs
-                </div>
-              </div>
-              <div>
-                <div class="text-2xl font-bold text-white" id="totalResources">13</div>
-                <div class="text-xs text-slate-400 uppercase tracking-wider">Resource Access</div>
-              </div>
-              <div>
-                <div class="text-2xl font-bold text-white" id="totalAwareness">55</div>
-                <div class="text-xs text-slate-400 uppercase tracking-wider">Awareness Reach</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Partnership Transparency -->
-          <div class="mt-12 text-center">
-            <h5 class="text-lg font-heading mb-6 text-gray-900">Verified Impact Partners</h5>
+            <!-- Combined Impact Summary -->
             <div
-              class="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-gray-600 mb-6"
+              class="bg-gradient-to-b from-neutral-900 via-black to-neutral-900 text-white rounded-xl p-8 border border-neutral-800"
             >
-              <div class="flex items-center gap-3">
-                <div
-                  class="w-10 h-10 bg-gradient-to-r from-gray-800 to-gray-700 rounded-full flex items-center justify-center shadow-md"
-                >
-                  <span class="text-white font-bold text-xs">BB</span>
+              <div class="text-center mb-6">
+                <h4 class="text-2xl font-heading text-white/90 mb-2">Total Lives Impacted</h4>
+                <div class="text-6xl font-heading font-light text-gold mb-2" id="totalLives">
+                  70
                 </div>
-                <div class="text-left">
-                  <div class="font-medium text-gray-900">Beyond Blue</div>
-                  <div class="text-xs text-gray-500">24/7 Crisis Support • Men's Mental Health</div>
+                <p class="text-slate-300 font-medium">
+                  People directly supported by your conscious choice
+                </p>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div>
+                  <div class="text-2xl font-bold text-white" id="totalSupport">8</div>
+                  <div class="text-xs text-slate-400 uppercase tracking-wider">Crisis Support</div>
+                </div>
+                <div>
+                  <div class="text-2xl font-bold text-white" id="totalEducation">5</div>
+                  <div class="text-xs text-slate-400 uppercase tracking-wider">
+                    Education Programs
+                  </div>
+                </div>
+                <div>
+                  <div class="text-2xl font-bold text-white" id="totalResources">13</div>
+                  <div class="text-xs text-slate-400 uppercase tracking-wider">Resource Access</div>
+                </div>
+                <div>
+                  <div class="text-2xl font-bold text-white" id="totalAwareness">55</div>
+                  <div class="text-xs text-slate-400 uppercase tracking-wider">Awareness Reach</div>
                 </div>
               </div>
             </div>
-            <p class="text-xs text-gray-500 max-w-3xl mx-auto leading-relaxed">
-              Impact calculations based on verified program costs from our mental health partners.
-              All contributions are tracked and reported quarterly. Partnership agreements ensure
-              100% of designated funds reach frontline services.
-            </p>
+
+            <!-- Partnership Transparency -->
+            <div class="mt-12 text-center">
+              <h5 class="text-lg font-heading mb-6 text-gray-900">Verified Impact Partners</h5>
+              <div
+                class="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-gray-600 mb-6"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-10 h-10 bg-gradient-to-r from-gray-800 to-gray-700 rounded-full flex items-center justify-center shadow-md"
+                  >
+                    <span class="text-white font-bold text-xs">BB</span>
+                  </div>
+                  <div class="text-left">
+                    <div class="font-medium text-gray-900">Beyond Blue</div>
+                    <div class="text-xs text-gray-500">
+                      24/7 Crisis Support • Men's Mental Health
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="text-xs text-gray-500 max-w-3xl mx-auto leading-relaxed">
+                Impact calculations based on verified program costs from our mental health partners.
+                All contributions are tracked and reported quarterly. Partnership agreements ensure
+                100% of designated funds reach frontline services.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
     <!-- Size Guide Modal -->
     <div
@@ -1564,37 +1561,49 @@
 
           const gallery = document.querySelector('.product-gallery');
 
-          gallery.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-          });
+          gallery.addEventListener(
+            'touchstart',
+            (e) => {
+              startX = e.touches[0].clientX;
+              startY = e.touches[0].clientY;
+            },
+            { passive: false }
+          );
 
-          gallery.addEventListener('touchmove', (e) => {
-            // Prevent scrolling while swiping horizontally
-            const deltaX = Math.abs(e.touches[0].clientX - startX);
-            const deltaY = Math.abs(e.touches[0].clientY - startY);
+          gallery.addEventListener(
+            'touchmove',
+            (e) => {
+              // Prevent scrolling while swiping horizontally
+              const deltaX = Math.abs(e.touches[0].clientX - startX);
+              const deltaY = Math.abs(e.touches[0].clientY - startY);
 
-            if (deltaX > deltaY) {
-              e.preventDefault();
-            }
-          });
-
-          gallery.addEventListener('touchend', (e) => {
-            endX = e.changedTouches[0].clientX;
-            endY = e.changedTouches[0].clientY;
-
-            const deltaX = endX - startX;
-            const deltaY = endY - startY;
-
-            // Only trigger if horizontal swipe is dominant and significant
-            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
-              if (deltaX > 0) {
-                this.previousImage();
-              } else {
-                this.nextImage();
+              if (deltaX > deltaY) {
+                e.preventDefault();
               }
-            }
-          });
+            },
+            { passive: false }
+          );
+
+          gallery.addEventListener(
+            'touchend',
+            (e) => {
+              endX = e.changedTouches[0].clientX;
+              endY = e.changedTouches[0].clientY;
+
+              const deltaX = endX - startX;
+              const deltaY = endY - startY;
+
+              // Only trigger if horizontal swipe is dominant and significant
+              if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                  this.previousImage();
+                } else {
+                  this.nextImage();
+                }
+              }
+            },
+            { passive: false }
+          );
         }
 
         nextImage() {
@@ -1734,6 +1743,28 @@
         }
       }
 
+      // Track impact anchor clicks
+      (function () {
+        document.addEventListener('DOMContentLoaded', function () {
+          const impactAnchor = document.getElementById('impactAnchor');
+          const impactAnchorMobile = document.getElementById('impactAnchorMobile');
+          if (impactAnchor) {
+            impactAnchor.addEventListener('click', function () {
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'impact_anchor_click', { position: 'product_header' });
+              }
+            });
+          }
+          if (impactAnchorMobile) {
+            impactAnchorMobile.addEventListener('click', function () {
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'impact_anchor_click', { position: 'mobile_sticky' });
+              }
+            });
+          }
+        });
+      })();
+
       function toggleVideo() {
         const video = document.getElementById('mainVideo');
         const playIcon = document.getElementById('playIcon');
@@ -1755,6 +1786,23 @@
         const mainVideo = document.getElementById('mainVideo');
         if (mainVideo) {
           mainVideo.addEventListener('click', toggleVideo);
+
+          // Pause video when offscreen (Firefox-friendly playsinline fallback)
+          if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (!entry.isIntersecting && !mainVideo.paused) {
+                    try {
+                      mainVideo.pause();
+                    } catch (_) {}
+                  }
+                });
+              },
+              { threshold: 0.1 }
+            );
+            observer.observe(mainVideo);
+          }
         }
       });
 
@@ -2403,6 +2451,15 @@
             ></span>
           </span>
         </button>
+
+        <!-- Impact Anchor on mobile sticky bar -->
+        <a
+          href="#impact-heading"
+          id="impactAnchorMobile"
+          class="ml-2 inline-flex items-center text-xs tracking-wider px-3 py-2 rounded-full border border-gray-300 text-gray-700 pill-shimmer"
+        >
+          Your Impact
+        </a>
       </div>
 
       <!-- Progress bar for free shipping -->
@@ -2413,8 +2470,7 @@
         </div>
         <div class="bg-gray-200 rounded-full h-1.5">
           <div
-            class="bg-gradient-to-r from-gold to-yellow-400 h-1.5 rounded-full transition-all duration-500"
-            style="width: 25%"
+            class="bg-gradient-to-r from-gold to-yellow-400 h-1.5 rounded-full transition-all duration-500 w-1/4"
           ></div>
         </div>
         <div class="text-xs text-gray-500 mt-1">Add $150 more for free shipping</div>

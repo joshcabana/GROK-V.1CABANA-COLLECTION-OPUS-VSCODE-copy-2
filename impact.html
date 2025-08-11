@@ -49,6 +49,8 @@
 
     <!-- Link to main styles -->
     <link rel="stylesheet" href="/css/styles.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="/js/ui.js" defer></script>
 
     <style>
       /* Page-specific styles */
@@ -86,25 +88,25 @@
 
           <!-- Navigation Links -->
           <div class="hidden md:flex items-center space-x-10">
+            <a href="/" class="link-hover text-xs tracking-widest font-medium">HOME</a>
             <a
               href="/products/mens-boxer-brief-black.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
+              class="link-hover text-xs tracking-widest font-medium"
               >MEN</a
             >
             <a
               href="/products/womens-set.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
+              class="link-hover text-xs tracking-widest font-medium"
               >WOMEN</a
             >
+            <a href="/about.html" class="link-hover text-xs tracking-widest font-medium">ABOUT</a>
             <a
-              href="/about.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >ABOUT</a
+              href="/impact.html"
+              class="link-hover text-xs tracking-widest font-medium text-gold"
+              aria-current="page"
+              >IMPACT</a
             >
-            <a href="/impact.html" class="text-xs tracking-widest font-medium text-gold">IMPACT</a>
-            <a
-              href="/contact.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
+            <a href="/contact.html" class="link-hover text-xs tracking-widest font-medium"
               >CONTACT</a
             >
           </div>
@@ -131,7 +133,7 @@
           </a>
 
           <!-- Mobile Menu Button -->
-          <button class="md:hidden" id="mobileMenuBtn">
+          <button class="md:hidden" id="mobileMenuBtn" aria-label="Toggle menu" title="Toggle menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
@@ -150,13 +152,20 @@
         id="mobileMenu"
       >
         <div class="px-6 py-6 space-y-4">
-          <a href="/products/mens-boxer-brief-black.html" class="block text-xs tracking-widest"
+          <a href="/" class="link-hover block text-xs tracking-widest">HOME</a>
+          <a
+            href="/products/mens-boxer-brief-black.html"
+            class="link-hover block text-xs tracking-widest"
             >MEN</a
           >
-          <a href="/products/womens-set.html" class="block text-xs tracking-widest">WOMEN</a>
-          <a href="/about.html" class="block text-xs tracking-widest">ABOUT</a>
-          <a href="/impact.html" class="block text-xs tracking-widest text-gold">IMPACT</a>
-          <a href="/contact.html" class="block text-xs tracking-widest">CONTACT</a>
+          <a href="/products/womens-set.html" class="link-hover block text-xs tracking-widest"
+            >WOMEN</a
+          >
+          <a href="/about.html" class="link-hover block text-xs tracking-widest">ABOUT</a>
+          <a href="/impact.html" class="link-hover block text-xs tracking-widest text-gold"
+            >IMPACT</a
+          >
+          <a href="/contact.html" class="link-hover block text-xs tracking-widest">CONTACT</a>
         </div>
       </div>
     </nav>
@@ -292,7 +301,7 @@
 
           <div class="grid md:grid-cols-2 gap-16">
             <!-- Beyond Blue -->
-            <a href="https://www.beyondblue.org.au" target="_blank" class="block">
+            <a href="https://www.beyondblue.org.au" target="_blank" rel="noopener" class="block">
               <div
                 class="text-center bg-blue-50 p-8 hover:bg-blue-100 transition-colors border border-blue-200 cursor-pointer"
               >
@@ -315,7 +324,7 @@
             </a>
 
             <!-- UN Women -->
-            <a href="https://unwomen.org.au" target="_blank" class="block">
+            <a href="https://unwomen.org.au" target="_blank" rel="noopener" class="block">
               <div
                 class="text-center bg-pink-50 p-8 hover:bg-pink-100 transition-colors border border-pink-200 cursor-pointer"
               >
@@ -381,6 +390,7 @@
                     <a
                       href="https://menslink.org.au"
                       target="_blank"
+                      rel="noopener"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -399,6 +409,7 @@
                     <a
                       href="https://everyman.org.au"
                       target="_blank"
+                      rel="noopener"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -417,6 +428,7 @@
                     <a
                       href="https://movember.com"
                       target="_blank"
+                      rel="noopener"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -435,6 +447,7 @@
                     <a
                       href="https://themancave.life"
                       target="_blank"
+                      rel="noopener"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -453,6 +466,7 @@
                     <a
                       href="https://mensshed.org"
                       target="_blank"
+                      rel="noopener"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -485,6 +499,7 @@
                     <a
                       href="https://ywca-canberra.org.au"
                       target="_blank"
+                      rel="noopener"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -503,6 +518,7 @@
                     <a
                       href="https://fearlesswomen.org.au"
                       target="_blank"
+                      rel="noopener"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -521,6 +537,7 @@
                     <a
                       href="https://sharethedignity.org.au"
                       target="_blank"
+                      rel="noopener"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -539,6 +556,7 @@
                     <a
                       href="https://toora.org.au"
                       target="_blank"
+                      rel="noopener"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -557,6 +575,7 @@
                     <a
                       href="https://unwomen.org.au"
                       target="_blank"
+                      rel="noopener"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →

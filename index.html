@@ -182,7 +182,9 @@
 
       /* Hero section critical styles */
       .cabana-hero {
+        /* Fallback then modern viewport height to avoid iOS 100vh bug */
         min-height: 100vh;
+        min-height: 100svh;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -578,7 +580,7 @@
     <!-- UPDATED: SEO canonical -->
     <link rel="canonical" href="https://cabanacollections.com.au/" />
   </head>
-  <body class="bg-white text-black font-body">
+  <body class="bg-white text-black font-body gradient-champagne-sage luxe-texture pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
     <!-- Impact Banner -->
     <div class="impact-banner fixed top-0 left-0 right-0 z-[60] py-2" id="impactBanner">
       <div class="container mx-auto px-6 flex items-center justify-between">
@@ -614,7 +616,7 @@
     <!-- Sticky Navigation -->
     <!-- Navigation -->
     <nav
-      class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100"
+      class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100 pt-[env(safe-area-inset-top)]"
       role="navigation"
       aria-label="Main navigation"
       id="mainNav"
@@ -730,7 +732,14 @@
     >
       <!-- Background: switch to static image for best LCP -->
       <div class="absolute inset-0 z-0">
-        <video autoplay muted loop playsinline class="w-full h-full object-cover">
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          class="w-full h-full object-cover"
+          poster="/assets/Images/HERO-BANNER2.png"
+        >
           <source src="/assets/Images/HERO-BANNER.mp4" type="video/mp4" />
           <!-- Fallback for browsers that don't support video -->
           <div class="w-full h-full bg-gradient-to-br from-slate-900 via-black to-slate-800"></div>
@@ -821,93 +830,32 @@
           <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
             Get early access to new releases, impact updates, and behind-the-scenes stories.
           </p>
-          <form class="mid-newsletter-form" onsubmit="subscribeMidNewsletter(event)" novalidate>
-            <div class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-              <div class="flex-1">
-                <label for="mid-newsletter-email" class="sr-only">Email address</label>
-                <input
-                  type="email"
-                  id="mid-newsletter-email"
-                  name="email"
-                  required
-                  placeholder="Enter your email address"
-                  class="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition-all duration-300 text-center sm:text-left placeholder-gray-400"
-                  aria-describedby="mid-newsletter-description"
-                />
-                <div
-                  id="mid-newsletter-error"
-                  class="hidden text-red-500 text-sm mt-2 text-left"
-                  role="alert"
-                ></div>
-              </div>
-              <button
-                type="submit"
-                class="mid-newsletter-submit bg-gradient-to-r from-gold to-yellow-400 text-black px-8 py-4 rounded-full font-medium text-sm tracking-wider uppercase transition-all duration-300 hover:shadow-lg hover:shadow-gold/30 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                aria-describedby="mid-newsletter-description"
-              >
-                <span class="mid-submit-text">Join Now</span>
-                <span class="mid-loading-text hidden">
-                  <svg
-                    class="animate-spin -ml-1 mr-3 h-4 w-4 text-black inline"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      class="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      stroke-width="4"
-                    ></circle>
-                    <path
-                      class="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                  Joining...
-                </span>
-              </button>
-            </div>
-            <p id="mid-newsletter-description" class="text-xs text-gray-500 mt-4 max-w-sm mx-auto">
-              We respect your privacy. Unsubscribe at any time.
-            </p>
-            <div
-              id="mid-newsletter-success"
-              class="hidden bg-green-50 border border-green-200 rounded-lg p-6 max-w-md mx-auto mt-6"
+          <div class="flex items-center justify-center">
+            <a
+              href="#newsletter-email"
+              onclick="setTimeout(()=>document.getElementById('newsletter-email')?.focus(), 50)"
+              class="inline-flex items-center justify-center bg-gradient-to-r from-gold to-yellow-400 text-black px-8 py-4 rounded-full font-medium text-sm tracking-wider uppercase transition-all duration-300 hover:shadow-lg hover:shadow-gold/30 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2"
             >
-              <div class="flex items-center">
-                <svg
-                  class="w-6 h-6 text-green-600 mr-3"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"
-                  ></path>
-                </svg>
-                <div>
-                  <h3 class="text-green-800 font-medium">Thank you.</h3>
-                  <p class="text-green-600 text-sm mt-1">
-                    Please check your inbox to confirm your subscription.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </form>
+              Join the Newsletter
+            </a>
+          </div>
+          <p id="mid-newsletter-description" class="text-xs text-gray-500 mt-4 max-w-sm mx-auto">
+            We respect your privacy. Unsubscribe at any time.
+          </p>
         </div>
       </section>
       <!-- Philosophy Section -->
       <section class="py-32 md:py-48 relative overflow-hidden" aria-labelledby="philosophy-heading">
         <!-- Video Background -->
         <div class="absolute inset-0 z-0">
-          <video autoplay muted loop playsinline class="w-full h-full object-cover">
+          <video
+            autoplay
+            muted
+            loop
+            playsinline
+            class="w-full h-full object-cover"
+            poster="/assets/Images/Women.png"
+          >
             <source src="/assets/Images/Women.mp4" type="video/mp4" />
             <!-- Fallback for browsers that don't support video -->
             <div
@@ -1241,7 +1189,7 @@
 
     <!-- Newsletter Signup Section -->
     <section
-      class="py-32 md:py-48 gradient-sage relative overflow-hidden"
+      class="py-32 md:py-48 gradient-champagne-sage luxe-texture relative overflow-hidden"
       aria-labelledby="newsletter-heading"
     >
       <!-- Background texture -->
@@ -1275,6 +1223,8 @@
                 id="newsletter-email"
                 name="email"
                 required
+                autocomplete="email"
+                inputmode="email"
                 placeholder="Enter your email address"
                 class="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-gold focus:border-transparent outline-none transition-all duration-300 text-center sm:text-left placeholder-gray-400"
                 aria-describedby="newsletter-description"
@@ -1284,6 +1234,14 @@
                 class="hidden text-red-500 text-sm mt-2 text-left"
                 role="alert"
               ></div>
+              <input
+                type="text"
+                name="website"
+                tabindex="-1"
+                autocomplete="off"
+                class="hidden"
+                aria-hidden="true"
+              />
             </div>
             <button
               type="submit"
@@ -1325,6 +1283,8 @@
         <!-- Success Message -->
         <div
           id="newsletter-success"
+          role="status"
+          aria-live="polite"
           class="hidden bg-green-50 border border-green-200 rounded-lg p-6 max-w-md mx-auto"
         >
           <div class="flex items-center">
@@ -1777,15 +1737,26 @@
 
         const form = event.target;
         const email = form.email.value.trim();
+        const emailInput = form.querySelector('#newsletter-email');
         const errorDiv = document.getElementById('newsletter-error');
         const successDiv = document.getElementById('newsletter-success');
         const submitButton = form.querySelector('.newsletter-submit');
         const submitText = submitButton.querySelector('.submit-text');
         const loadingText = submitButton.querySelector('.loading-text');
+        const honeypot = form.querySelector('input[name="website"]');
 
         // Reset states
         errorDiv.classList.add('hidden');
         successDiv.classList.add('hidden');
+        if (emailInput) {
+          emailInput.removeAttribute('aria-invalid');
+        }
+
+        // Spam honeypot: if filled, do nothing
+        if (honeypot && honeypot.value.trim() !== '') {
+          // silently ignore bot submissions
+          return;
+        }
 
         // Validate email
         if (!email) {
@@ -1842,6 +1813,10 @@
           submitButton.disabled = false;
           submitText.classList.remove('hidden');
           loadingText.classList.add('hidden');
+          if (emailInput) {
+            emailInput.setAttribute('aria-invalid', 'true');
+            emailInput.focus();
+          }
         }
       }
 
@@ -1853,67 +1828,6 @@
 
       // Make newsletter function globally available
       window.subscribeNewsletter = subscribeNewsletter;
-
-      // Mid-page Newsletter Subscription (reuses footer logic, scoped IDs)
-      function subscribeMidNewsletter(event) {
-        event.preventDefault();
-
-        const form = event.target;
-        const email = form.email.value.trim();
-        const errorDiv = document.getElementById('mid-newsletter-error');
-        const successDiv = document.getElementById('mid-newsletter-success');
-        const submitButton = form.querySelector('.mid-newsletter-submit');
-        const submitText = form.querySelector('.mid-submit-text');
-        const loadingText = form.querySelector('.mid-loading-text');
-
-        errorDiv.classList.add('hidden');
-        successDiv.classList.add('hidden');
-
-        if (!email) {
-          errorDiv.textContent = 'Please enter your email address.';
-          errorDiv.classList.remove('hidden');
-          return;
-        }
-
-        if (!validateNewsletterEmail(email)) {
-          errorDiv.textContent = 'Please enter a valid email address.';
-          errorDiv.classList.remove('hidden');
-          return;
-        }
-
-        submitButton.disabled = true;
-        submitText.classList.add('hidden');
-        loadingText.classList.remove('hidden');
-
-        setTimeout(() => {
-          try {
-            const subscribers = JSON.parse(localStorage.getItem('newsletterSubscribers') || '[]');
-            if (subscribers.includes(email)) {
-              errorDiv.textContent = 'This email is already subscribed to our newsletter.';
-              errorDiv.classList.remove('hidden');
-              return;
-            }
-
-            subscribers.push(email);
-            localStorage.setItem('newsletterSubscribers', JSON.stringify(subscribers));
-
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'newsletter_signup');
-            }
-
-            form.classList.add('hidden');
-            successDiv.classList.remove('hidden');
-          } catch (error) {
-            console.error('Mid newsletter subscription error:', error);
-            errorDiv.textContent = 'Something went wrong. Please try again.';
-            errorDiv.classList.remove('hidden');
-          } finally {
-            submitButton.disabled = false;
-            submitText.classList.remove('hidden');
-            loadingText.classList.add('hidden');
-          }
-        }, 1200);
-      }
 
       // Hero: Text carousel and video optimisation
       document.addEventListener('DOMContentLoaded', function () {
@@ -1996,6 +1910,8 @@
 
     <!-- Performance Optimiser Script -->
     <script src="/js/performance-optimizer.js" defer></script>
+    <!-- Shared UI Enhancements (nav shadow, etc.) -->
+    <script src="/js/ui.js" defer></script>
 
     <!-- Error Handling and Debugging -->
     <script>

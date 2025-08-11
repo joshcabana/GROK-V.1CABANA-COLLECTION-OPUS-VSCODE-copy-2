@@ -8,6 +8,15 @@
       name="description"
       content="Legal information and policies for Cabana Collections (Australia)."
     />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="/js/ui.js" defer></script>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -41,7 +50,70 @@
     </style>
   </head>
   <body>
-    <main>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-200">
+      <div class="container mx-auto px-6 md:px-12 py-4">
+        <div class="flex justify-between items-center">
+          <!-- Logo -->
+          <a href="/" class="font-heading text-2xl tracking-luxury cabana-logo-nav">CABANA</a>
+
+          <!-- Navigation Links -->
+          <div class="hidden md:flex items-center space-x-10">
+            <a href="/" class="link-hover text-xs tracking-widest font-medium">HOME</a>
+            <a
+              href="/products/mens-boxer-brief-black.html"
+              class="link-hover text-xs tracking-widest font-medium"
+              >MEN</a
+            >
+            <a
+              href="/products/womens-set.html"
+              class="link-hover text-xs tracking-widest font-medium"
+              >WOMEN</a
+            >
+            <a href="/about.html" class="link-hover text-xs tracking-widest font-medium">ABOUT</a>
+            <a href="/impact.html" class="link-hover text-xs tracking-widest font-medium">IMPACT</a>
+            <a href="/contact.html" class="link-hover text-xs tracking-widest font-medium"
+              >CONTACT</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button class="md:hidden" id="mobileMenuBtn" aria-label="Toggle menu" title="Toggle menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <!-- Mobile Menu -->
+    <div
+      class="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-gray-200 transform -translate-y-full transition-transform duration-300"
+      id="mobileMenu"
+      aria-hidden="true"
+    >
+      <div class="px-6 py-4 space-y-4">
+        <a href="/" class="link-hover block text-sm tracking-wider">HOME</a>
+        <a
+          href="/products/mens-boxer-brief-black.html"
+          class="link-hover block text-sm tracking-wider"
+          >MEN</a
+        >
+        <a href="/products/womens-set.html" class="link-hover block text-sm tracking-wider"
+          >WOMEN</a
+        >
+        <a href="/about.html" class="link-hover block text-sm tracking-wider">ABOUT</a>
+        <a href="/impact.html" class="link-hover block text-sm tracking-wider">IMPACT</a>
+        <a href="/contact.html" class="link-hover block text-sm tracking-wider">CONTACT</a>
+      </div>
+    </div>
+    <div class="pt-24"></div>
+    <main class="container mx-auto px-6 md:px-12">
       <h1>Legal & Policies</h1>
       <p class="updated">Last updated: August 9, 2025</p>
       <p>
@@ -82,5 +154,17 @@
         <a href="mailto:Cabana.Collections2025@gmail.com">Cabana.Collections2025@gmail.com</a>.
       </p>
     </main>
+    <script>
+      (function () {
+        const btn = document.getElementById('mobileMenuBtn');
+        const menu = document.getElementById('mobileMenu');
+        if (btn && menu) {
+          btn.addEventListener('click', function () {
+            menu.classList.toggle('translate-y-0');
+            menu.classList.toggle('-translate-y-full');
+          });
+        }
+      })();
+    </script>
   </body>
 </html>

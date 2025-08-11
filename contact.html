@@ -46,6 +46,8 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <script src="/js/ui.js" defer></script>
 
     <style>
       /* Custom styles */
@@ -104,33 +106,27 @@
       <div class="container mx-auto px-6 md:px-12 py-4">
         <div class="flex justify-between items-center">
           <!-- Logo -->
-          <a href="/index.html" class="font-heading text-2xl tracking-luxury cabana-logo-nav"
-            >CABANA</a
-          >
+          <a href="/" class="font-heading text-2xl tracking-luxury cabana-logo-nav">CABANA</a>
 
           <!-- Navigation Links -->
           <div class="hidden md:flex items-center space-x-10">
+            <a href="/" class="link-hover text-xs tracking-widest font-medium">HOME</a>
             <a
               href="/products/mens-boxer-brief-black.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
+              class="link-hover text-xs tracking-widest font-medium"
               >MEN</a
             >
             <a
               href="/products/womens-set.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
+              class="link-hover text-xs tracking-widest font-medium"
               >WOMEN</a
             >
+            <a href="/about.html" class="link-hover text-xs tracking-widest font-medium">ABOUT</a>
+            <a href="/impact.html" class="link-hover text-xs tracking-widest font-medium">IMPACT</a>
             <a
-              href="/about.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >ABOUT</a
-            >
-            <a
-              href="/impact.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >IMPACT</a
-            >
-            <a href="/contact.html" class="text-xs tracking-widest font-medium text-gold"
+              href="/contact.html"
+              class="link-hover text-xs tracking-widest font-medium text-gold"
+              aria-current="page"
               >CONTACT</a
             >
           </div>
@@ -152,7 +148,7 @@
           </a>
 
           <!-- Mobile Menu Button -->
-          <button class="md:hidden" id="mobileMenuBtn">
+          <button class="md:hidden" id="mobileMenuBtn" aria-label="Toggle menu" title="Toggle menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
@@ -171,13 +167,20 @@
         id="mobileMenu"
       >
         <div class="px-6 py-4 space-y-4">
-          <a href="/products/mens-boxer-brief-black.html" class="block text-sm tracking-wider"
+          <a href="/" class="link-hover block text-sm tracking-wider">HOME</a>
+          <a
+            href="/products/mens-boxer-brief-black.html"
+            class="link-hover block text-sm tracking-wider"
             >MEN</a
           >
-          <a href="/products/womens-set.html" class="block text-sm tracking-wider">WOMEN</a>
-          <a href="/about.html" class="block text-sm tracking-wider">ABOUT</a>
-          <a href="/impact.html" class="block text-sm tracking-wider">IMPACT</a>
-          <a href="/contact.html" class="block text-sm tracking-wider font-medium">CONTACT</a>
+          <a href="/products/womens-set.html" class="link-hover block text-sm tracking-wider"
+            >WOMEN</a
+          >
+          <a href="/about.html" class="link-hover block text-sm tracking-wider">ABOUT</a>
+          <a href="/impact.html" class="link-hover block text-sm tracking-wider">IMPACT</a>
+          <a href="/contact.html" class="link-hover block text-sm tracking-wider text-gold"
+            >CONTACT</a
+          >
         </div>
       </div>
     </nav>

@@ -39,6 +39,8 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
+    <script src="/js/ui.js" defer></script>
+    <link rel="stylesheet" href="/css/styles.css" />
     <style>
       .font-heading {
         font-family: 'Playfair Display', serif;
@@ -52,6 +54,68 @@
     </style>
   </head>
   <body class="bg-white text-black font-sans">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-800">
+      <div class="container mx-auto px-6 md:px-12 py-4">
+        <div class="flex justify-between items-center">
+          <!-- Logo -->
+          <a href="/" class="font-heading text-2xl tracking-luxury cabana-logo-nav">CABANA</a>
+
+          <!-- Navigation Links -->
+          <div class="hidden md:flex items-center space-x-10">
+            <a href="/" class="link-hover text-xs tracking-widest font-medium">HOME</a>
+            <a
+              href="/products/mens-boxer-brief-black.html"
+              class="link-hover text-xs tracking-widest font-medium"
+              >MEN</a
+            >
+            <a
+              href="/products/womens-set.html"
+              class="link-hover text-xs tracking-widest font-medium"
+              >WOMEN</a
+            >
+            <a href="/about.html" class="link-hover text-xs tracking-widest font-medium">ABOUT</a>
+            <a href="/impact.html" class="link-hover text-xs tracking-widest font-medium">IMPACT</a>
+            <a href="/contact.html" class="link-hover text-xs tracking-widest font-medium"
+              >CONTACT</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button class="md:hidden" id="mobileMenuBtn" aria-label="Toggle menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        class="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-800 transform -translate-y-full transition-transform duration-300"
+        id="mobileMenu"
+      >
+        <div class="px-6 py-4 space-y-4">
+          <a href="/" class="link-hover block text-sm tracking-wider">HOME</a>
+          <a
+            href="/products/mens-boxer-brief-black.html"
+            class="link-hover block text-sm tracking-wider"
+            >MEN</a
+          >
+          <a href="/products/womens-set.html" class="link-hover block text-sm tracking-wider"
+            >WOMEN</a
+          >
+          <a href="/about.html" class="link-hover block text-sm tracking-wider">ABOUT</a>
+          <a href="/impact.html" class="link-hover block text-sm tracking-wider">IMPACT</a>
+          <a href="/contact.html" class="link-hover block text-sm tracking-wider">CONTACT</a>
+        </div>
+      </div>
+    </nav>
     <main class="max-w-3xl mx-auto px-6 md:px-12 py-20">
       <h1 class="font-heading text-3xl md:text-4xl mb-2 tracking-luxury">SHIPPING POLICY</h1>
       <p class="text-sm text-gray-500 mb-10">Last updated: 10 August 2025</p>
@@ -145,5 +209,15 @@
         <p class="mt-1">ABN 91302503433</p>
       </div>
     </footer>
+    <script>
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('translate-y-0');
+          mobileMenu.classList.toggle('-translate-y-full');
+        });
+      }
+    </script>
   </body>
 </html>
