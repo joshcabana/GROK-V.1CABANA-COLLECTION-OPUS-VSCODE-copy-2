@@ -670,6 +670,23 @@ h6 {
   margin: 0 auto;
 }
 
+/* Prevent horizontal overflow on narrow viewports (long URLs/words) */
+.legal-content,
+.legal-content p,
+.legal-content li,
+.legal-content a,
+.legal-content td,
+.legal-content th {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Utility: force wrap anywhere for edge cases */
+.break-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 .legal-content h2 {
   margin-top: 3rem;
   margin-bottom: 1.5rem;

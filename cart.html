@@ -103,9 +103,9 @@
       }
     </style>
   </head>
-  <body class="bg-white text-black font-sans">
+  <body class="bg-white text-black font-sans pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-200">
+    <nav class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-200 pt-[env(safe-area-inset-top)]" role="navigation" aria-label="Main navigation">
       <div class="container mx-auto px-6 md:px-12 py-4">
         <div class="flex justify-between items-center">
           <!-- Logo -->
@@ -148,7 +148,7 @@
           </a>
 
           <!-- Mobile Menu Button -->
-          <button class="md:hidden" id="mobileMenuBtn" aria-label="Toggle menu" title="Toggle menu">
+          <button class="md:hidden p-3" id="mobileMenuBtn" aria-label="Toggle menu" title="Toggle menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
@@ -280,6 +280,10 @@
                 src="/assets/Images/CABANA-BOXERS-FRONT.png"
                 alt="Men's Essential Brief"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="800"
               />
             </div>
             <div class="mt-6 text-center">
@@ -294,6 +298,10 @@
                 src="/assets/Images/CABANA-WOMEN.PNG"
                 alt="Women's Essential Set"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="800"
               />
             </div>
             <div class="mt-6 text-center">
