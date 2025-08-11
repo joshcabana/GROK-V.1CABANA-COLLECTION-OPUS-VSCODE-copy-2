@@ -95,6 +95,9 @@
         background-color: rgba(212, 175, 55, 0.2);
       }
     </style>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/mobile.css" />
+    <script src="/js/header.js" defer></script>
   </head>
   <body class="bg-refined-white text-gray-900 font-body">
     <!-- Skip to Content Link -->
@@ -105,8 +108,9 @@
       Skip to content
     </a>
 
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-40">
+    <!-- Navigation injected via partials/header.html -->
+    <div id="site-header"></div>
+    <!-- <nav class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-40">
       <div class="max-w-7xl mx-auto px-6 md:px-12">
         <div class="flex justify-between items-center py-4">
           <!-- Logo -->
@@ -191,7 +195,7 @@
           <a href="/cart.html" class="block text-sm tracking-wider">CART</a>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
     <!-- Main Content -->
     <main id="main-content">

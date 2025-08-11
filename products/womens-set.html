@@ -357,6 +357,9 @@
         }
       }
     </script>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/mobile.css" />
+    <script src="/js/header.js" defer></script>
   </head>
   <body class="bg-white text-black font-body">
     <!-- Skip Navigation -->
@@ -366,8 +369,9 @@
       >Skip to product details</a
     >
 
-    <!-- Navigation -->
-    <nav
+    <div id="site-header"></div>
+    <!-- Navigation injected via partials/header.html -->
+    <!-- <nav
       class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100"
       role="navigation"
       aria-label="Main navigation"
@@ -471,7 +475,7 @@
           <a href="/contact.html" class="block text-sm tracking-wider">CONTACT</a>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
     <!-- Breadcrumbs -->
     <nav class="pt-24 px-6 md:px-12" aria-label="Breadcrumb">
