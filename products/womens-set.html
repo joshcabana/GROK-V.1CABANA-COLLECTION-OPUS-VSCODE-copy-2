@@ -596,17 +596,21 @@
           <div class="product-gallery space-y-6">
             <!-- Main Image with Zoom -->
             <div class="product-image aspect-[3/4] relative group">
-              <img
-                id="mainImage"
-                src="../assets/Images/CABANA-WOMEN.PNG"
-                alt="Women's Essential Set - Front view"
-                class="w-full h-full object-cover zoomable-image"
-                tabindex="0"
-                role="img"
-                aria-describedby="image-zoom-instruction"
-                width="800"
-                height="1067"
-              />
+              <picture>
+                <source srcset="../assets/Images/CABANA-WOMEN.webp" type="image/webp" />
+                <img
+                  id="mainImage"
+                  src="../assets/Images/CABANA-WOMEN.PNG"
+                  alt="Women's Essential Set - Front view"
+                  class="w-full h-full object-cover zoomable-image"
+                  tabindex="0"
+                  role="img"
+                  aria-describedby="image-zoom-instruction"
+                  width="800"
+                  height="1067"
+                  decoding="async"
+                />
+              </picture>
               <span id="image-zoom-instruction" class="sr-only"
                 >Click or press Enter to zoom image</span
               >
@@ -627,14 +631,18 @@
                 aria-label="View front image"
                 aria-pressed="true"
               >
-                <img
-                  src="../assets/Images/CABANA-WOMEN.PNG"
-                  alt=""
-                  class="w-full aspect-square object-cover"
-                  loading="lazy"
-                  width="600"
-                  height="600"
-                />
+                <picture>
+                  <source srcset="../assets/Images/CABANA-WOMEN.webp" type="image/webp" />
+                  <img
+                    src="../assets/Images/CABANA-WOMEN.PNG"
+                    alt="Front image"
+                    class="w-full aspect-square object-cover"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                    decoding="async"
+                  />
+                </picture>
               </button>
               <button
                 class="thumbnail border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-gold"
@@ -642,14 +650,18 @@
                 aria-label="View side image"
                 aria-pressed="false"
               >
-                <img
-                  src="../assets/Images/CABANA-WOMEN2.PNG"
-                  alt=""
-                  class="w-full aspect-square object-cover"
-                  loading="lazy"
-                  width="600"
-                  height="600"
-                />
+                <picture>
+                  <source srcset="../assets/Images/CABANA-WOMEN2.webp" type="image/webp" />
+                  <img
+                    src="../assets/Images/CABANA-WOMEN2.PNG"
+                    alt="Side image"
+                    class="w-full aspect-square object-cover"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                    decoding="async"
+                  />
+                </picture>
               </button>
               <button
                 class="thumbnail border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-gold"
@@ -657,14 +669,18 @@
                 aria-label="View back image"
                 aria-pressed="false"
               >
-                <img
-                  src="../assets/Images/CABANA-WOMEN3.PNG"
-                  alt=""
-                  class="w-full aspect-square object-cover"
-                  loading="lazy"
-                  width="600"
-                  height="600"
-                />
+                <picture>
+                  <source srcset="../assets/Images/CABANA-WOMEN3.webp" type="image/webp" />
+                  <img
+                    src="../assets/Images/CABANA-WOMEN3.PNG"
+                    alt="Back image"
+                    class="w-full aspect-square object-cover"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                    decoding="async"
+                  />
+                </picture>
               </button>
               <button
                 class="thumbnail border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-gold"
@@ -672,14 +688,18 @@
                 aria-label="View detail image"
                 aria-pressed="false"
               >
-                <img
-                  src="../assets/Images/CABANA-WOMEN4.PNG"
-                  alt=""
-                  class="w-full aspect-square object-cover"
-                  loading="lazy"
-                  width="600"
-                  height="600"
-                />
+                <picture>
+                  <source srcset="../assets/Images/CABANA-WOMEN4.webp" type="image/webp" />
+                  <img
+                    src="../assets/Images/CABANA-WOMEN4.PNG"
+                    alt="Detail image"
+                    class="w-full aspect-square object-cover"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                    decoding="async"
+                  />
+                </picture>
               </button>
             </div>
           </div>

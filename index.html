@@ -84,8 +84,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- 2. Preload Critical Resources -->
-    <!-- Preload LCP hero poster to improve initial paint on mobile -->
-    <link rel="preload" as="image" href="/assets/Images/HERO-BANNER.webp" />
+    <!-- Preload responsive hero to improve LCP on mobile/desktop -->
+    <link
+      rel="preload"
+      as="image"
+      imagesrcset="/assets/Images/HERO-BANNER.webp 1920w, /assets/Images/HERO-BANNER-mobile.webp 768w"
+      imagesizes="100vw"
+      href="/assets/Images/HERO-BANNER.webp"
+      fetchpriority="high"
+    />
 
     <!-- 3. Critical Inline CSS (above-the-fold styles) -->
     <style>
@@ -527,6 +534,81 @@
         content-visibility: auto;
         contain-intrinsic-size: 800px 1000px;
       }
+
+      /* Louis Vuitton-inspired editorial theme (scoped) */
+      .lv-page {
+        --lv-ink: #111111;
+        --lv-ebony: #1d1a16;
+        --lv-cognac: #6e4c1e;
+        --lv-gold: #b98d38;
+        --lv-ivory: #f6f1e7;
+      }
+
+      .lv-page .font-heading {
+        font-family: 'Cinzel', serif !important;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .lv-page .text-gold {
+        color: var(--lv-gold);
+      }
+
+      /* Hero monogram overlay */
+      .lv-monogram {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.06;
+        background-image: radial-gradient(
+          circle at 12px 12px,
+          rgba(0, 0, 0, 0.28) 1.1px,
+          transparent 1.2px
+        );
+        background-size: 40px 40px;
+        mix-blend-mode: multiply;
+      }
+
+      /* LV pill CTA */
+      .lv-page .lv-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.9rem 2.5rem;
+        border-radius: 9999px;
+        border: 1px solid var(--lv-ink);
+        background: #ffffff;
+        color: var(--lv-ink);
+        font-family: 'Cinzel', serif;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-weight: 500;
+        transition:
+          background 0.25s ease,
+          color 0.25s ease,
+          border-color 0.25s ease,
+          transform 0.2s ease;
+        box-shadow: none;
+      }
+      .lv-page .lv-cta:hover {
+        background: var(--lv-ink);
+        color: #ffffff;
+        border-color: var(--lv-ink);
+        transform: translateY(-1px);
+      }
+
+      /* Section hairline rules (subtle) */
+      .lv-page .lv-hairline {
+        height: 1px;
+        background: #e5e0d7;
+        opacity: 0.9;
+      }
+      .lv-page .lv-underline {
+        display: block;
+        height: 3px;
+        width: 120px;
+        margin: 0.75rem auto 0;
+        background: linear-gradient(90deg, transparent, var(--lv-gold), transparent);
+      }
     </style>
 
     <!-- 4. Optimised Favicon Setup -->
@@ -548,6 +630,12 @@
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@100;200;300;400;500&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&display=swap"
       rel="stylesheet"
       media="print"
       onload="this.media='all'"
@@ -583,7 +671,7 @@
     <link rel="canonical" href="https://cabanacollections.com.au/" />
   </head>
   <body
-    class="bg-white text-black font-body gradient-champagne-sage luxe-texture pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
+    class="lv-page bg-white text-black font-body gradient-champagne-sage luxe-texture pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
   >
     <!-- Impact Banner -->
     <div class="impact-banner fixed top-0 left-0 right-0 z-[60] py-2" id="impactBanner">
@@ -680,7 +768,10 @@
         <!-- Image-first for fast LCP; video is revealed later when allowed -->
         <picture id="heroImageWrap" class="absolute inset-0 block z-0">
           <source
-            srcset="/assets/Images/HERO-BANNER.webp 1920w, /assets/Images/HERO-BANNER-mobile.webp 768w"
+            srcset="
+              /assets/Images/HERO-BANNER.webp        1920w,
+              /assets/Images/HERO-BANNER-mobile.webp  768w
+            "
             type="image/webp"
             sizes="100vw"
           />
@@ -715,7 +806,8 @@
           <!-- Fallback for browsers that don't support video -->
           <div class="w-full h-full bg-gradient-to-br from-slate-900 via-black to-slate-800"></div>
         </video>
-        <!-- Dark overlay for text readability -->
+        <!-- Monogram + dark overlay for text readability -->
+        <div class="lv-monogram" aria-hidden="true"></div>
         <div class="absolute inset-0 bg-black/35" aria-hidden="true"></div>
 
         <!-- CABANA Monogram Logo - Bottom Right Corner -->
@@ -758,30 +850,13 @@
         <div class="flex flex-wrap items-center justify-center gap-6 md:gap-8 max-w-[80%] mx-auto">
           <a
             href="/products/mens-boxer-brief-black.html"
-            class="group relative overflow-hidden inline-flex items-center justify-center border-2 border-black bg-white px-10 py-4 font-heading text-[clamp(0.9rem,1.6vw,1.125rem)] font-medium uppercase tracking-[0.2em] leading-[1.4] text-black transition-all duration-500 hover:-translate-y-1 hover:bg-blue-400 hover:border-blue-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/50 shadow-lg hover:shadow-2xl hover:shadow-blue-400/20"
+            class="lv-cta"
             aria-label="Tailored for Him"
           >
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-            ></div>
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"
-            ></div>
-            <span class="relative z-10">Tailored for Him</span>
+            Tailored for Him
           </a>
-
-          <a
-            href="/products/womens-set.html"
-            class="group relative overflow-hidden inline-flex items-center justify-center border-2 border-black bg-white px-10 py-4 font-heading text-[clamp(0.9rem,1.6vw,1.125rem)] font-medium uppercase tracking-[0.2em] leading-[1.4] text-black transition-all duration-500 hover:-translate-y-1 hover:bg-pink-400 hover:border-pink-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400/50 shadow-lg hover:shadow-2xl hover:shadow-pink-400/20"
-            aria-label="Designed for Her"
-          >
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-transparent via-pink-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-            ></div>
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"
-            ></div>
-            <span class="relative z-10">Designed for Her</span>
+          <a href="/products/womens-set.html" class="lv-cta" aria-label="Designed for Her">
+            Designed for Her
           </a>
         </div>
       </div>
@@ -1838,7 +1913,9 @@
 
           if (!allowMotion) {
             // Keep fast image background; do not show the video
-            try { heroVideo.pause(); } catch (_) {}
+            try {
+              heroVideo.pause();
+            } catch (_) {}
             heroVideo.removeAttribute('autoplay');
             heroVideo.style.display = 'none';
             if (heroImage) heroImage.style.display = 'block';
@@ -1860,7 +1937,9 @@
                     if (entry.isIntersecting) {
                       heroVideo.play().catch(() => {});
                     } else {
-                      try { heroVideo.pause(); } catch (_) {}
+                      try {
+                        heroVideo.pause();
+                      } catch (_) {}
                     }
                   });
                 },

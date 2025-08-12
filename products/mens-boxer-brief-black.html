@@ -476,16 +476,20 @@
           <div class="product-gallery space-y-6">
             <!-- Main Image/Video with Zoom -->
             <div class="product-image aspect-[3/4] relative group">
-              <img
-                id="mainImage"
-                src="../assets/Images/CABANA-BOXERS-FRONT.png"
-                alt="Front view of CABANA black boxer brief with gold-edge waistband and side-fly"
-                class="w-full h-full object-cover zoomable-image"
-                tabindex="0"
-                aria-describedby="image-zoom-instruction"
-                width="800"
-                height="1067"
-              />
+              <picture>
+                <source srcset="../assets/Images/CABANA-MODEL-BOXERS-FRONT.webp" type="image/webp" />
+                <img
+                  id="mainImage"
+                  src="../assets/Images/CABANA-BOXERS-FRONT.png"
+                  alt="Front view of CABANA black boxer brief with gold-edge waistband and side-fly"
+                  class="w-full h-full object-cover zoomable-image"
+                  tabindex="0"
+                  aria-describedby="image-zoom-instruction"
+                  width="800"
+                  height="1067"
+                  decoding="async"
+                />
+              </picture>
 
               <!-- 360° Video Element -->
               <video
@@ -569,14 +573,18 @@
                 aria-label="View front image"
                 aria-pressed="true"
               >
-                <img
-                  src="../assets/Images/CABANA-BOXERS-FRONT.png"
-                  alt="Front view of CABANA black boxer brief with gold-edge waistband and side-fly"
-                  class="w-full aspect-square object-cover"
-                  loading="lazy"
-                  width="600"
-                  height="600"
-                />
+                <picture>
+                  <source srcset="../assets/Images/CABANA-MODEL-BOXERS-FRONT.webp" type="image/webp" />
+                  <img
+                    src="../assets/Images/CABANA-BOXERS-FRONT.png"
+                    alt="Front view of CABANA black boxer brief with gold-edge waistband and side-fly"
+                    class="w-full aspect-square object-cover"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                    decoding="async"
+                  />
+                </picture>
               </button>
               <button
                 class="thumbnail border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-gold"
@@ -584,14 +592,18 @@
                 aria-label="View back image"
                 aria-pressed="false"
               >
-                <img
-                  src="../assets/Images/CABANA-BOXERS-BACK.png"
-                  alt="Back view with gold-edge waistband and CABANA monogram tab"
-                  class="w-full aspect-square object-cover"
-                  loading="lazy"
-                  width="600"
-                  height="600"
-                />
+                <picture>
+                  <source srcset="../assets/Images/CABANA-BOXERS-BACK.webp" type="image/webp" />
+                  <img
+                    src="../assets/Images/CABANA-BOXERS-BACK.png"
+                    alt="Back view with gold-edge waistband and CABANA monogram tab"
+                    class="w-full aspect-square object-cover"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                    decoding="async"
+                  />
+                </picture>
               </button>
               <button
                 class="thumbnail border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-gold"
@@ -599,14 +611,18 @@
                 aria-label="View side image"
                 aria-pressed="false"
               >
-                <img
-                  src="../assets/Images/CABANA-BOXERS-SIDE.png"
-                  alt="Side profile highlighting pouch contour and breathable mesh"
-                  class="w-full aspect-square object-cover"
-                  loading="lazy"
-                  width="600"
-                  height="600"
-                />
+                <picture>
+                  <source srcset="../assets/Images/CABANA-BOXERS-SIDE.webp" type="image/webp" />
+                  <img
+                    src="../assets/Images/CABANA-BOXERS-SIDE.png"
+                    alt="Side profile highlighting pouch contour and breathable mesh"
+                    class="w-full aspect-square object-cover"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                    decoding="async"
+                  />
+                </picture>
               </button>
               <button
                 class="thumbnail border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-gold"
@@ -614,14 +630,18 @@
                 aria-label="View flat lay image"
                 aria-pressed="false"
               >
-                <img
-                  src="../assets/Images/CABANA BOXERS3 flat.png"
-                  alt="Flat lay highlighting U-mesh cradle and coverstitch seams"
-                  class="w-full aspect-square object-cover"
-                  loading="lazy"
-                  width="600"
-                  height="600"
-                />
+                <picture>
+                  <source srcset="../assets/Images/CABANA-BOXERS-LAYFLAT-360.mp4" type="video/mp4" />
+                  <img
+                    src="../assets/Images/CABANA BOXERS3 flat.png"
+                    alt="Flat lay highlighting U-mesh cradle and coverstitch seams"
+                    class="w-full aspect-square object-cover"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                    decoding="async"
+                  />
+                </picture>
               </button>
               <button
                 class="thumbnail border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-gold"
