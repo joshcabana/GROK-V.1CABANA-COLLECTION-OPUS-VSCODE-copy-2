@@ -1,3 +1,71 @@
+/* === Desktop header: classic layout (keep mobile drawer) === */
+@media (min-width: 981px) {
+  /* reorder the existing DOM using grid areas */
+  .nav-grid {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: 'brand menu bag';
+  }
+  .brand {
+    grid-area: brand;
+    justify-self: start;
+    letter-spacing: 0.6em;
+    font-size: 28px;
+    font-weight: 600;
+    color: #111;
+    line-height: 1.05;
+  }
+  /* add "Collections" subline under CABANA */
+  .brand::after {
+    content: 'Collections';
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    font-weight: 400;
+    margin-top: 2px;
+    color: #222;
+    opacity: 0.7;
+  }
+
+  /* center the main menu that lives inside .left */
+  .nav-grid .left {
+    grid-area: menu;
+    justify-self: center;
+  }
+  .nav-grid .left .nav-links {
+    display: flex !important;
+    gap: 28px;
+    align-items: center;
+  }
+
+  /* bag on the right */
+  .nav-grid > .nav-links:last-child {
+    grid-area: bag;
+    justify-self: end;
+  }
+
+  /* desktop header styling */
+  .header {
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    backdrop-filter: none; /* no blur on desktop */
+  }
+  .nav-links a {
+    font-size: 13px;
+    letter-spacing: 0.24em;
+    color: #111;
+  }
+  .nav-links a:hover {
+    color: var(--accent);
+  }
+  .nav-links a.is-active {
+    color: var(--accent);
+  }
+
+  /* hide hamburger on desktop */
+  .hamburger {
+    display: none !important;
+  }
+}
 /* CABANA - Main Stylesheet */
 
 /* Conscious Craft Design System */
@@ -1520,4 +1588,107 @@ textarea {
 .lead {
   color: #d9d6d0;
   max-width: 60ch;
+}
+
+/* Lock scroll when drawer is open */
+html.overflow-hidden {
+  overflow: hidden;
+  touch-action: none;
+}
+
+/* === Desktop header: classic look (keeps mobile drawer) === */
+@media (min-width: 981px) {
+  .header {
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    backdrop-filter: none; /* remove blur on desktop */
+  }
+  .nav-grid {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  /* Brand on the left with subline */
+  .brand {
+    justify-self: start;
+    letter-spacing: 0.6em;
+    font-size: 28px;
+    font-weight: 600;
+    color: #111;
+    line-height: 1.05;
+  }
+  .brand::after {
+    content: 'Collections';
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    font-weight: 400;
+    margin-top: 2px;
+    color: #222;
+    opacity: 0.7;
+  }
+
+  /* Center the menu, Bag on the right */
+  .nav-grid > .nav-links {
+    display: flex !important;
+    gap: 28px;
+    align-items: center;
+  }
+  .nav-grid > .nav-links:nth-of-type(1) {
+    justify-self: center;
+  }
+  .nav-grid > .nav-links:last-child {
+    justify-self: end;
+  }
+
+  /* Link styling */
+  .nav-links a {
+    font-size: 13px;
+    letter-spacing: 0.24em;
+    color: #111;
+  }
+  .nav-links a:hover {
+    color: var(--accent);
+  }
+  .nav-links a.is-active {
+    color: var(--accent);
+  }
+
+  /* Hide hamburger on desktop */
+  .hamburger {
+    display: none !important;
+  }
+}
+
+/* Desktop header layout fixes (preserve mobile drawer) */
+@media (min-width: 981px) {
+  /* Promote children inside .left to grid items so the menu can be centered */
+  .nav-grid {
+    grid-auto-flow: column;
+    align-items: center;
+  }
+  .left {
+    display: contents;
+  }
+
+  /* Place brand on the left column */
+  .brand {
+    grid-column: 1;
+  }
+
+  /* Center menu from the .left group */
+  .left .nav-links {
+    grid-column: 2;
+    justify-self: center;
+    display: flex !important;
+    gap: 28px;
+    align-items: center;
+  }
+
+  /* Keep Bag on the right */
+  .nav-grid > .nav-links:last-child {
+    grid-column: 3;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+  }
 }

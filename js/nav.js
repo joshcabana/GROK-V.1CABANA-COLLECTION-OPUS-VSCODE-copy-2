@@ -49,3 +49,14 @@
     if (e.key === 'Escape') close();
   });
 })();
+
+// Mark current page in the desktop menu
+(() => {
+  const here = location.pathname.replace(/index\.html$/, '').replace(/\/$/, '') || '/';
+  document.querySelectorAll('.nav-links a[href]').forEach((a) => {
+    const path =
+      new URL(a.href, location.origin).pathname.replace(/index\.html$/, '').replace(/\/$/, '') ||
+      '/';
+    if (path === here) a.classList.add('is-active');
+  });
+})();
