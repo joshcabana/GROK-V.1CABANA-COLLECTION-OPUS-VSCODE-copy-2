@@ -1,0 +1,56 @@
+/* mobile-fixes.css — additive only; safe for current layout */
+@media (max-width: 430px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Safe sticky header padding for iOS */
+  .sticky,
+  header {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  /* Images: scale correctly, keep aspect */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Tap targets */
+  a,
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Legal/content containers */
+  .prose,
+  .legal,
+  .content-wrap {
+    padding-left: 16px;
+    padding-right: 16px;
+    word-break: break-word;
+  }
+
+  /* Grids that overflow on small screens */
+  .grid {
+    grid-auto-flow: row;
+  }
+
+  /* Prevent fixed height traps on hero sections */
+  .hero,
+  .banner {
+    min-height: 60dvh;
+    height: auto;
+  }
+
+  /* Prevent text overflow on big headings */
+  h1,
+  .h1 {
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+}
+
+
