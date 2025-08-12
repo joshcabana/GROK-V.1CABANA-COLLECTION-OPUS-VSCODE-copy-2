@@ -60,6 +60,7 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/styles.css" />
     <script>
       tailwind.config = {
         theme: {
@@ -105,93 +106,41 @@
       Skip to content
     </a>
 
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-40">
-      <div class="max-w-7xl mx-auto px-6 md:px-12">
-        <div class="flex justify-between items-center py-4">
-          <!-- Logo -->
-          <a href="/" class="font-heading text-2xl tracking-luxury font-light cabana-logo-nav"
-            >CABANA</a
-          >
-
-          <!-- Desktop Navigation -->
-          <div class="hidden md:flex items-center space-x-8">
-            <a
-              href="/products/mens-boxer-brief-black.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >MEN</a
-            >
-            <a
-              href="/products/womens-set.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >WOMEN</a
-            >
-            <a
-              href="/about.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >ABOUT</a
-            >
-            <a
-              href="/impact.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >IMPACT</a
-            >
-            <a
-              href="/contact.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >CONTACT</a
-            >
-            <a href="/faq.html" class="text-xs tracking-widest font-medium text-gold">FAQ</a>
-            <a
-              href="/cart.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300 relative"
-            >
-              CART
-              <span
-                class="cabana-cart-count absolute -top-2 -right-2 bg-gold text-black text-xs rounded-full w-5 h-5 flex items-center justify-center hidden"
-              ></span>
-            </a>
-          </div>
-
-          <!-- Mobile Menu Button -->
-          <button
-            id="mobileMenuBtn"
-            class="md:hidden p-2"
-            aria-expanded="false"
-            aria-controls="mobileMenu"
-            aria-label="Toggle mobile menu"
-          >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-            </svg>
+    <header class="header header-safe" role="banner" data-testid="global-header">
+      <nav class="nav-grid container" aria-label="Primary">
+        <div class="left">
+          <button id="openMenu" class="hamburger" aria-label="Open menu" aria-expanded="false">
+            <span></span>
           </button>
+          <!-- Desktop links -->
+          <div class="nav-links" role="navigation">
+            <a href="/products/mens-underwear.html">Men</a>
+            <a href="/products/womens-set.html">Women</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/faq.html">FAQ</a>
+          </div>
         </div>
+        <a class="brand" href="/index.html">CABANA</a>
+        <div class="nav-links"><a href="/cart.html">Bag</a></div>
+      </nav>
+    </header>
+    <!-- Mobile overlay + drawer -->
+    <div id="overlay" class="overlay" aria-hidden="true"></div>
+    <aside id="drawer" class="drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <div class="brand" style="letter-spacing: 0.28em; font-size: 16px">CABANA</div>
+        <button id="closeMenu" class="btn" aria-label="Close menu">Close</button>
       </div>
-
-      <!-- Mobile Navigation -->
-      <div
-        id="mobileMenu"
-        class="md:hidden bg-white border-t border-gray-100 -translate-y-full transition-transform duration-300"
-        aria-hidden="true"
-      >
-        <div class="px-6 py-4 space-y-4">
-          <a href="/products/mens-boxer-brief-black.html" class="block text-sm tracking-wider"
-            >MEN</a
-          >
-          <a href="/products/womens-set.html" class="block text-sm tracking-wider">WOMEN</a>
-          <a href="/about.html" class="block text-sm tracking-wider">ABOUT</a>
-          <a href="/impact.html" class="block text-sm tracking-wider">IMPACT</a>
-          <a href="/contact.html" class="block text-sm tracking-wider">CONTACT</a>
-          <a href="/faq.html" class="block text-sm tracking-wider text-gold">FAQ</a>
-          <a href="/cart.html" class="block text-sm tracking-wider">CART</a>
-        </div>
-      </div>
-    </nav>
+      <nav class="drawer-links" aria-label="Mobile">
+        <a href="/products/mens-underwear.html">Men</a>
+        <a href="/products/womens-set.html">Women</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/cart.html">Bag</a>
+      </nav>
+    </aside>
 
     <!-- Main Content -->
     <main id="main-content">
@@ -891,6 +840,7 @@
       </div>
     </footer>
 
+    <script defer src="/js/nav.js"></script>
     <!-- JavaScript -->
     <script>
       // Mobile Menu

@@ -33,6 +33,7 @@
       content="Shipping policy for Cabana Collections (Australia). Delivery timeframes, costs, Authority to Leave, risk and title."
     />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -52,6 +53,39 @@
     </style>
   </head>
   <body class="bg-white text-black font-sans">
+    <header class="header header-safe" role="banner" data-testid="global-header">
+      <nav class="nav-grid container" aria-label="Primary">
+        <div class="left">
+          <button id="openMenu" class="hamburger" aria-label="Open menu" aria-expanded="false">
+            <span></span>
+          </button>
+          <!-- Desktop links -->
+          <div class="nav-links" role="navigation">
+            <a href="/products/mens-underwear.html">Men</a>
+            <a href="/products/womens-set.html">Women</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+          </div>
+        </div>
+        <a class="brand" href="/index.html">CABANA</a>
+        <div class="nav-links"><a href="/cart.html">Bag</a></div>
+      </nav>
+    </header>
+    <!-- Mobile overlay + drawer -->
+    <div id="overlay" class="overlay" aria-hidden="true"></div>
+    <aside id="drawer" class="drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <div class="brand" style="letter-spacing: 0.28em; font-size: 16px">CABANA</div>
+        <button id="closeMenu" class="btn" aria-label="Close menu">Close</button>
+      </div>
+      <nav class="drawer-links" aria-label="Mobile">
+        <a href="/products/mens-underwear.html">Men</a>
+        <a href="/products/womens-set.html">Women</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/cart.html">Bag</a>
+      </nav>
+    </aside>
     <main class="max-w-3xl mx-auto px-6 md:px-12 py-20">
       <h1 class="font-heading text-3xl md:text-4xl mb-2 tracking-luxury">SHIPPING POLICY</h1>
       <p class="text-sm text-gray-500 mb-10">Last updated: 10 August 2025</p>
@@ -145,5 +179,6 @@
         <p class="mt-1">ABN 91302503433</p>
       </div>
     </footer>
+    <script defer src="/js/nav.js"></script>
   </body>
 </html>

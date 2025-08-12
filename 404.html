@@ -64,10 +64,37 @@
     </style>
   </head>
   <body class="bg-white text-black font-sans min-h-screen flex flex-col">
-    <!-- Simple Navigation -->
-    <nav class="absolute top-0 left-0 right-0 z-50 p-6 md:p-12">
-      <a href="/index.html" class="font-heading text-2xl tracking-luxury cabana-logo-nav">CABANA</a>
-    </nav>
+    <header class="header header-safe" role="banner" data-testid="global-header">
+      <nav class="nav-grid container" aria-label="Primary">
+        <div class="left">
+          <button id="openMenu" class="hamburger" aria-label="Open menu" aria-expanded="false">
+            <span></span>
+          </button>
+          <div class="nav-links" role="navigation">
+            <a href="/products/mens-underwear.html">Men</a>
+            <a href="/products/womens-set.html">Women</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+          </div>
+        </div>
+        <a class="brand" href="/index.html">CABANA</a>
+        <div class="nav-links"><a href="/cart.html">Bag</a></div>
+      </nav>
+    </header>
+    <div id="overlay" class="overlay" aria-hidden="true"></div>
+    <aside id="drawer" class="drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <div class="brand" style="letter-spacing: 0.28em; font-size: 16px">CABANA</div>
+        <button id="closeMenu" class="btn" aria-label="Close menu">Close</button>
+      </div>
+      <nav class="drawer-links" aria-label="Mobile">
+        <a href="/products/mens-underwear.html">Men</a>
+        <a href="/products/womens-set.html">Women</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/cart.html">Bag</a>
+      </nav>
+    </aside>
 
     <!-- 404 Content -->
     <main class="flex-1 flex items-center justify-center px-6">
@@ -120,6 +147,8 @@
       <p class="text-sm text-gray-600">&copy; 2025 CABANA. All rights reserved.</p>
     </footer>
 
+    <!-- Mobile Nav Drawer -->
+    <script defer src="/js/nav.js"></script>
     <!-- Minimal JavaScript -->
     <script>
       // Simple fade-in animation on load

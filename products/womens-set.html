@@ -366,112 +366,39 @@
       >Skip to product details</a
     >
 
-    <!-- Navigation -->
-    <nav
-      class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100"
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      <div class="container mx-auto px-6 md:px-12 py-5">
-        <div class="flex justify-between items-center">
-          <!-- Logo -->
-          <a href="/" class="font-heading text-2xl tracking-luxury font-light cabana-logo-nav"
-            >CABANA</a
-          >
-
-          <!-- Navigation Links -->
-          <div class="hidden md:flex items-center space-x-10">
-            <a
-              href="/products/mens-boxer-brief-black.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >MEN</a
-            >
-            <a
-              href="/products/womens-set.html"
-              class="text-xs tracking-widest font-medium text-gold"
-              aria-current="page"
-              >WOMEN</a
-            >
-            <a
-              href="/about.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >ABOUT</a
-            >
-            <a
-              href="/impact.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >IMPACT</a
-            >
-            <a
-              href="/contact.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >CONTACT</a
-            >
-          </div>
-
-          <!-- Actions -->
-          <div class="flex items-center space-x-6">
-            <!-- Cart Icon -->
-            <a href="/cart.html" class="relative group" aria-label="Shopping cart">
-              <svg
-                class="w-5 h-5 transition-colors duration-300 group-hover:text-gold"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                ></path>
-              </svg>
-              <span
-                class="cabana-cart-count absolute -top-2 -right-2 bg-gold text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden"
-                aria-live="polite"
-                >0</span
-              >
-            </a>
-
-            <!-- Mobile Menu Button -->
-            <button
-              class="md:hidden p-2"
-              id="mobileMenuBtn"
-              aria-label="Toggle menu"
-              aria-expanded="false"
-            >
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-              </svg>
-            </button>
+    <header class="header header-safe" role="banner" data-testid="global-header">
+      <nav class="nav-grid container" aria-label="Primary">
+        <div class="left">
+          <button id="openMenu" class="hamburger" aria-label="Open menu" aria-expanded="false">
+            <span></span>
+          </button>
+          <!-- Desktop links -->
+          <div class="nav-links" role="navigation">
+            <a href="/products/mens-underwear.html">Men</a>
+            <a href="/products/womens-set.html">Women</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
           </div>
         </div>
+        <a class="brand" href="/index.html">CABANA</a>
+        <div class="nav-links"><a href="/cart.html">Bag</a></div>
+      </nav>
+    </header>
+    <!-- Mobile overlay + drawer -->
+    <div id="overlay" class="overlay" aria-hidden="true"></div>
+    <aside id="drawer" class="drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <div class="brand" style="letter-spacing: 0.28em; font-size: 16px">CABANA</div>
+        <button id="closeMenu" class="btn" aria-label="Close menu">Close</button>
       </div>
-
-      <!-- Mobile Menu -->
-      <div
-        class="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 transform -translate-y-full transition-transform duration-300"
-        id="mobileMenu"
-        aria-hidden="true"
-      >
-        <div class="px-6 py-6 space-y-4">
-          <a href="/products/mens-boxer-brief-black.html" class="block text-sm tracking-wider"
-            >MEN</a
-          >
-          <a href="/products/womens-set.html" class="block text-sm tracking-wider text-gold"
-            >WOMEN</a
-          >
-          <a href="/about.html" class="block text-sm tracking-wider">ABOUT</a>
-          <a href="/impact.html" class="block text-sm tracking-wider">IMPACT</a>
-          <a href="/contact.html" class="block text-sm tracking-wider">CONTACT</a>
-        </div>
-      </div>
-    </nav>
+      <nav class="drawer-links" aria-label="Mobile">
+        <a href="/products/mens-underwear.html">Men</a>
+        <a href="/products/womens-set.html">Women</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/cart.html">Bag</a>
+      </nav>
+    </aside>
 
     <!-- Breadcrumbs -->
     <nav class="pt-24 px-6 md:px-12" aria-label="Breadcrumb">
@@ -573,7 +500,7 @@
           <!-- Product Details -->
           <div class="space-y-10 lg:pl-8">
             <!-- Title and Price -->
-            <header>
+            <div class="product-header">
               <h1 class="font-heading text-4xl md:text-5xl font-light mb-4">Essential Set</h1>
               <div class="flex items-baseline gap-4 mb-6">
                 <p class="font-heading text-3xl font-light">$50 AUD</p>
@@ -593,7 +520,7 @@
                 <p class="text-sm text-gray-700">• Precision-crafted, sustainably made</p>
                 <p class="text-sm text-gray-700">• Supporting women's empowerment initiatives</p>
               </div>
-            </header>
+            </div>
 
             <!-- Trust Signals -->
             <div class="trust-signals space-y-3 mb-6">
@@ -1324,6 +1251,9 @@
         <p class="mt-1">ABN 91302503433</p>
       </div>
     </footer>
+
+    <!-- Mobile Nav Drawer -->
+    <script defer src="/js/nav.js"></script>
 
     <!-- Mobile Sticky CTA Bar -->
     <div

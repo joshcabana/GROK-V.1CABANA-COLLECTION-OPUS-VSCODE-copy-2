@@ -616,116 +616,39 @@
       >Skip to main content</a
     >
 
-    <!-- Sticky Navigation -->
-    <!-- Navigation -->
-    <nav
-      class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100 pt-[env(safe-area-inset-top)]"
-      role="navigation"
-      aria-label="Main navigation"
-      id="mainNav"
-    >
-      <div class="container mx-auto px-4 md:px-8 py-5">
-        <div class="flex justify-between items-center">
-          <!-- Logo -->
-          <a
-            href="/"
-            class="font-heading text-3xl tracking-luxury font-light cabana-logo-nav text-center -ml-2"
-          >
-            <span class="block">CABANA</span>
-            <span class="block text-base tracking-wider -mt-1">Collections</span>
-          </a>
-
-          <!-- Navigation Links -->
-          <div class="hidden md:flex items-center space-x-10">
-            <a
-              href="/"
-              class="link-hover text-xs tracking-widest font-medium text-gold"
-              aria-current="page"
-              >HOME</a
-            >
-            <a
-              href="/products/mens-boxer-brief-black.html"
-              class="link-hover text-xs tracking-widest font-medium"
-              >MEN</a
-            >
-            <a
-              href="/products/womens-set.html"
-              class="link-hover text-xs tracking-widest font-medium"
-              >WOMEN</a
-            >
-            <a href="/about.html" class="link-hover text-xs tracking-widest font-medium">ABOUT</a>
-            <a href="/impact.html" class="link-hover text-xs tracking-widest font-medium">IMPACT</a>
-            <a href="/contact.html" class="link-hover text-xs tracking-widest font-medium"
-              >CONTACT</a
-            >
-          </div>
-
-          <!-- Actions -->
-          <div class="flex items-center space-x-6">
-            <!-- Cart Icon -->
-            <a href="/cart.html" class="relative group" aria-label="Shopping cart">
-              <svg
-                class="w-5 h-5 transition-colors duration-300 group-hover:text-gold"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                ></path>
-              </svg>
-              <span
-                class="cabana-cart-count absolute -top-2 -right-2 bg-gold text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden"
-                aria-live="polite"
-                >0<span class="sr-only">Items in cart: 0</span></span
-              >
-            </a>
-
-            <!-- Mobile Menu Button -->
-            <button
-              class="md:hidden p-2"
-              id="mobileMenuBtn"
-              aria-label="Toggle menu"
-              aria-expanded="false"
-            >
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-              </svg>
-            </button>
+    <header class="header header-safe" role="banner" data-testid="global-header">
+      <nav class="nav-grid container" aria-label="Primary">
+        <div class="left">
+          <button id="openMenu" class="hamburger" aria-label="Open menu" aria-expanded="false">
+            <span></span>
+          </button>
+          <!-- Desktop links -->
+          <div class="nav-links" role="navigation">
+            <a href="/products/mens-underwear.html">Men</a>
+            <a href="/products/womens-set.html">Women</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
           </div>
         </div>
+        <a class="brand" href="/index.html">CABANA</a>
+        <div class="nav-links"><a href="/cart.html">Bag</a></div>
+      </nav>
+    </header>
+    <!-- Mobile overlay + drawer -->
+    <div id="overlay" class="overlay" aria-hidden="true"></div>
+    <aside id="drawer" class="drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <div class="brand" style="letter-spacing: 0.28em; font-size: 16px">CABANA</div>
+        <button id="closeMenu" class="btn" aria-label="Close menu">Close</button>
       </div>
-
-      <!-- Mobile Menu -->
-      <div
-        class="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 transform -translate-y-full transition-transform duration-300"
-        id="mobileMenu"
-        aria-hidden="true"
-      >
-        <div class="px-6 py-6 space-y-4">
-          <a href="/" class="link-hover block text-sm tracking-wider text-gold">HOME</a>
-          <a
-            href="/products/mens-boxer-brief-black.html"
-            class="link-hover block text-sm tracking-wider"
-            >MEN</a
-          >
-          <a href="/products/womens-set.html" class="link-hover block text-sm tracking-wider"
-            >WOMEN</a
-          >
-          <a href="/about.html" class="link-hover block text-sm tracking-wider">ABOUT</a>
-          <a href="/impact.html" class="link-hover block text-sm tracking-wider">IMPACT</a>
-          <a href="/contact.html" class="link-hover block text-sm tracking-wider">CONTACT</a>
-        </div>
-      </div>
-    </nav>
+      <nav class="drawer-links" aria-label="Mobile">
+        <a href="/products/mens-underwear.html">Men</a>
+        <a href="/products/womens-set.html">Women</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/cart.html">Bag</a>
+      </nav>
+    </aside>
 
     <!-- Hero Section -->
     <!-- Hero Section (Updated Gucci-Style) -->
@@ -1921,6 +1844,8 @@
     <script src="/js/performance-optimizer.js" defer></script>
     <!-- Shared UI Enhancements (nav shadow, etc.) -->
     <script src="/js/ui.js" defer></script>
+    <!-- Mobile Nav Drawer -->
+    <script src="/js/nav.js" defer></script>
 
     <!-- Error Handling and Debugging -->
     <script>

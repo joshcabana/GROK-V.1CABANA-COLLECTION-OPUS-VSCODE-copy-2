@@ -35,6 +35,7 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/styles.css" />
 
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
@@ -99,93 +100,39 @@
     </style>
   </head>
   <body class="bg-white text-black font-sans">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-200">
-      <div class="container mx-auto px-6 md:px-12 py-4">
-        <div class="flex justify-between items-center">
-          <!-- Logo -->
-          <a href="/index.html" class="font-heading text-2xl tracking-luxury cabana-logo-nav"
-            >CABANA</a
-          >
-
-          <!-- Navigation Links -->
-          <div class="hidden md:flex items-center space-x-10">
-            <a
-              href="/products/mens-boxer-brief-black.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >MEN</a
-            >
-            <a
-              href="/products/womens-set.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >WOMEN</a
-            >
-            <a
-              href="/about.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >ABOUT</a
-            >
-            <a
-              href="/impact.html"
-              class="text-xs tracking-widest font-medium hover:text-gold transition-colors duration-300"
-              >IMPACT</a
-            >
-            <a href="/contact.html" class="text-xs tracking-widest font-medium text-gold"
-              >CONTACT</a
-            >
-          </div>
-
-          <!-- Cart Icon -->
-          <a href="/cart.html" class="relative">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1"
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-              ></path>
-            </svg>
-            <span
-              class="cabana-cart-count absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden"
-              >0</span
-            >
-          </a>
-
-          <!-- Mobile Menu Button -->
-          <button
-            class="md:hidden"
-            id="mobileMenuBtn"
-            aria-label="Toggle navigation"
-            aria-expanded="false"
-          >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-            </svg>
+    <header class="header header-safe" role="banner">
+      <nav class="nav-grid container" aria-label="Primary">
+        <div class="left">
+          <button id="openMenu" class="hamburger" aria-label="Open menu" aria-expanded="false">
+            <span></span>
           </button>
+          <!-- Desktop links -->
+          <div class="nav-links" role="navigation">
+            <a href="/products/mens-underwear.html">Men</a>
+            <a href="/products/womens-set.html">Women</a>
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+          </div>
         </div>
+        <a class="brand" href="/index.html">CABANA</a>
+        <div class="nav-links"><a href="/cart.html">Bag</a></div>
+      </nav>
+    </header>
+    <!-- Mobile overlay + drawer -->
+    <div id="overlay" class="overlay" aria-hidden="true"></div>
+    <aside id="drawer" class="drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <div class="brand" style="letter-spacing: 0.28em; font-size: 16px">CABANA</div>
+        <button id="closeMenu" class="btn" aria-label="Close menu">Close</button>
       </div>
-
-      <!-- Mobile Menu -->
-      <div
-        class="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-200 transform -translate-y-full transition-transform duration-300"
-        id="mobileMenu"
-      >
-        <div class="px-6 py-4 space-y-4">
-          <a href="/products/mens-boxer-brief-black.html" class="block text-sm tracking-wider"
-            >MEN</a
-          >
-          <a href="/products/womens-set.html" class="block text-sm tracking-wider">WOMEN</a>
-          <a href="/about.html" class="block text-sm tracking-wider">ABOUT</a>
-          <a href="/impact.html" class="block text-sm tracking-wider">IMPACT</a>
-          <a href="/contact.html" class="block text-sm tracking-wider font-medium">CONTACT</a>
-        </div>
-      </div>
-    </nav>
+      <nav class="drawer-links" aria-label="Mobile">
+        <a href="/products/mens-underwear.html">Men</a>
+        <a href="/products/womens-set.html">Women</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/cart.html">Bag</a>
+      </nav>
+    </aside>
 
     <!-- Contact Section -->
     <section class="pt-24 pb-16 min-h-screen">
@@ -491,6 +438,7 @@
       </div>
     </footer>
 
+    <script defer src="/js/nav.js"></script>
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
