@@ -1,3 +1,44 @@
+/* === Desktop header: classic layout (override to match reference) === */
+@media (min-width: 981px){
+  /* reorder using grid areas; ensure .left participates as a grid item */
+  .nav-grid{
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: 'brand menu bag';
+  }
+  .brand{
+    grid-area: brand;
+    justify-self: start;
+    letter-spacing: .6em;
+    font-size: 28px;
+    font-weight: 600;
+    color:#111;
+    line-height:1.05;
+  }
+  .brand::after{
+    content: 'Collections';
+    display:block;
+    font-size: 12px;
+    letter-spacing: .28em;
+    font-weight: 400;
+    margin-top: 2px;
+    color:#222;
+    opacity:.7;
+  }
+
+  /* center the main menu inside .left; force block to override any display:contents */
+  .nav-grid .left{ grid-area: menu; justify-self: center; display:block; }
+  .nav-grid .left .nav-links{ display:flex !important; gap:28px; align-items:center; }
+
+  /* bag on the right */
+  .nav-grid > .nav-links:last-child{ grid-area: bag; justify-self: end; }
+
+  /* desktop visuals */
+  .header{ background: rgba(255,255,255,.92); border-bottom: 1px solid rgba(0,0,0,.06); backdrop-filter: none; }
+  .nav-links a{ font-size: 13px; letter-spacing: .24em; color:#111; }
+  .nav-links a:hover{ color: var(--accent); }
+  .nav-links a.is-active{ color: var(--accent); }
+  .hamburger{ display:none !important; }
+}
 /* === Desktop header: classic layout (keep mobile drawer) === */
 @media (min-width: 981px) {
   /* reorder the existing DOM using grid areas */
