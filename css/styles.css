@@ -1,43 +1,131 @@
-/* === Desktop header: classic layout (override to match reference) === */
+/* === Desktop header: restore classic layout (keep mobile drawer) === */
 @media (min-width: 981px){
-  /* reorder using grid areas; ensure .left participates as a grid item */
+  /* grid layout: brand | menu | bag */
   .nav-grid{
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-areas: 'brand menu bag';
+    grid-template-columns: 1fr auto 1fr !important;
+    align-items: center;
   }
+
+  /* brand on the left with subline */
   .brand{
-    grid-area: brand;
-    justify-self: start;
-    letter-spacing: .6em;
-    font-size: 28px;
+    justify-self: start !important;
+    letter-spacing: .6em !important;
+    font-size: 28px !important;
     font-weight: 600;
-    color:#111;
-    line-height:1.05;
+    color: #111;
+    line-height: 1.05;
   }
   .brand::after{
-    content: 'Collections';
-    display:block;
+    content: "Collections";
+    display: block;
     font-size: 12px;
     letter-spacing: .28em;
     font-weight: 400;
     margin-top: 2px;
-    color:#222;
-    opacity:.7;
+    color: #222;
+    opacity: .7;
+  }
+
+  /* center the main menu that lives inside .left */
+  .nav-grid .left{
+    justify-self: center !important;
+  }
+  .nav-grid .left .nav-links{
+    display: flex !important;
+    gap: 28px;
+    align-items: center;
+  }
+
+  /* bag on the right (this is the .nav-links that is a direct child) */
+  .nav-grid > .nav-links:last-of-type{
+    justify-self: end !important;
+  }
+
+  /* desktop look: light header, no blur */
+  .header{
+    background: rgba(255,255,255,.92) !important;
+    border-bottom: 1px solid rgba(0,0,0,.06) !important;
+    backdrop-filter: none !important;
+  }
+
+  /* link styling + active color */
+  .nav-links a{
+    font-size: 13px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: #111;
+  }
+  .nav-links a:hover{ color: var(--accent); }
+  .nav-links a.is-active{ color: var(--accent); }
+
+  /* hide hamburger on desktop */
+  .hamburger{ display: none !important; }
+}
+/* === Desktop header: classic layout (override to match reference) === */
+@media (min-width: 981px) {
+  /* reorder using grid areas; ensure .left participates as a grid item */
+  .nav-grid {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: 'brand menu bag';
+  }
+  .brand {
+    grid-area: brand;
+    justify-self: start;
+    letter-spacing: 0.6em;
+    font-size: 28px;
+    font-weight: 600;
+    color: #111;
+    line-height: 1.05;
+  }
+  .brand::after {
+    content: 'Collections';
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    font-weight: 400;
+    margin-top: 2px;
+    color: #222;
+    opacity: 0.7;
   }
 
   /* center the main menu inside .left; force block to override any display:contents */
-  .nav-grid .left{ grid-area: menu; justify-self: center; display:block; }
-  .nav-grid .left .nav-links{ display:flex !important; gap:28px; align-items:center; }
+  .nav-grid .left {
+    grid-area: menu;
+    justify-self: center;
+    display: block;
+  }
+  .nav-grid .left .nav-links {
+    display: flex !important;
+    gap: 28px;
+    align-items: center;
+  }
 
   /* bag on the right */
-  .nav-grid > .nav-links:last-child{ grid-area: bag; justify-self: end; }
+  .nav-grid > .nav-links:last-child {
+    grid-area: bag;
+    justify-self: end;
+  }
 
   /* desktop visuals */
-  .header{ background: rgba(255,255,255,.92); border-bottom: 1px solid rgba(0,0,0,.06); backdrop-filter: none; }
-  .nav-links a{ font-size: 13px; letter-spacing: .24em; color:#111; }
-  .nav-links a:hover{ color: var(--accent); }
-  .nav-links a.is-active{ color: var(--accent); }
-  .hamburger{ display:none !important; }
+  .header {
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    backdrop-filter: none;
+  }
+  .nav-links a {
+    font-size: 13px;
+    letter-spacing: 0.24em;
+    color: #111;
+  }
+  .nav-links a:hover {
+    color: var(--accent);
+  }
+  .nav-links a.is-active {
+    color: var(--accent);
+  }
+  .hamburger {
+    display: none !important;
+  }
 }
 /* === Desktop header: classic layout (keep mobile drawer) === */
 @media (min-width: 981px) {
