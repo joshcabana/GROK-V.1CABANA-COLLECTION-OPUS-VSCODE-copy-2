@@ -1,62 +1,68 @@
 (() => {
-  const html = document.documentElement;
-  const drawer = document.getElementById('drawer');
-  const overlay = document.getElementById('overlay');
-  const openBtn = document.getElementById('openMenu');
-  const closeBtn = document.getElementById('closeMenu');
+  const qs = (s, r = document) => r.querySelector(s);
+  const qsa = (s, r = document) => [...r.querySelectorAll(s)];
 
-  const open = () => {
-    drawer.classList.add('open');
-    overlay.classList.add('open');
-    drawer.setAttribute('aria-hidden', 'false');
-    overlay.setAttribute('aria-hidden', 'false');
-    openBtn?.setAttribute('aria-expanded', 'true');
-    html.classList.add('overflow-hidden');
-    // minimal focus trap
-    const focusables = drawer.querySelectorAll('a,button,[tabindex]:not([tabindex="-1"])');
-    focusables[0]?.focus();
-    drawer.addEventListener('keydown', trap);
-  };
-  const close = () => {
-    drawer.classList.remove('open');
-    overlay.classList.remove('open');
-    drawer.setAttribute('aria-hidden', 'true');
-    overlay.setAttribute('aria-hidden', 'true');
-    openBtn?.setAttribute('aria-expanded', 'false');
-    html.classList.remove('overflow-hidden');
-    drawer.removeEventListener('keydown', trap);
-    openBtn?.focus();
-  };
-  const trap = (e) => {
-    if (e.key !== 'Tab') return;
-    const focusables = [...drawer.querySelectorAll('a,button,[tabindex]:not([tabindex="-1"])')];
-    if (!focusables.length) return;
-    const first = focusables[0],
-      last = focusables[focusables.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
+  const body = document.body;
+  const drawer = qs('[data-mobile-drawer]');
+  const overlay = qs('[data-mobile-overlay]');
+  const openBtn = qs('[data-mobile-open]');
+  const closeBtn = qs('[data-mobile-close]');
+  const focusablesSel = [
+    'a[href]',
+    'button:not([disabled])',
+    'input',
+    'select',
+    'textarea',
+    '[tabindex]:not([tabindex="-1"])',
+  ].join(',');
+
+  let lastFocus = null;
+
+  function lockScroll(lock) {
+    body.classList.toggle('is-locked', lock);
+  }
+
+  function trapFocus(e) {
+    if (!drawer.classList.contains('is-open')) return;
+    const nodes = qsa(focusablesSel, drawer);
+    if (nodes.length === 0) return;
+    const first = nodes[0];
+    const last = nodes[nodes.length - 1];
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    } else if (e.key === 'Escape') {
       e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault();
-      first.focus();
+      closeDrawer();
     }
-  };
+  }
 
-  openBtn?.addEventListener('click', open);
-  closeBtn?.addEventListener('click', close);
-  overlay?.addEventListener('click', close);
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') close();
-  });
-})();
+  function openDrawer() {
+    lastFocus = document.activeElement;
+    drawer.classList.add('is-open');
+    overlay.classList.add('is-open');
+    lockScroll(true);
+    const first = qsa(focusablesSel, drawer)[0];
+    first && first.focus();
+    document.addEventListener('keydown', trapFocus);
+  }
 
-// Mark current page in the desktop menu
-(() => {
-  const here = location.pathname.replace(/index\.html$/, '').replace(/\/$/, '') || '/';
-  document.querySelectorAll('.nav-links a[href]').forEach((a) => {
-    const path =
-      new URL(a.href, location.origin).pathname.replace(/index\.html$/, '').replace(/\/$/, '') ||
-      '/';
-    if (path === here) a.classList.add('is-active');
-  });
+  function closeDrawer() {
+    drawer.classList.remove('is-open');
+    overlay.classList.remove('is-open');
+    lockScroll(false);
+    document.removeEventListener('keydown', trapFocus);
+    lastFocus && lastFocus.focus();
+  }
+
+  if (openBtn && drawer && overlay) {
+    openBtn.addEventListener('click', openDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+  }
 })();
