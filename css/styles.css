@@ -206,12 +206,8 @@ html {
 }
 
 /* Mobile upgrade additions */
-:root {
-  --safe-top: env(safe-area-inset-top);
-  --safe-right: env(safe-area-inset-right);
-  --safe-bottom: env(safe-area-inset-bottom);
-  --safe-left: env(safe-area-inset-left);
-}
+
+/* Safe area vars merged into primary :root above */
 
 body.is-locked {
   overflow: hidden;
@@ -228,6 +224,21 @@ body.is-locked {
   padding-top: var(--safe-top);
 }
 
+/* Brand lockup: CABANA + Collections stack */
+
+.brand-lockup {
+  line-height: 1.05;
+}
+
+.brand-lockup .brand-title {
+  letter-spacing: 0.4em;
+}
+
+.brand-lockup .brand-sub {
+  letter-spacing: 0.2em;
+  opacity: 0.8;
+}
+
 .mobile-overlay {
   position: fixed;
   inset: 0;
@@ -236,6 +247,7 @@ body.is-locked {
   pointer-events: none;
   transition: opacity 0.2s ease;
 }
+
 .mobile-overlay.is-open {
   opacity: 1;
   pointer-events: auto;
@@ -255,6 +267,7 @@ body.is-locked {
   padding: calc(1rem + var(--safe-top)) 1rem calc(1rem + var(--safe-bottom));
   box-shadow: -8px 0 24px rgba(0, 0, 0, 0.12);
 }
+
 .mobile-drawer.is-open {
   transform: translateX(0);
 }
@@ -288,9 +301,11 @@ img[width][height] {
 h1 {
   font-size: clamp(2rem, 4.5vw, 3.5rem);
 }
+
 h2 {
   font-size: clamp(1.5rem, 3.5vw, 2.5rem);
 }
+
 h3 {
   font-size: clamp(1.25rem, 3vw, 1.75rem);
 }

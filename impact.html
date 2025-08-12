@@ -84,7 +84,10 @@
     <!-- New Sticky Header + Mobile Drawer -->
     <header class="sticky-header" role="banner">
       <div class="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
-        <a href="/" class="font-heading text-2xl tracking-luxury">CABANA</a>
+        <a href="/" class="font-heading tracking-luxury font-light leading-tight">
+          <span class="block text-2xl">CABANA</span>
+          <span class="block text-xs tracking-wider -mt-0.5">Collections</span>
+        </a>
         <nav class="hidden md:flex items-center gap-10" aria-label="Primary">
           <a href="/" class="link-hover text-xs tracking-widest">HOME</a>
           <a href="/products/mens-boxer-brief-black.html" class="link-hover text-xs tracking-widest"
@@ -695,8 +698,6 @@
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <!-- Mobile Nav -->
-    <script defer src="/js/nav.js"></script>
     <!-- Custom JavaScript -->
     <script>
       // Initialize AOS
@@ -707,14 +708,7 @@
         easing: 'ease-out-cubic',
       });
 
-      // Mobile Menu Toggle
-      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-      const mobileMenu = document.getElementById('mobileMenu');
-
-      mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('translate-y-0');
-        mobileMenu.classList.toggle('-translate-y-full');
-      });
+      // Mobile menu handled by /js/nav.js
 
       // Animate counter
       function animateValue(obj, start, end, duration) {

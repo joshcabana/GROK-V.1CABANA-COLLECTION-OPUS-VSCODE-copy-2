@@ -1,8 +1,7 @@
 // sw.js - Service Worker for CABANA
-const CACHE_NAME = 'cabana-v7';
+const CACHE_NAME = 'cabana-v8';
 const urlsToCache = [
-  '/',
-  '/index.html',
+  // App shell (no HTML documents to avoid stale pages)
   '/css/styles.css',
   '/js/performance-optimizer.js',
   '/assets/Images/CABANA-MODEL-BOXERS-FRONT.png',
@@ -49,42 +48,70 @@ self.addEventListener('activate', (event) => {
 
 // Fetch event with runtime caching for images (avoid caching heavy videos)
 self.addEventListener('fetch', (event) => {
-  const requestUrl = new URL(event.request.url);
+  const request = event.request;
+  const url = new URL(request.url);
 
-  // Check if the request is for an image (skip mp4/mov to reduce storage/bandwidth)
-  if (
-    requestUrl.pathname.startsWith('/assets/Images/') &&
-    (event.request.url.endsWith('.png') ||
-      event.request.url.endsWith('.jpg') ||
-      event.request.url.endsWith('.jpeg') ||
-      event.request.url.endsWith('.webp') ||
-      event.request.url.endsWith('.svg'))
-  ) {
+  // 1) Network-first for HTML navigations to prevent stale pages
+  const isHTML =
+    request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html');
+
+  if (isHTML) {
     event.respondWith(
-      caches.open(CACHE_NAME).then((cache) => {
-        return cache.match(event.request).then((response) => {
-          return (
-            response ||
-            fetch(event.request).then((networkResponse) => {
-              cache.put(event.request, networkResponse.clone());
-              return networkResponse;
-            })
-          );
-        });
-      })
+      fetch(request)
+        .then((response) => {
+          // Optionally, cache a copy of the latest HTML for offline fallback
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+          return response;
+        })
+        .catch(() => caches.match(request).then((r) => r || caches.match('/offline.html')))
     );
-  } else {
-    // Existing cache-first strategy for other assets
-    event.respondWith(
-      caches.match(event.request).then((response) => {
-        return (
-          response ||
-          fetch(event.request).then((networkResponse) => {
-            // Optionally cache other resources here
-            return networkResponse;
-          })
-        );
-      })
-    );
+    return;
   }
+
+  // 2) Cache-first for images (but never cache videos)
+  const isImage =
+    url.pathname.startsWith('/assets/Images/') &&
+    (request.url.endsWith('.png') ||
+      request.url.endsWith('.jpg') ||
+      request.url.endsWith('.jpeg') ||
+      request.url.endsWith('.webp') ||
+      request.url.endsWith('.svg'));
+  if (isImage) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then((cache) =>
+        cache.match(request).then(
+          (cached) =>
+            cached ||
+            fetch(request).then((res) => {
+              cache.put(request, res.clone());
+              return res;
+            })
+        )
+      )
+    );
+    return;
+  }
+
+  // 3) Stale-while-revalidate for CSS/JS
+  const isAsset = request.destination === 'style' || request.destination === 'script';
+  if (isAsset) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then((cache) =>
+        cache.match(request).then((cached) => {
+          const networkFetch = fetch(request)
+            .then((res) => {
+              cache.put(request, res.clone());
+              return res;
+            })
+            .catch(() => cached);
+          return cached || networkFetch;
+        })
+      )
+    );
+    return;
+  }
+
+  // 4) Default: try network, fall back to cache
+  event.respondWith(fetch(request).catch(() => caches.match(request)));
 });
