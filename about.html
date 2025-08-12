@@ -149,14 +149,19 @@
         color: #d4af37;
       }
     </style>
-    <link rel="stylesheet" href="/css/styles.css" />
-    <link rel="stylesheet" href="/css/mobile.css" />
-    <script src="/js/header.js" defer></script>
   </head>
   <body class="bg-white text-black font-sans">
-    <div id="site-header"></div>
-    <!-- Navigation injected via partials/header.html -->
-    <!-- <nav class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-200">
+    <style>
+      /* moved from inline style to satisfy linter */
+      .about-green-bg {
+        background-image: url('/assets/Images/homepage-green.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    </style>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-200">
       <div class="container mx-auto px-6 md:px-12 py-4">
         <div class="flex justify-between items-center">
           <!-- Logo -->
@@ -234,7 +239,7 @@
           <a href="/contact.html" class="block text-sm tracking-wider">CONTACT</a>
         </div>
       </div>
-    </nav> -->
+    </nav>
 
     <!-- Hero Section with Video Background -->
     <section class="pt-24 pb-16 min-h-[70vh] flex items-center relative overflow-hidden">
@@ -279,7 +284,7 @@
             <div>
               <h2 class="font-heading text-3xl mb-6">Our Promise</h2>
               <p class="text-gray-700 leading-relaxed mb-4">
-                We pledge garments that honor both body and earth. Every fiber selected with
+                We pledge garments that honour both body and earth. Every fibre selected with
                 purpose, every seam crafted with precision, every piece destined to become an
                 essential companion.
               </p>
@@ -313,7 +318,7 @@
             </div>
             <h3 class="font-heading text-2xl mb-4">Comfort First</h3>
             <p class="text-gray-600 leading-relaxed">
-              We obsess over every detail that touches your skin. From fiber selection to fit
+              We obsess over every detail that touches your skin. From fibre selection to fit
               testing, comfort guides every decision we make.
             </p>
           </div>
@@ -332,7 +337,7 @@
             </div>
             <h3 class="font-heading text-2xl mb-4">Sustainable Materials</h3>
             <p class="text-gray-600 leading-relaxed">
-              Our modal comes from sustainably managed beech forests. Every fiber is traceable,
+              Our modal comes from sustainably managed beech forests. Every fibre is traceable,
               every process transparent, every choice intentional.
             </p>
           </div>
@@ -391,22 +396,14 @@
           <div class="impact-card bg-white p-8 text-center">
             <div class="text-5xl font-heading text-gold mb-4">0</div>
             <h3 class="font-medium mb-2">Microplastics</h3>
-            <p class="text-sm text-gray-600">Pure, natural fibers only</p>
+            <p class="text-sm text-gray-600">Pure, natural fibres only</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Green by Nature Section - Enhanced -->
-    <section
-      class="py-24 md:py-32 relative overflow-hidden"
-      style="
-        background-image: url('/assets/Images/homepage-green.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-      "
-    >
+    <section class="py-24 md:py-32 relative overflow-hidden about-green-bg">
       <!-- Overlay to preserve legibility over the background image -->
       <div
         class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/20 pointer-events-none"
@@ -447,7 +444,7 @@
           </p>
 
           <p>
-            Born from nature, returning to nature. Our biodegradable fibers dissolve gracefully,
+            Born from nature, returning to nature. Our biodegradable fibres dissolve gracefully,
             enriching the soil rather than burdening it.
           </p>
 

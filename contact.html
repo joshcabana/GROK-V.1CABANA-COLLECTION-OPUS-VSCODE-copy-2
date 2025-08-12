@@ -97,14 +97,10 @@
         opacity: 0.7;
       }
     </style>
-    <link rel="stylesheet" href="/css/styles.css" />
-    <link rel="stylesheet" href="/css/mobile.css" />
-    <script src="/js/header.js" defer></script>
   </head>
   <body class="bg-white text-black font-sans">
-    <div id="site-header"></div>
-    <!-- Navigation injected via partials/header.html -->
-    <!-- <nav class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-200">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-200">
       <div class="container mx-auto px-6 md:px-12 py-4">
         <div class="flex justify-between items-center">
           <!-- Logo -->
@@ -156,7 +152,12 @@
           </a>
 
           <!-- Mobile Menu Button -->
-          <button class="md:hidden" id="mobileMenuBtn">
+          <button
+            class="md:hidden"
+            id="mobileMenuBtn"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+          >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
@@ -184,7 +185,7 @@
           <a href="/contact.html" class="block text-sm tracking-wider font-medium">CONTACT</a>
         </div>
       </div>
-    </nav> -->
+    </nav>
 
     <!-- Contact Section -->
     <section class="pt-24 pb-16 min-h-screen">

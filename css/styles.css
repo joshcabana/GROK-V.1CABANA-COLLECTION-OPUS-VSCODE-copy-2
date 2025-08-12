@@ -199,7 +199,10 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+
+  /* Fallback then modern viewport height to avoid iOS 100vh bug */
   min-height: 100vh;
+  min-height: 100svh;
 }
 
 body {
@@ -214,7 +217,10 @@ body {
   line-height: 1.6;
   letter-spacing: 0.02em;
   overflow-x: hidden;
+
+  /* Fallback then modern viewport height to avoid iOS 100vh bug */
   min-height: 100vh;
+  min-height: 100svh;
 }
 
 /* ===========================
@@ -298,7 +304,9 @@ h6 {
    Hero Section - Cinematic with Hero Banner
    =========================== */
 .cabana-hero {
+  /* Fallback then modern viewport height to avoid iOS 100vh bug */
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -571,6 +579,37 @@ h6 {
   transform: translateY(-8px);
 }
 
+/* Ensure horizontal swipe doesn't block vertical scroll on mobile galleries */
+.product-gallery {
+  touch-action: pan-y;
+  overscroll-behavior-y: contain;
+}
+
+/* Gentle shadow for sticky nav on scroll */
+.nav-shadow {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Mobile swipe hint under galleries */
+@keyframes fadeOutHint {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.swipe-hint {
+  opacity: 0.9;
+  animation: fadeOutHint 1.2s ease 3s forwards;
+}
+
+/* Larger touch target for gallery thumbnails */
+.thumbnail {
+  padding: 4px;
+  min-width: 44px;
+  min-height: 44px;
+}
+
 /* ===========================
    Form Elements - Minimal
    =========================== */
@@ -629,6 +668,23 @@ h6 {
 .legal-content {
   max-width: 65ch;
   margin: 0 auto;
+}
+
+/* Prevent horizontal overflow on narrow viewports (long URLs/words) */
+.legal-content,
+.legal-content p,
+.legal-content li,
+.legal-content a,
+.legal-content td,
+.legal-content th {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Utility: force wrap anywhere for edge cases */
+.break-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .legal-content h2 {
@@ -723,6 +779,11 @@ h6 {
   );
 }
 
+/* Luxe, desaturated champagne → sage gradient for high-end feel */
+.gradient-champagne-sage {
+  background: linear-gradient(135deg, #f5f1e8 0%, #efe9dd 35%, #e6e7df 60%, #d6dfcf 100%);
+}
+
 .gradient-terracotta {
   background: linear-gradient(
     135deg,
@@ -749,6 +810,23 @@ h6 {
     var(--color-terracotta-light) 70%,
     var(--color-amber-light) 100%
   );
+}
+
+/* Subtle luxe texture overlay (uses pseudo-element) */
+.luxe-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.luxe-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+  mix-blend-mode: overlay;
+  opacity: 0.06;
 }
 
 /* Floating Animation */
@@ -921,6 +999,32 @@ h6 {
   pointer-events: none;
 }
 
+/* Shimmer accent for pill links/buttons */
+.pill-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.pill-shimmer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.18) 50%,
+    transparent 100%
+  );
+  transform: translateX(-200%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.pill-shimmer:hover::before,
+.pill-shimmer:focus-visible::before {
+  transform: translateX(200%);
+}
+
 .interactive-glow:hover::after {
   width: 200px;
   height: 200px;
@@ -990,7 +1094,7 @@ h6 {
 }
 
 .bg-refined-white {
-  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  background: linear-gradient(135deg, #fff 0%, #fafafa 100%);
 }
 
 .bg-refined-charcoal {
@@ -998,7 +1102,7 @@ h6 {
 }
 
 .bg-refined-gradient {
-  background: linear-gradient(135deg, #fafaf8 0%, #ffffff 50%, #f8f6f3 100%);
+  background: linear-gradient(135deg, #fafaf8 0%, #fff 50%, #f8f6f3 100%);
 }
 
 /* Texture overlays extracted from inline styles */

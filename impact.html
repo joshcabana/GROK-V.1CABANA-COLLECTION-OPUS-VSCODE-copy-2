@@ -71,14 +71,18 @@
         opacity: 1;
       }
     </style>
-    <link rel="stylesheet" href="/css/styles.css" />
-    <link rel="stylesheet" href="/css/mobile.css" />
-    <script src="/js/header.js" defer></script>
   </head>
   <body class="bg-white text-black font-body">
-    <div id="site-header"></div>
-    <!-- Navigation injected via partials/header.html -->
-    <!-- <nav
+    <style>
+      /* moved from inline style to satisfy linter */
+      .impact-bg {
+        background-image: url('/assets/Images/BeyondWoman.png');
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+    <!-- Navigation -->
+    <nav
       class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100"
     >
       <div class="container mx-auto px-6 md:px-12 py-5">
@@ -135,7 +139,12 @@
           </a>
 
           <!-- Mobile Menu Button -->
-          <button class="md:hidden" id="mobileMenuBtn">
+          <button
+            class="md:hidden"
+            id="mobileMenuBtn"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+          >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
@@ -163,7 +172,7 @@
           <a href="/contact.html" class="block text-xs tracking-widest">CONTACT</a>
         </div>
       </div>
-    </nav> -->
+    </nav>
 
     <!-- Hero Section -->
     <section class="pt-32 pb-20 min-h-[60vh] flex items-center">
@@ -182,14 +191,7 @@
     </section>
 
     <!-- Impact Stats -->
-    <section
-      class="py-20 bg-gray-50 relative overflow-hidden"
-      style="
-        background-image: url('/assets/Images/BeyondWoman.png');
-        background-size: cover;
-        background-position: center;
-      "
-    >
+    <section class="py-20 bg-gray-50 relative overflow-hidden impact-bg">
       <!-- Overlay for readability -->
       <div class="absolute inset-0 bg-white/70"></div>
       <div class="container mx-auto px-6 md:px-12">
@@ -296,7 +298,12 @@
 
           <div class="grid md:grid-cols-2 gap-16">
             <!-- Beyond Blue -->
-            <a href="https://www.beyondblue.org.au" target="_blank" class="block">
+            <a
+              href="https://www.beyondblue.org.au"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block"
+            >
               <div
                 class="text-center bg-blue-50 p-8 hover:bg-blue-100 transition-colors border border-blue-200 cursor-pointer"
               >
@@ -319,7 +326,12 @@
             </a>
 
             <!-- UN Women -->
-            <a href="https://unwomen.org.au" target="_blank" class="block">
+            <a
+              href="https://unwomen.org.au"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block"
+            >
               <div
                 class="text-center bg-pink-50 p-8 hover:bg-pink-100 transition-colors border border-pink-200 cursor-pointer"
               >
@@ -385,6 +397,7 @@
                     <a
                       href="https://menslink.org.au"
                       target="_blank"
+                      rel="noopener noreferrer"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -403,6 +416,7 @@
                     <a
                       href="https://everyman.org.au"
                       target="_blank"
+                      rel="noopener noreferrer"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -421,6 +435,7 @@
                     <a
                       href="https://movember.com"
                       target="_blank"
+                      rel="noopener noreferrer"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -439,6 +454,7 @@
                     <a
                       href="https://themancave.life"
                       target="_blank"
+                      rel="noopener noreferrer"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -457,6 +473,7 @@
                     <a
                       href="https://mensshed.org"
                       target="_blank"
+                      rel="noopener noreferrer"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -489,6 +506,7 @@
                     <a
                       href="https://ywca-canberra.org.au"
                       target="_blank"
+                      rel="noopener noreferrer"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -507,6 +525,7 @@
                     <a
                       href="https://fearlesswomen.org.au"
                       target="_blank"
+                      rel="noopener noreferrer"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -525,6 +544,7 @@
                     <a
                       href="https://sharethedignity.org.au"
                       target="_blank"
+                      rel="noopener noreferrer"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -543,6 +563,7 @@
                     <a
                       href="https://toora.org.au"
                       target="_blank"
+                      rel="noopener noreferrer"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
@@ -561,6 +582,7 @@
                     <a
                       href="https://unwomen.org.au"
                       target="_blank"
+                      rel="noopener noreferrer"
                       class="text-xs tracking-wider uppercase text-gold hover:text-black transition-colors"
                     >
                       Visit Site →
