@@ -312,6 +312,156 @@
           transition: none !important;
         }
       }
+
+      /* Gucci-inspired editorial theme (scoped) */
+      .gucci-page {
+        --gucci-green: #0b3d2c;
+        --gucci-red: #b80000;
+        --gucci-ink: #111111;
+        --gucci-cream: #f6f3ee;
+        background: #ffffff;
+      }
+
+      .gucci-breadcrumb {
+        border-top: 1px solid #eaeaea;
+        border-bottom: 1px solid #eaeaea;
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+        margin-bottom: -0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        background-color: #ffffff;
+      }
+      .gucci-breadcrumb a:hover {
+        color: var(--gucci-red) !important;
+      }
+
+      .gucci-page .font-heading {
+        font-family: 'Cinzel', serif !important;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .gucci-page .gucci-title {
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        position: relative;
+        padding-bottom: 1rem;
+      }
+      .gucci-page .gucci-title::after {
+        content: '';
+        display: block;
+        height: 4px;
+        width: 140px;
+        margin-top: 12px;
+        background: linear-gradient(
+          90deg,
+          var(--gucci-green) 0 42%,
+          var(--gucci-red) 42% 58%,
+          var(--gucci-green) 58% 100%
+        );
+      }
+
+      /* Gallery */
+      .gucci-page .product-image {
+        border: 1px solid var(--gucci-ink);
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .gucci-page .product-image:hover {
+        transform: none;
+      }
+      .gucci-page .product-image::before {
+        display: none;
+      }
+      .gucci-page .thumbnail {
+        border-color: #d1d1d1;
+        border-radius: 0;
+        filter: grayscale(10%);
+      }
+      .gucci-page .thumbnail.active {
+        border-color: var(--gucci-ink);
+        filter: none;
+      }
+
+      /* Buttons */
+      .gucci-page .luxury-button {
+        background: #ffffff;
+        color: var(--gucci-ink);
+        border: 1px solid var(--gucci-ink);
+        border-radius: 9999px;
+        letter-spacing: 0.24em;
+        box-shadow: none;
+      }
+      .gucci-page .luxury-button:hover {
+        background: var(--gucci-ink);
+        color: #ffffff;
+      }
+      .gucci-page .size-button {
+        border-color: var(--gucci-ink);
+        border-radius: 9999px;
+      }
+      .gucci-page .size-button::before {
+        display: none;
+      }
+      .gucci-page .size-button.selected {
+        background: var(--gucci-ink);
+        color: #ffffff;
+      }
+
+      /* Bundle cards */
+      .gucci-page .bundle-option {
+        border-color: var(--gucci-ink);
+        border-width: 1px;
+        border-radius: 0;
+        box-shadow: none !important;
+      }
+      .gucci-page .bundle-option:hover {
+        transform: translateY(-1px);
+        border-color: var(--gucci-ink);
+        background: #fafafa;
+      }
+      .gucci-page .bundle-option[data-bundle='7'] {
+        border-width: 2px;
+        background: #ffffff;
+      }
+
+      /* Trust signals, chips */
+      .gucci-page .trust-signals .bg-gray-50 {
+        background: transparent;
+        border-color: #dcdcdc;
+      }
+
+      /* Impact section refinements */
+      .gucci-page .impact-card {
+        background: #ffffff;
+        border-color: #e5e5e5;
+      }
+      .gucci-page .sustainability-card {
+        background: #ffffff !important;
+        border-color: #e5e5e5;
+      }
+      .gucci-page .impact-summary {
+        background: #111111 !important;
+        border-color: #111111 !important;
+      }
+      .gucci-page .impact-summary .text-gold {
+        color: #d4af37;
+      }
+
+      /* Minor palette tune */
+      .gucci-page .text-gold {
+        color: #c9a227;
+      }
+
+      /* Mobile tweaks */
+      @media (max-width: 768px) {
+        .gucci-breadcrumb {
+          letter-spacing: 0.1em;
+        }
+        .gucci-page .gucci-title {
+          letter-spacing: 0.1em;
+        }
+      }
     </style>
 
     <!-- Tailwind CSS -->
@@ -322,6 +472,12 @@
     <!-- Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@100;200;300;400;500&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&display=swap"
       rel="stylesheet"
       media="print"
       onload="this.media='all'"
@@ -422,7 +578,7 @@
     </aside>
 
     <!-- Breadcrumbs -->
-    <nav class="pt-24 px-6 md:px-12" aria-label="Breadcrumb">
+    <nav class="gucci-breadcrumb pt-24 px-6 md:px-12" aria-label="Breadcrumb">
       <ol class="flex items-center space-x-2 text-xs text-gray-600">
         <li><a href="../index.html" class="hover:text-gold">Home</a></li>
         <li aria-hidden="true">/</li>
@@ -433,7 +589,7 @@
     </nav>
 
     <!-- Product Section -->
-    <main id="product-details" class="py-8 md:py-12 bg-luxury-white">
+    <main id="product-details" class="gucci-page py-8 md:py-12 bg-luxury-white">
       <div class="container mx-auto px-6 md:px-12">
         <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto">
           <!-- Image Gallery -->
@@ -448,6 +604,8 @@
                 tabindex="0"
                 role="img"
                 aria-describedby="image-zoom-instruction"
+                width="800"
+                height="1067"
               />
               <span id="image-zoom-instruction" class="sr-only"
                 >Click or press Enter to zoom image</span
@@ -474,6 +632,8 @@
                   alt=""
                   class="w-full aspect-square object-cover"
                   loading="lazy"
+                  width="600"
+                  height="600"
                 />
               </button>
               <button
@@ -487,6 +647,8 @@
                   alt=""
                   class="w-full aspect-square object-cover"
                   loading="lazy"
+                  width="600"
+                  height="600"
                 />
               </button>
               <button
@@ -500,6 +662,8 @@
                   alt=""
                   class="w-full aspect-square object-cover"
                   loading="lazy"
+                  width="600"
+                  height="600"
                 />
               </button>
               <button
@@ -513,6 +677,8 @@
                   alt=""
                   class="w-full aspect-square object-cover"
                   loading="lazy"
+                  width="600"
+                  height="600"
                 />
               </button>
             </div>
@@ -522,7 +688,9 @@
           <div class="space-y-10 lg:pl-8">
             <!-- Title and Price -->
             <header>
-              <h1 class="font-heading text-4xl md:text-5xl font-light mb-4">Essential Set</h1>
+              <h1 class="gucci-title font-heading text-4xl md:text-5xl font-light mb-4">
+                Essential Set
+              </h1>
               <div class="flex items-baseline gap-4 mb-6">
                 <p class="font-heading text-3xl font-light">$50 AUD</p>
                 <p class="text-xs tracking-wider text-gray-500">INCLUDING GST</p>
@@ -859,7 +1027,7 @@
     <!-- Add impact calculator section after main product section -->
     <!-- Live Impact Calculator Section -->
     <section
-      class="py-20 bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden"
+      class="gucci-page py-20 bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden"
       aria-labelledby="impact-heading"
     >
       <!-- Luxury Background Elements -->
@@ -1002,7 +1170,7 @@
 
           <!-- Sustainability Impact -->
           <div
-            class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-8 mb-8 border border-gray-200"
+            class="sustainability-card bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-8 mb-8 border border-gray-200"
           >
             <div class="text-center mb-6">
               <h4 class="text-2xl font-heading text-gray-900 mb-4">
@@ -1048,7 +1216,7 @@
 
           <!-- Combined Impact Summary -->
           <div
-            class="bg-gradient-to-b from-neutral-900 via-black to-neutral-900 text-white rounded-xl p-8 border border-neutral-800"
+            class="impact-summary bg-gradient-to-b from-neutral-900 via-black to-neutral-900 text-white rounded-xl p-8 border border-neutral-800"
           >
             <div class="text-center mb-6">
               <h4 class="text-2xl font-heading text-white/90 mb-2">Total Lives Impacted</h4>

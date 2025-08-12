@@ -677,7 +677,27 @@
     >
       <!-- Background: switch to static image for best LCP -->
       <div class="absolute inset-0 z-0">
+        <!-- Image-first for fast LCP; video is revealed later when allowed -->
+        <picture id="heroImageWrap" class="absolute inset-0 block z-0">
+          <source
+            srcset="/assets/Images/HERO-BANNER.webp 1920w, /assets/Images/HERO-BANNER-mobile.webp 768w"
+            type="image/webp"
+            sizes="100vw"
+          />
+          <img
+            id="heroImageFallback"
+            src="/assets/Images/HERO-BANNER.webp"
+            alt="CABANA hero background"
+            class="w-full h-full object-cover"
+            width="1920"
+            height="1080"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
+
         <video
+          id="heroBgVideo"
           autoplay
           muted
           loop
@@ -687,9 +707,11 @@
           class="w-full h-full object-cover"
           poster="/assets/Images/HERO-BANNER.webp"
           data-offscreen-pause
+          preload="none"
+          style="display: none"
+          aria-hidden="true"
         >
           <source src="/assets/Images/HERO-BANNER.mp4" type="video/mp4" />
-          <link rel="preload" as="image" href="/assets/Images/CABANA-MONOGRAM-WHITE.png" />
           <!-- Fallback for browsers that don't support video -->
           <div class="w-full h-full bg-gradient-to-br from-slate-900 via-black to-slate-800"></div>
         </video>
@@ -1805,39 +1827,49 @@
           }, 3500);
         }
 
-        // Video optimisation: disable or pause when appropriate
-        const heroVideo = document.querySelector('#heroSection video');
+        // Video optimisation: image-first LCP; reveal/play video only when appropriate
+        const heroVideo = document.getElementById('heroBgVideo');
+        const heroImage = document.getElementById('heroImageFallback');
         const saveData = navigator.connection && navigator.connection.saveData;
-        const isMobile = window.innerWidth < 768;
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         if (heroVideo) {
-          if (saveData || prefersReduced) {
-            // Prefer static poster on mobile/data-saver/reduced-motion
-            try {
-              heroVideo.pause();
-            } catch (_) {}
-            if (heroVideo) {
-              heroVideo.removeAttribute('autoplay');
-              heroVideo.style.display = 'none';
-            }
-            // keep the dark overlay for readability
-          } else if ('IntersectionObserver' in window) {
-            const obs = new IntersectionObserver(
-              (entries) => {
-                entries.forEach((entry) => {
-                  if (entry.isIntersecting) {
-                    heroVideo.play().catch(() => {});
-                  } else {
-                    try {
-                      heroVideo.pause();
-                    } catch (_) {}
-                  }
-                });
+          const allowMotion = !saveData && !prefersReduced && window.innerWidth >= 768;
+
+          if (!allowMotion) {
+            // Keep fast image background; do not show the video
+            try { heroVideo.pause(); } catch (_) {}
+            heroVideo.removeAttribute('autoplay');
+            heroVideo.style.display = 'none';
+            if (heroImage) heroImage.style.display = 'block';
+          } else {
+            // Reveal video and hide image once playing; manage play/pause via IO
+            heroVideo.style.display = 'block';
+            heroVideo.addEventListener(
+              'playing',
+              () => {
+                if (heroImage) heroImage.style.display = 'none';
               },
-              { threshold: 0.1 }
+              { once: true }
             );
-            obs.observe(heroVideo);
+
+            if ('IntersectionObserver' in window) {
+              const obs = new IntersectionObserver(
+                (entries) => {
+                  entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                      heroVideo.play().catch(() => {});
+                    } else {
+                      try { heroVideo.pause(); } catch (_) {}
+                    }
+                  });
+                },
+                { threshold: 0.1 }
+              );
+              obs.observe(heroVideo);
+            } else {
+              heroVideo.play().catch(() => {});
+            }
           }
         }
       });
