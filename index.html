@@ -553,21 +553,6 @@
         color: var(--lv-gold);
       }
 
-      /* Hero monogram overlay */
-      .lv-monogram {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        opacity: 0.06;
-        background-image: radial-gradient(
-          circle at 12px 12px,
-          rgba(0, 0, 0, 0.28) 1.1px,
-          transparent 1.2px
-        );
-        background-size: 40px 40px;
-        mix-blend-mode: multiply;
-      }
-
       /* LV pill CTA */
       .lv-page .lv-cta {
         display: inline-flex;
@@ -806,21 +791,10 @@
           <!-- Fallback for browsers that don't support video -->
           <div class="w-full h-full bg-gradient-to-br from-slate-900 via-black to-slate-800"></div>
         </video>
-        <!-- Monogram + dark overlay for text readability -->
-        <div class="lv-monogram" aria-hidden="true"></div>
+        <!-- Dark overlay for text readability -->
         <div class="absolute inset-0 bg-black/35" aria-hidden="true"></div>
 
-        <!-- CABANA Monogram Logo - Bottom Right Corner -->
-        <div class="absolute bottom-4 right-4 z-10">
-          <div class="p-1 bg-gold rounded-xl shadow-lg">
-            <img
-              src="/assets/Images/CABANA-MONOGRAM-WHITE.png"
-              alt="CABANA Monogram Logo"
-              class="w-auto h-24 md:h-32 lg:h-36 max-w-[140px] opacity-100 drop-shadow-lg rounded-lg"
-              loading="eager"
-            />
-          </div>
-        </div>
+        
       </div>
 
       <!-- Hero Content -->
