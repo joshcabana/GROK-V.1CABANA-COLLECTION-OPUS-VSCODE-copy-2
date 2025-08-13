@@ -692,7 +692,7 @@
     >
 
     <!-- New Sticky Header + Mobile Drawer -->
-    <header class="sticky-header" role="banner">
+    <header class="sticky-header" role="banner" id="mainNav">
       <div class="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
         <a href="/" class="font-heading tracking-luxury font-light leading-tight">
           <span class="block text-2xl">CABANA</span>
@@ -1691,21 +1691,23 @@
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mobileMenu = document.getElementById('mobileMenu');
 
-      mobileMenuBtn.addEventListener('click', () => {
-        const isOpen = mobileMenu.classList.contains('translate-y-0');
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          const isOpen = mobileMenu.classList.contains('translate-y-0');
 
-        if (isOpen) {
-          mobileMenu.classList.remove('translate-y-0');
-          mobileMenu.classList.add('-translate-y-full');
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          mobileMenu.setAttribute('aria-hidden', 'true');
-        } else {
-          mobileMenu.classList.add('translate-y-0');
-          mobileMenu.classList.remove('-translate-y-full');
-          mobileMenuBtn.setAttribute('aria-expanded', 'true');
-          mobileMenu.setAttribute('aria-hidden', 'false');
-        }
-      });
+          if (isOpen) {
+            mobileMenu.classList.remove('translate-y-0');
+            mobileMenu.classList.add('-translate-y-full');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+          } else {
+            mobileMenu.classList.add('translate-y-0');
+            mobileMenu.classList.remove('-translate-y-full');
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+            mobileMenu.setAttribute('aria-hidden', 'false');
+          }
+        });
+      }
 
       // Cart Count with Error Handling
       function updateCartCount() {
