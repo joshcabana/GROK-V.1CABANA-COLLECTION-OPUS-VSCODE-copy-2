@@ -29,6 +29,11 @@
     min-height: 44px;
     min-width: 44px;
   }
+  /* Drawer links comfortable spacing */
+  .drawer-nav a {
+    display: block;
+    padding: 14px 20px;
+  }
 
   /* Avoid off-canvas overflow from absolutely positioned elements */
   [class*='absolute'],
@@ -55,6 +60,11 @@
   .banner {
     min-height: 60dvh;
     height: auto;
+  }
+
+  /* Sticky CTA safe area */
+  .mobile-sticky-cta {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
   }
 
   /* Prevent text overflow on big headings */
