@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+tests/
+lighthouse-mobile.json
+lighthouserc.json
+cspell.json
+CABANA_Cleanup_Report.md
+partials/
+**/*.md
+
