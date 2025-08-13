@@ -16,6 +16,7 @@
     max-width: 100%;
     height: auto;
   }
+  
   video,
   canvas,
   svg {
@@ -29,6 +30,7 @@
     min-height: 44px;
     min-width: 44px;
   }
+
   /* Drawer links comfortable spacing */
   .drawer-nav a {
     display: block;
@@ -64,7 +66,12 @@
 
   /* Sticky CTA safe area */
   .mobile-sticky-cta {
-    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Ensure content doesn't hide behind sticky footer bars */
+  main {
+    padding-bottom: max(72px, env(safe-area-inset-bottom, 0px));
   }
 
   /* Prevent text overflow on big headings */
@@ -73,6 +80,7 @@
     word-wrap: break-word;
     hyphens: auto;
   }
+  
   .tracking-wider,
   .tracking-widest {
     word-wrap: break-word;
@@ -85,9 +93,11 @@
   }
 
   /* Ensure off-canvas drawer overlays above ctas on mobile */
+  
   .mobile-overlay {
     z-index: 60;
   }
+  
   .mobile-drawer {
     z-index: 70;
   }

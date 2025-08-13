@@ -28,6 +28,10 @@
   --color-white: #fff;
   --color-gold: #d4af37;
 
+  /* Safe area insets for iOS */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
   /* Nature-Inspired Palette */
   --color-sage: #9caf88;
   --color-sage-light: #b8c8a5;
@@ -293,6 +297,7 @@ img {
   height: auto;
   max-width: 100%;
 }
+
 img[width][height] {
   aspect-ratio: attr(width) / attr(height);
 }

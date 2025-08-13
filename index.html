@@ -865,8 +865,20 @@
       </section>
       <!-- Philosophy Section -->
       <section class="py-32 md:py-48 relative overflow-hidden" aria-labelledby="philosophy-heading">
-        <!-- Video Background -->
+        <!-- Mobile Image Background + Desktop Video Background -->
         <div class="absolute inset-0 z-0">
+          <!-- Mobile: static image background -->
+          <picture class="block md:hidden absolute inset-0">
+            <img
+              src="/assets/Images/MobileHome.png"
+              alt="CABANA mobile background"
+              class="w-full h-full object-cover"
+              decoding="async"
+              loading="lazy"
+            />
+          </picture>
+
+          <!-- Desktop: video background -->
           <video
             autoplay
             muted
@@ -874,7 +886,7 @@
             playsinline
             onloadedmetadata="this.muted = true; this.playsInline = true;"
             onplay="this.playsInline = true;"
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover hidden md:block"
             poster="/assets/Images/Women.png"
             data-offscreen-pause
           >

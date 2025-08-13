@@ -1580,16 +1580,17 @@
           gallery.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
-          });
+          }, { passive: true });
 
           gallery.addEventListener('touchmove', (e) => {
             const deltaX = Math.abs(e.touches[0].clientX - startX);
             const deltaY = Math.abs(e.touches[0].clientY - startY);
 
-            if (deltaX > deltaY) {
-              e.preventDefault();
+            // Avoid blocking vertical scroll; only hint horizontal intention
+            if (deltaX > deltaY * 1.5) {
+              // no preventDefault to keep scroll fluid
             }
-          });
+          }, { passive: true });
 
           gallery.addEventListener('touchend', (e) => {
             const endX = e.changedTouches[0].clientX;
@@ -1605,7 +1606,7 @@
                 this.nextImage();
               }
             }
-          });
+          }, { passive: true });
         }
 
         nextImage() {
@@ -1915,7 +1916,7 @@
             });
             ticking = true;
           }
-        });
+        }, { passive: true });
       }
 
       // Research-Based Impact Calculator adapted for women's product
