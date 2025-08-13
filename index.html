@@ -1665,9 +1665,7 @@
           isImpactBannerActive = true;
 
           // Adjust navigation position
-          if (mainNav) {
-            mainNav.style.transform = 'translateY(48px)'; // Move nav below banner
-          }
+          // Keep sticky header position stable; no transform shifts
         } else if (shouldHideBanner && isImpactBannerActive) {
           // Hide impact banner with bounce back
           impactBanner.style.transform = 'translateY(-100%)';
@@ -1675,9 +1673,7 @@
           isImpactBannerActive = false;
 
           // Reset navigation position
-          if (mainNav) {
-            mainNav.style.transform = 'translateY(0)';
-          }
+          // Keep sticky header position stable; no transform shifts
         }
 
         lastScrollY = currentScrollY;
