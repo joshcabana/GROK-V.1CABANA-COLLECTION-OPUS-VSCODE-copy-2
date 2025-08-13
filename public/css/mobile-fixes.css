@@ -7,12 +7,18 @@
 
   /* Safe sticky header padding for iOS */
   .sticky,
-  header {
+  .sticky-header {
     padding-top: env(safe-area-inset-top);
   }
 
   /* Images: scale correctly, keep aspect */
   img {
+    max-width: 100%;
+    height: auto;
+  }
+  video,
+  canvas,
+  svg {
     max-width: 100%;
     height: auto;
   }
@@ -25,8 +31,8 @@
   }
 
   /* Avoid off-canvas overflow from absolutely positioned elements */
-  [class*="absolute"],
-  [class*="fixed"] {
+  [class*='absolute'],
+  [class*='fixed'] {
     max-width: 100vw;
   }
 
@@ -57,10 +63,22 @@
     word-wrap: break-word;
     hyphens: auto;
   }
+  .tracking-wider,
+  .tracking-widest {
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* iOS viewport fix for full-height sections */
+  .min-h-screen {
+    min-height: 100svh;
+  }
 
   /* Ensure off-canvas drawer overlays above ctas on mobile */
-  .mobile-overlay { z-index: 60; }
-  .mobile-drawer { z-index: 70; }
+  .mobile-overlay {
+    z-index: 60;
+  }
+  .mobile-drawer {
+    z-index: 70;
+  }
 }
-
-
