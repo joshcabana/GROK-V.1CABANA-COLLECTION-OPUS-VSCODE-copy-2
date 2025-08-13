@@ -4,6 +4,16 @@
       "source": "/products/mens-underwear.html",
       "destination": "/products/mens-boxer-brief-black.html",
       "permanent": true
+    },
+    {
+      "source": "/products/mens-underwear",
+      "destination": "/products/mens-boxer-brief-black.html",
+      "permanent": true
+    },
+    {
+      "source": "/products/mens-underwear/",
+      "destination": "/products/mens-boxer-brief-black.html",
+      "permanent": true
     }
   ]
 }
