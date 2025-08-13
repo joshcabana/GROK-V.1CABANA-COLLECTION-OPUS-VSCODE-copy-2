@@ -17,17 +17,15 @@ const widths = [375, 414, 430];
 for (const width of widths) {
   test.describe(`mobile smoke @${width}px`, () => {
     for (const path of urls) {
-      test(`no horizontal scroll, header/menu usable, images visible: ${path}`, async ({ page }) => {
+      test(`no horizontal scroll, header/menu usable, images visible: ${path}`, async ({
+        page,
+      }) => {
         await page.setViewportSize({ width, height: 800 });
         await page.goto(path);
 
         // No horizontal scroll
-        const scrollWidth = await page.evaluate(
-          () => document.documentElement.scrollWidth
-        );
-        const clientWidth = await page.evaluate(
-          () => document.documentElement.clientWidth
-        );
+        const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+        const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
         expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
 
         // Header/menu usable: open and close drawer
@@ -56,5 +54,3 @@ for (const width of widths) {
     }
   });
 }
-
-

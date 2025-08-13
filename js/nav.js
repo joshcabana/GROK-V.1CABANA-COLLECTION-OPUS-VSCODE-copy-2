@@ -49,6 +49,10 @@
     lockScroll(true);
     const first = qsa(focusablesSel, drawer)[0];
     first && first.focus();
+    try {
+      const trigger = openBtn || lastFocus;
+      trigger && trigger.setAttribute && trigger.setAttribute('aria-expanded', 'true');
+    } catch (_) {}
     document.addEventListener('keydown', trapFocus);
   }
 
@@ -57,6 +61,10 @@
     overlay.classList.remove('is-open');
     lockScroll(false);
     document.removeEventListener('keydown', trapFocus);
+    try {
+      const trigger = openBtn || lastFocus;
+      trigger && trigger.setAttribute && trigger.setAttribute('aria-expanded', 'false');
+    } catch (_) {}
     lastFocus && lastFocus.focus();
   }
 
