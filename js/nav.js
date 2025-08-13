@@ -18,6 +18,14 @@
 
   let lastFocus = null;
 
+  // Initialise ARIA wiring for accessibility
+  if (openBtn && drawer) {
+    if (!drawer.id) drawer.id = 'mobileDrawer';
+    openBtn.setAttribute('aria-controls', drawer.id);
+    openBtn.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+  }
+
   function lockScroll(lock) {
     body.classList.toggle('is-locked', lock);
   }
@@ -47,6 +55,7 @@
     drawer.classList.add('is-open');
     overlay.classList.add('is-open');
     lockScroll(true);
+    drawer.setAttribute('aria-hidden', 'false');
     const first = qsa(focusablesSel, drawer)[0];
     first && first.focus();
     try {
@@ -60,6 +69,7 @@
     drawer.classList.remove('is-open');
     overlay.classList.remove('is-open');
     lockScroll(false);
+    drawer.setAttribute('aria-hidden', 'true');
     document.removeEventListener('keydown', trapFocus);
     try {
       const trigger = openBtn || lastFocus;
@@ -73,4 +83,11 @@
     overlay.addEventListener('click', closeDrawer);
     if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
   }
+
+  // Close the drawer if viewport grows to desktop to avoid stuck state
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768 && drawer && drawer.classList.contains('is-open')) {
+      closeDrawer();
+    }
+  });
 })();
