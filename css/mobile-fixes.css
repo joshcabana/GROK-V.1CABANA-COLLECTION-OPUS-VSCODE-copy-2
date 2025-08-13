@@ -16,7 +16,7 @@
     max-width: 100%;
     height: auto;
   }
-  
+
   video,
   canvas,
   svg {
@@ -80,7 +80,7 @@
     word-wrap: break-word;
     hyphens: auto;
   }
-  
+
   .tracking-wider,
   .tracking-widest {
     word-wrap: break-word;
@@ -93,11 +93,11 @@
   }
 
   /* Ensure off-canvas drawer overlays above ctas on mobile */
-  
+
   .mobile-overlay {
     z-index: 60;
   }
-  
+
   .mobile-drawer {
     z-index: 70;
   }
