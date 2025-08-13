@@ -90,4 +90,78 @@
       closeDrawer();
     }
   });
+
+  // ===== THEME TOGGLE (Light/Dark) with Monogram Button =====
+  function getSavedTheme() {
+    try {
+      return localStorage.getItem('cabanaTheme');
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function saveTheme(theme) {
+    try {
+      localStorage.setItem('cabanaTheme', theme);
+    } catch (_) {}
+  }
+
+  function getInitialTheme() {
+    const saved = getSavedTheme();
+    if (saved === 'dark' || saved === 'light') return saved;
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.setAttribute('data-theme', 'dark');
+    } else {
+      root.removeAttribute('data-theme');
+    }
+    saveTheme(theme);
+  }
+
+  // Insert monogram button to the far-left of the header brand as theme toggle
+  const headerContainer = qs('header.sticky-header > div');
+  if (headerContainer) {
+    const brandLink = qs('header.sticky-header a[href="/"]');
+    const themeBtn = document.createElement('button');
+    themeBtn.type = 'button';
+    themeBtn.className = 'theme-toggle';
+    const img = document.createElement('img');
+    img.src = '/assets/Images/CABANA-MONOGRAM-BLACK.png';
+    img.alt = '';
+    img.setAttribute('aria-hidden', 'true');
+    themeBtn.appendChild(img);
+
+    const current = getInitialTheme();
+    applyTheme(current);
+    themeBtn.setAttribute(
+      'aria-label',
+      current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+    );
+
+    themeBtn.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      themeBtn.setAttribute(
+        'aria-label',
+        next === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+      );
+    });
+
+    // Insert before the brand link when possible to keep logo at far-left
+    try {
+      if (brandLink && brandLink.parentNode) {
+        brandLink.parentNode.insertBefore(themeBtn, brandLink);
+      } else {
+        headerContainer.insertBefore(themeBtn, headerContainer.firstChild);
+      }
+    } catch (_) {
+      // Fallback: append at start of container
+      headerContainer.insertBefore(themeBtn, headerContainer.firstChild);
+    }
+  }
 })();

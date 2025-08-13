@@ -68,6 +68,22 @@
   --color-gray-900: #171717;
 }
 
+/* Dark theme variables */
+[data-theme='dark'] {
+  --color-black: #ffffff;
+  --color-white: #0b0b0b;
+  --color-gray-50: #131313;
+  --color-gray-100: #161616;
+  --color-gray-200: #1c1c1c;
+  --color-gray-300: #2a2a2a;
+  --color-gray-400: #3a3a3a;
+  --color-gray-500: #5a5a5a;
+  --color-gray-600: #7a7a7a;
+  --color-gray-700: #9a9a9a;
+  --color-gray-800: #c2c2c2;
+  --color-gray-900: #e6e6e6;
+}
+
 /* Color Utilities */
 .text-gold {
   color: var(--color-gold);
@@ -334,6 +350,41 @@ body {
   /* Fallback then modern viewport height to avoid iOS 100vh bug */
   min-height: 100vh;
   min-height: 100svh;
+}
+
+/* Header/drawer adjust for dark theme */
+[data-theme='dark'] .sticky-header,
+[data-theme='dark'] .mobile-drawer {
+  background: #0b0b0b;
+  color: #ffffff;
+}
+[data-theme='dark'] .mobile-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+[data-theme='dark'] .link-hover::after,
+[data-theme='dark'] .cabana-nav a::after {
+  background-color: var(--color-gold);
+}
+
+/* Theme toggle button styles - luxury, minimal */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  border-radius: 9999px;
+}
+.theme-toggle img {
+  width: 18px;
+  height: 18px;
+}
+[data-theme='dark'] .theme-toggle {
+  background: #111111;
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 /* ===========================
