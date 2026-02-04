@@ -1,8 +1,8 @@
-// File: /Users/joshcabana/Downloads/GROK-V.1CABANA-COLLECTION-OPUS-VSCODE-copy-2-main/app/terms-of-service/page.tsx
-import * as entry from '../../../../app/terms-of-service/page.js'
+// File: /Users/joshcabana/Downloads/GROK-V.1CABANA-COLLECTION-OPUS-VSCODE-copy-2-main/src/app/terms-of-service/page.tsx
+import * as entry from '../../../../src/app/terms-of-service/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
-type TEntry = typeof import('../../../../app/terms-of-service/page.js')
+type TEntry = typeof import('../../../../src/app/terms-of-service/page.js')
 
 type SegmentParams<T extends Object = any> = T extends Record<string, any>
   ? { [K in keyof T]: T[K] extends string ? string | string[] | undefined : never }

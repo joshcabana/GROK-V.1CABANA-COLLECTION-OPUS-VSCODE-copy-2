@@ -25,10 +25,10 @@
     ]
   },
   "include": [
-    "app",
-    "components",
-    "data",
-    "lib",
+    "src/app",
+    "src/components",
+    "src/data",
+    "src/lib",
     "next-env.d.ts",
     ".next/types/**/*.ts"
   ],

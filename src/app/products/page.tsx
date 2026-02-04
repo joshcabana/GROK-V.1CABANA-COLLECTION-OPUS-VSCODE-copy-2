@@ -8,16 +8,17 @@ export const metadata: Metadata = {
 };
 
 type ProductsPageProps = {
-  searchParams?: { query?: string; category?: string };
+  searchParams?: Promise<{ query?: string; category?: string }>;
 };
 
-export default function ProductsPage({ searchParams }: ProductsPageProps) {
+export default async function ProductsPage({ searchParams }: ProductsPageProps) {
+  const resolved = searchParams ? await searchParams : undefined;
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 md:px-8">
       <ProductsClient
         products={products}
-        initialQuery={searchParams?.query}
-        initialCategory={searchParams?.category}
+        initialQuery={resolved?.query}
+        initialCategory={resolved?.category}
       />
     </div>
   );
