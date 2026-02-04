@@ -8,7 +8,7 @@ module.exports = {
         "http://127.0.0.1:4173/",
         "http://127.0.0.1:4173/products/mens-boxer-brief-black.html"
       ],
-      settings: { preset: "mobile", chromeFlags: "--no-sandbox" }
+      settings: { preset: "perf", formFactor: "mobile", chromeFlags: "--no-sandbox" }
     },
     assert: {
       assertions: {

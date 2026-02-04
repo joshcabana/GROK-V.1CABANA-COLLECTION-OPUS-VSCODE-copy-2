@@ -66,7 +66,7 @@ async function main() {
     } catch (_) {}
   }
 
-  for (const f of ["manifest.json", "robots.txt", "sw.js", "offline.html", "404.html"]) {
+  for (const f of ["site.webmanifest", "sitemap.xml", "favicon.ico", "robots.txt", "sw.js", "offline.html", "404.html"]) {
     const srcFile = path.join(ROOT, f);
     try {
       await fs.access(srcFile);
