@@ -4,6 +4,10 @@
   "description": "CABANA Collection - Conscious Underwear Brand Website",
   "main": "index.html",
   "scripts": {
+    "build:html": "node scripts/build-html.cjs",
+    "build:css": "npx tailwindcss -c tailwind.config.js -i ./css/tailwind-input.css -o ./css/tailwind.css --minify",
+    "build": "npm run build:css && npm run build:html",
+    "serve:dist": "npx http-server dist -p 4173 -c-1",
     "start": "python3 -m http.server 8000",
     "serve": "python3 -m http.server 8000",
     "lint:js": "eslint . --ext .js",
@@ -11,35 +15,30 @@
     "lint:spell": "cspell --no-progress --no-must-find-files \"**/*.{html,css,js,json,md}\"",
     "format": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:html": "node scripts/build-html.cjs",
-    "serve:dist": "npx http-server dist -p 4173 -c-1",
     "dev": "npm run build && npm run serve:dist",
     "test:e2e": "playwright test",
     "lhci:ci": "lhci autorun --config=./lighthouserc.cjs",
-    "print:lhci": "node scripts/print-lhci-opportunities.cjs",
-    "build": "npm run build:css && npm run build:html"
+    "print:lhci": "node scripts/print-lhci-opportunities.cjs"
   },
-  "keywords": [
-    "underwear",
-    "sustainable",
-    "fashion",
-    "eco-friendly"
-  ],
+  "keywords": ["underwear", "sustainable", "fashion", "eco-friendly"],
   "author": "CABANA",
   "license": "ISC",
   "dependencies": {
     "sharp": "^0.34.3"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.0",
+    "@playwright/test": "^1.49.1",
     "autoprefixer": "^10.4.24",
     "cspell": "^8.19.4",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "http-server": "^14.1.1",
     "postcss": "^8.5.6",
     "prettier": "^3.3.3",
     "stylelint": "^16.8.1",
     "stylelint-config-standard": "^36.0.1",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^3.4.17"
   }
 }
