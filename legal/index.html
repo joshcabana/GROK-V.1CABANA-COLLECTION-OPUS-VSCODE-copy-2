@@ -1,50 +1,106 @@
 <!doctype html>
 <html lang="en-AU">
   <head>
-    <meta charset="utf-8" />
-    <title>Cabana Collections — Legal & Policies</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- UPDATED: Open Graph (general page) -->
+    <meta property="og:title" content="Legal & Policies | CABANA" />
+    <meta
+      property="og:description"
+      content="Central index of CABANA legal documents and policy information for Australian customers."
+    />
+    <meta property="og:url" content="https://cabanacollections.com.au/legal/index.html" />
+    <meta
+      property="og:image"
+      content="https://cabanacollections.com.au/assets/Images/social-share-1200x630.jpg"
+    />
+    <meta property="og:type" content="website" />
+    <!-- UPDATED: canonical -->
+    <link rel="canonical" href="https://cabanacollections.com.au/legal/index.html" />
+    <!-- UPDATED: WebPage JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "url": "https://cabanacollections.com.au/legal/index.html",
+        "name": "Legal & Policies | CABANA",
+        "description": "Central index of CABANA legal documents and policy information for Australian customers."
+      }
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Legal & Policies | CABANA</title>
     <meta
       name="description"
-      content="Legal information and policies for Cabana Collections (Australia)."
+      content="CABANA legal and policy index. Find our Terms of Service, Privacy Policy, Return Policy, and Shipping Policy."
     />
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Global Styles -->
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="/css/mobile-fixes.css" />
+
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        padding: 2rem;
-        background-color: #fafafa;
-        color: #222;
+      /* Custom styles */
+      .font-heading {
+        font-family: 'Playfair Display', serif;
       }
-      h1 {
-        font-size: 1.8rem;
+      .font-sans {
+        font-family: 'Inter', sans-serif;
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Letter spacing for luxury feel */
+      .tracking-luxury {
+        letter-spacing: 0.3em;
+      }
+
+      /* Legal content styling */
+      .legal-content h2 {
+        margin-top: 2rem;
         margin-bottom: 1rem;
       }
-      ul {
-        list-style: none;
-        padding: 0;
-      }
-      li {
+
+      .legal-content h3 {
+        margin-top: 1.5rem;
         margin-bottom: 0.75rem;
       }
-      a {
-        color: #000;
-        text-decoration: underline;
+
+      .legal-content p,
+      .legal-content li {
+        line-height: 1.75;
+        color: #4b5563;
       }
-      a:hover {
-        text-decoration: none;
-      }
-      .updated {
-        font-size: 0.85rem;
-        color: #666;
+
+      .legal-content ul,
+      .legal-content ol {
+        margin-left: 1.5rem;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
       }
     </style>
   </head>
-<<<<<<< Updated upstream
-  <body>
+  <body
+    class="bg-white text-black font-sans pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
+  >
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-black text-white px-4 py-2 z-50"
+    >
+      Skip to main content
+    </a>
+
     <!-- New Sticky Header + Mobile Drawer -->
     <header class="sticky-header" role="banner">
       <div class="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
@@ -65,53 +121,6 @@
         <div class="flex items-center gap-4">
           <a href="/cart.html" aria-label="Cart" class="hidden md:inline">🛒</a>
           <button class="md:hidden p-2" aria-label="Open menu" data-mobile-open>
-=======
-  <body class="pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
-    <!-- Navigation -->
-    <nav
-      class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-200 pt-[env(safe-area-inset-top)]"
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      <div class="container mx-auto px-6 md:px-12 py-4">
-        <div class="flex justify-between items-center">
-          <!-- Logo -->
-          <a href="/" class="font-heading text-2xl tracking-luxury cabana-logo-nav">CABANA</a>
-
-          <!-- Navigation Links -->
-          <div class="hidden md:flex items-center space-x-10">
-            <a href="/" class="link-hover text-xs tracking-widest font-medium">HOME</a>
-            <a
-              href="/products/mens-boxer-brief-black.html"
-              class="link-hover text-xs tracking-widest font-medium"
-              >MEN</a
-            >
-            <a
-              href="/products/womens-set.html"
-              class="link-hover text-xs tracking-widest font-medium"
-              >WOMEN</a
-            >
-            <a href="/about.html" class="link-hover text-xs tracking-widest font-medium">ABOUT</a>
-            <a href="/impact.html" class="link-hover text-xs tracking-widest font-medium">IMPACT</a>
-            <a href="/contact.html" class="link-hover text-xs tracking-widest font-medium"
-              >CONTACT</a
-            >
-          </div>
-
-          <!-- Mobile Menu Button -->
-          <button
-            class="md:hidden p-3"
-            id="mobileMenuBtn"
-            aria-label="Toggle menu"
-            title="Toggle menu"
-          >
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
@@ -143,47 +152,207 @@
         <a href="/cart.html">Cart</a>
       </nav>
     </aside>
-    <main class="container mx-auto px-6 md:px-12 pt-24">
-      <h1>Legal & Policies</h1>
-      <p class="updated">Last updated: August 9, 2025</p>
-      <p>
-        Here you’ll find all of Cabana Collections’ key legal documents and policies. We encourage
-        you to read these carefully before purchasing or using our website.
-      </p>
-      <ul>
-        <li>
-          <a href="/terms-of-service.html">Terms of Service</a><br />
-          <span class="updated"
-            >The rules for using our website and purchasing from us, including your rights under
-            Australian Consumer Law.</span
-          >
-        </li>
-        <li>
-          <a href="/return-policy.html">Return Policy</a><br />
-          <span class="updated"
-            >Details on returns, refunds, and remedies for faulty goods under the ACL.</span
-          >
-        </li>
-        <li>
-          <a href="/shipping-policy.html">Shipping Policy</a><br />
-          <span class="updated"
-            >Information about our delivery methods, timeframes, costs, and Authority to Leave
-            options.</span
-          >
-        </li>
-        <li>
-          <a href="/privacy-policy.html">Privacy Policy</a><br />
-          <span class="updated"
-            >How we collect, use, and protect your personal information in line with Australian
-            privacy law.</span
-          >
-        </li>
-      </ul>
-      <p>
-        For questions about any of these documents, email us at
-        <a href="mailto:Cabana.Collections2025@gmail.com">Cabana.Collections2025@gmail.com</a>.
-      </p>
+
+    <main id="main-content" class="pt-24 pb-16">
+      <div class="container mx-auto px-6 md:px-12">
+        <div class="max-w-4xl mx-auto">
+          <h1 class="font-heading text-4xl md:text-5xl mb-6">Legal & Policies</h1>
+          <p class="text-sm text-gray-500 mb-8">Last updated: 4 February 2026</p>
+
+          <div class="legal-content">
+            <p>
+              This page is the central index for Cabana Collections' legal documents and policy
+              information. These documents apply to Australian customers and sit alongside the
+              Terms of Service.
+            </p>
+
+            <h2 class="font-heading text-2xl">Document Index</h2>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <a
+                href="/terms-of-service.html"
+                class="border border-gray-200 rounded-lg p-4 hover:border-black transition-colors"
+              >
+                <h3 class="font-heading text-lg">Terms of Service</h3>
+                <p class="text-sm text-gray-600">
+                  The rules for using our website and buying products, including key rights under
+                  Australian Consumer Law.
+                </p>
+              </a>
+              <a
+                href="/privacy-policy.html"
+                class="border border-gray-200 rounded-lg p-4 hover:border-black transition-colors"
+              >
+                <h3 class="font-heading text-lg">Privacy Policy</h3>
+                <p class="text-sm text-gray-600">
+                  How we collect, use, and protect personal information, and how to contact us
+                  about privacy.
+                </p>
+              </a>
+              <a
+                href="/return-policy.html"
+                class="border border-gray-200 rounded-lg p-4 hover:border-black transition-colors"
+              >
+                <h3 class="font-heading text-lg">Return Policy</h3>
+                <p class="text-sm text-gray-600">
+                  Returns, refunds, exchanges, and remedies for faulty goods consistent with the
+                  ACL.
+                </p>
+              </a>
+              <a
+                href="/shipping-policy.html"
+                class="border border-gray-200 rounded-lg p-4 hover:border-black transition-colors"
+              >
+                <h3 class="font-heading text-lg">Shipping Policy</h3>
+                <p class="text-sm text-gray-600">
+                  Dispatch times, delivery options, Authority to Leave, and shipping costs for
+                  Australia.
+                </p>
+              </a>
+            </div>
+
+            <h2 class="font-heading text-2xl">Australian Consumer Law (ACL) — Key Rights</h2>
+            <p>
+              Consumer guarantees apply automatically to goods and services sold in Australia and
+              cannot be excluded or reduced by store policies or “no refunds” statements.
+            </p>
+            <ul class="list-disc">
+              <li>
+                If a product has a major problem, you can choose a refund or replacement.
+              </li>
+              <li>
+                If a product has a minor problem, the business must repair it for free. If it can’t
+                be repaired in a reasonable time, you can choose a refund or replacement.
+              </li>
+              <li>
+                If a service has a major problem, you can cancel the service and receive a refund
+                for the unused portion or compensation for its reduced value.
+              </li>
+              <li>
+                Change‑of‑mind returns are not required under the ACL, but if a business offers a
+                change‑of‑mind policy, it must follow it.
+              </li>
+              <li>
+                Consumer guarantees are separate from warranties. Warranties are extra promises and
+                do not remove ACL rights.
+              </li>
+            </ul>
+
+            <h2 class="font-heading text-2xl">Before Escalating a Complaint</h2>
+            <p>
+              The first step is to contact the business that sold the product or service to explain
+              the issue and the outcome you want. Many issues can be resolved quickly at this step.
+            </p>
+
+            <h2 class="font-heading text-2xl">Access Canberra (ACT Consumer Help)</h2>
+            <p>
+              Access Canberra can help with consumer issues when:
+            </p>
+            <ul class="list-disc">
+              <li>You live in the ACT (regardless of where the business is in Australia).</li>
+              <li>
+                You do not live in the ACT but have a dispute with an ACT agent, motor vehicle dealer
+                or motor vehicle repairer.
+              </li>
+            </ul>
+            <p>
+              Access Canberra can provide consumer advice and help resolve disputes, but cannot give
+              legal advice, order compensation, or require a business to fix a problem — only a court
+              or tribunal can do that.
+            </p>
+
+            <h2 class="font-heading text-2xl">ACAT (ACT Civil & Administrative Tribunal)</h2>
+            <p>
+              ACAT is an independent tribunal in the ACT. It hears civil disputes, including claims
+              about contracts, damages, debt, goods, nuisance, trespass and the Australian Consumer
+              Law. ACAT can hear civil claims up to $25,000 (and in some circumstances, higher).
+              ACAT staff can provide procedural information but not legal advice.
+            </p>
+
+            <h2 class="font-heading text-2xl">Privacy (Privacy Act 1988 & APPs)</h2>
+            <p>
+              The Privacy Act 1988 (Cth) regulates how personal information is handled. It applies
+              to Australian Government agencies and private sector organisations with an annual
+              turnover of more than $3 million, as well as some other organisations. The Act includes
+              13 Australian Privacy Principles (APPs) that cover collection, use, disclosure, and
+              security of personal information.
+            </p>
+            <p>
+              The Notifiable Data Breaches (NDB) scheme requires certain organisations to notify the
+              OAIC and affected individuals if a data breach is likely to cause serious harm.
+            </p>
+
+            <h2 class="font-heading text-2xl">Marketing Communications (Spam Act 2003)</h2>
+            <p>
+              Commercial electronic messages must include a clear unsubscribe option. Unsubscribe
+              requests must be actioned within 5 working days, be free of charge, and remain
+              functional for at least 30 days after the message is sent. Unsubscribing must not
+              require extra personal information or an account login.
+            </p>
+
+            <h2 class="font-heading text-2xl">Payments & Security</h2>
+            <p>
+              Payments are processed by trusted third‑party providers. Your payment details are
+              handled by those providers and subject to their terms and privacy practices.
+            </p>
+
+            <h2 class="font-heading text-2xl">Official Resources</h2>
+            <ul class="list-disc">
+              <li>
+                <a class="underline" href="https://www.accc.gov.au/consumers/consumer-rights-guarantees/consumer-guarantees">
+                  ACCC – Consumer guarantees
+                </a>
+              </li>
+              <li>
+                <a class="underline" href="https://www.accc.gov.au/business/problem-with-a-product-or-service-you-sold/repair-replace-refund-cancel">
+                  ACCC – Repair, replace, refund, cancel
+                </a>
+              </li>
+              <li>
+                <a class="underline" href="https://www.accesscanberra.act.gov.au/consumer-rights/get-help-with-a-consumer-issue">
+                  Access Canberra – Get help with a consumer issue
+                </a>
+              </li>
+              <li>
+                <a class="underline" href="https://www.acat.act.gov.au/about-acat">ACAT – About ACAT</a>
+              </li>
+              <li>
+                <a class="underline" href="https://www.acat.act.gov.au/case-types/civil-disputes">
+                  ACAT – Civil disputes
+                </a>
+              </li>
+              <li>
+                <a class="underline" href="https://www.oaic.gov.au/privacy/privacy-legislation/the-privacy-act">
+                  OAIC – The Privacy Act
+                </a>
+              </li>
+              <li>
+                <a class="underline" href="https://www.ag.gov.au/rights-and-protections/privacy">
+                  Attorney‑General’s Department – Privacy
+                </a>
+              </li>
+              <li>
+                <a class="underline" href="https://www.acma.gov.au/avoid-sending-spam">
+                  ACMA – Avoid sending spam
+                </a>
+              </li>
+            </ul>
+
+            <h2 class="font-heading text-2xl">Questions or Requests</h2>
+            <ul class="list-none">
+              <li><strong>Email:</strong> Cabana.Collections2025@gmail.com</li>
+              <li><strong>Website:</strong> cabanacollections.com.au</li>
+              <li><strong>Location:</strong> Canberra ACT, Australia</li>
+              <li><strong>ABN:</strong> 91302503433</li>
+            </ul>
+
+            <p class="text-xs text-gray-400 mt-8">
+              This page is general information only and does not provide legal advice.
+            </p>
+          </div>
+        </div>
+      </div>
     </main>
+
     <script src="/js/nav.js" defer></script>
   </body>
 </html>
