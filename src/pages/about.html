@@ -155,6 +155,13 @@
     </style>
   </head>
   <body class="bg-white text-black font-sans">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-black text-white px-4 py-2 z-50"
+    >
+      Skip to main content
+    </a>
+
     <style>
       /* moved from inline style to satisfy linter */
       .about-green-bg {
@@ -220,6 +227,7 @@
         <a href="/cart.html">Cart</a>
       </nav>
     </aside>
+    <div id="main-content" tabindex="-1"></div>
 
     <!-- Hero Section with Video Background -->
     <section class="pt-24 pb-16 min-h-[70vh] flex items-center relative overflow-hidden">

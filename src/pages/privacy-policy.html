@@ -105,6 +105,13 @@
   <body
     class="bg-white text-black font-sans pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
   >
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-black text-white px-4 py-2 z-50"
+    >
+      Skip to main content
+    </a>
+
     <!-- Skip to content for accessibility -->
     <a
       href="#policy-content"
@@ -163,6 +170,7 @@
         <a href="/cart.html">Cart</a>
       </nav>
     </aside>
+    <div id="main-content" tabindex="-1"></div>
 
     <!-- Legal Content -->
     <section class="pt-24 pb-16" id="policy-content">

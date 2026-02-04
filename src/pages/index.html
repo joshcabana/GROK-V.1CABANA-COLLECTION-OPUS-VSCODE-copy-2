@@ -659,6 +659,13 @@
   <body
     class="lv-page bg-white text-black font-body gradient-champagne-sage luxe-texture pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
   >
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-black text-white px-4 py-2 z-50"
+    >
+      Skip to main content
+    </a>
+
     <!-- Impact Banner -->
     <div class="impact-banner fixed top-0 left-0 right-0 z-[60] py-2" id="impactBanner">
       <div class="container mx-auto px-6 flex items-center justify-between">
@@ -685,26 +692,7 @@
     </div>
 
     <!-- Skip to content link for accessibility -->
-    <a
-      href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-black text-white px-4 py-2 z-50"
-      >Skip to main content</a
-    >
-
-    <!-- New Sticky Header + Mobile Drawer -->
-    <!-- @include:header -->
-    <div class="mobile-overlay" data-mobile-overlay></div>
-    <aside
-      class="mobile-drawer"
-      data-mobile-drawer
-      aria-hidden="true"
-      role="dialog"
-      aria-label="Mobile Menu"
-    >
-      <button class="drawer-close" aria-label="Close menu" data-mobile-close>&times;</button>
-      <nav class="drawer-nav mt-6" aria-label="Mobile">
-        <a href="/" aria-current="page">Home</a>
-        <a href="/products/mens-boxer-brief-black.html">Men</a>
+<a href="/products/mens-boxer-brief-black.html">Men</a>
         <a href="/products/womens-set.html">Women</a>
         <a href="/about.html">About</a>
         <a href="/impact.html">Impact</a>

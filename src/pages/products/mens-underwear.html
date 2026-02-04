@@ -547,6 +547,13 @@
   <body
     class="bg-white text-black font-body pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
   >
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-black text-white px-4 py-2 z-50"
+    >
+      Skip to main content
+    </a>
+
     <script>
       // Permanent redirect to new product URL
       (function () {
@@ -632,7 +639,8 @@
 
     <!-- Product Section -->
     <!-- Product Section -->
-    <main id="product-details" class="lv-page py-8 md:py-12 bg-luxury-white">
+<div id="main-content" tabindex="-1"></div>
+<main id="product-details" class="lv-page py-8 md:py-12 bg-luxury-white">
       <div class="container mx-auto px-6 md:px-12">
         <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto">
           <!-- Image Gallery -->
