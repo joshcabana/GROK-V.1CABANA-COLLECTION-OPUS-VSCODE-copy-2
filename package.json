@@ -4,21 +4,10 @@
   "description": "CABANA Collection - Conscious Underwear Brand Website",
   "main": "index.html",
   "scripts": {
-    "build:html": "node scripts/build-html.cjs",
-    "build:css": "npx tailwindcss -c tailwind.config.js -i ./css/tailwind-input.css -o ./css/tailwind.css --minify",
-    "build": "npm run build:css && npm run build:html",
-    "serve:dist": "npx http-server dist -p 4173 -c-1",
-    "start": "python3 -m http.server 8000",
-    "serve": "python3 -m http.server 8000",
-    "lint:js": "eslint . --ext .js",
-    "lint:css": "stylelint \"**/*.css\"",
-    "lint:spell": "cspell --no-progress --no-must-find-files \"**/*.{html,css,js,json,md}\"",
-    "format": "prettier --write .",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npm run build && npm run serve:dist",
-    "test:e2e": "playwright test",
-    "lhci:ci": "lhci autorun --config=./lighthouserc.cjs",
-    "print:lhci": "node scripts/print-lhci-opportunities.cjs"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "keywords": [
     "underwear",
@@ -29,7 +18,10 @@
   "author": "CABANA",
   "license": "ISC",
   "dependencies": {
-    "sharp": "^0.34.3"
+    "sharp": "^0.34.3",
+    "next": "^15.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.0",
@@ -45,6 +37,11 @@
     "stylelint": "^16.8.1",
     "stylelint-config-standard": "^36.0.1",
     "tailwindcss": "^3.4.17",
-    "tslib": "^2.8.1"
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.3",
+    "@types/node": "^20.14.12",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "eslint-config-next": "^15.2.0"
   }
 }
