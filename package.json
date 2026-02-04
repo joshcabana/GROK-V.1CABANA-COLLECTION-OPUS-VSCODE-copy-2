@@ -20,7 +20,12 @@
     "lhci:ci": "lhci autorun --config=./lighthouserc.cjs",
     "print:lhci": "node scripts/print-lhci-opportunities.cjs"
   },
-  "keywords": ["underwear", "sustainable", "fashion", "eco-friendly"],
+  "keywords": [
+    "underwear",
+    "sustainable",
+    "fashion",
+    "eco-friendly"
+  ],
   "author": "CABANA",
   "license": "ISC",
   "dependencies": {
@@ -39,6 +44,7 @@
     "prettier": "^3.3.3",
     "stylelint": "^16.8.1",
     "stylelint-config-standard": "^36.0.1",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "tslib": "^2.8.1"
   }
 }
