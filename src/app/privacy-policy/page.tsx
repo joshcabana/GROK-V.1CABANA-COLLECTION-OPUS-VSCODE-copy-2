@@ -12,108 +12,151 @@ export default function PrivacyPolicyPage() {
       <h1 className="font-heading text-4xl">Your privacy matters.</h1>
       <p className="text-sm text-black/60">Last updated: 4 February 2026</p>
 
-      <p className="text-base text-black/60">
-        CABANA Collections (we, us, our) is committed to protecting your privacy and complying with
-        the Australian Privacy Act 1988 and the Australian Privacy Principles (APPs). This policy
-        explains how we collect, use, disclose, and protect personal information when you use our
-        website or purchase from us.
-      </p>
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">Who we are</h2>
+        <p className="text-sm text-black/60">
+          CABANA Collections (we, us, our) is an Australian business based in Canberra, ACT. We
+          comply with the Privacy Act 1988 (Cth) and the Australian Privacy Principles (APPs).
+        </p>
+      </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Personal information we collect</h2>
+        <h2 className="font-heading text-2xl">What this policy covers</h2>
+        <p className="text-sm text-black/60">
+          This policy explains how we collect, use, disclose, store, and protect personal
+          information when you visit our website, place an order, or contact us.
+        </p>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">Information we collect</h2>
         <ul className="space-y-2 text-sm text-black/60">
-          <li>Identity and contact details, such as your name, email address, phone number, and delivery address.</li>
-          <li>Order details including products purchased, order history, and delivery preferences.</li>
-          <li>Payment information handled by our payment providers (we do not store full card details).</li>
+          <li>Identity and contact details (name, email, phone, delivery address).</li>
+          <li>Order information (products purchased, order history, delivery preferences).</li>
+          <li>Payment information handled securely by third-party payment providers.</li>
           <li>Customer support communications and feedback.</li>
-          <li>Technical information such as IP address, device type, and browsing activity via cookies.</li>
+          <li>Technical data (IP address, device, browser, cookie data, analytics).</li>
         </ul>
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">How we collect information</h2>
-        <p className="text-sm text-black/60">
-          We collect information directly from you when you place an order, subscribe to updates, or
-          contact us. We also collect limited technical data automatically through cookies and
-          analytics tools to improve our website experience.
-        </p>
-      </div>
-
-      <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">How we use information</h2>
+        <h2 className="font-heading text-2xl">How we use your information</h2>
         <ul className="space-y-2 text-sm text-black/60">
-          <li>Process and deliver your orders, including shipping and returns.</li>
+          <li>Process and deliver orders, including shipping and returns.</li>
+          <li>Send order confirmations, shipping updates, and service notifications.</li>
           <li>Provide customer support and respond to enquiries.</li>
-          <li>Send service-related communications and order updates.</li>
-          <li>With your consent, send marketing and product updates (you can opt out at any time).</li>
           <li>Improve our website, products, and customer experience.</li>
+          <li>Send marketing updates if you opt in (you can unsubscribe anytime).</li>
+          <li>Prevent fraud and comply with legal obligations.</li>
         </ul>
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Disclosure of personal information</h2>
+        <h2 className="font-heading text-2xl">When we disclose information</h2>
         <p className="text-sm text-black/60">
-          We may disclose personal information to trusted service providers who help us operate our
-          business, such as payment processors, shipping carriers, IT providers, and marketing
-          platforms. We only share information necessary to perform those services and require them
-          to protect your information.
+          We do not sell personal information. We may disclose information to service providers
+          such as payment processors, shipping carriers, IT providers, and marketing platforms
+          solely to perform services for us.
         </p>
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Overseas disclosures</h2>
+        <h2 className="font-heading text-2xl">Overseas disclosures (APP 8)</h2>
         <p className="text-sm text-black/60">
-          Some service providers may store data outside Australia. When this occurs, we take
-          reasonable steps to ensure they handle your information in line with Australian privacy
-          requirements.
+          Some providers may store data outside Australia. When this occurs, we take reasonable
+          steps to ensure they handle your information in line with Australian privacy requirements.
         </p>
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Security</h2>
+        <h2 className="font-heading text-2xl">Security (APP 11)</h2>
         <p className="text-sm text-black/60">
-          We use administrative and technical safeguards to protect your information. If a data
-          breach occurs that is likely to result in serious harm, we will notify affected individuals
+          We implement technical and organisational safeguards to protect your information. Access
+          is limited to authorised personnel and trusted service providers.
+        </p>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">Data breaches (NDB scheme)</h2>
+        <p className="text-sm text-black/60">
+          If a data breach is likely to result in serious harm, we will notify affected individuals
           and the Office of the Australian Information Commissioner (OAIC) as required by law.
         </p>
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Access and correction</h2>
+        <h2 className="font-heading text-2xl">Retention and deletion</h2>
         <p className="text-sm text-black/60">
-          You can request access to or correction of your personal information by contacting us. We
-          will respond within a reasonable timeframe.
+          We keep personal information only as long as needed for the purposes outlined in this
+          policy or to meet legal requirements, after which it is securely deleted or de-identified.
         </p>
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Marketing and communications</h2>
+        <h2 className="font-heading text-2xl">Your choices and rights</h2>
+        <ul className="space-y-2 text-sm text-black/60">
+          <li>Request access to or correction of your personal information.</li>
+          <li>Opt out of marketing communications at any time.</li>
+          <li>Manage cookie preferences through your browser settings.</li>
+        </ul>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">Marketing & the Spam Act</h2>
         <p className="text-sm text-black/60">
-          We only send marketing communications if you opt in or if permitted by law. You can
-          unsubscribe at any time using the link in our emails or by contacting us. We follow the
-          Spam Act 2003 requirements for commercial electronic messages.
+          We only send marketing communications with your consent or as permitted by law. Every
+          marketing email includes an unsubscribe link.
+        </p>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">Cookies & analytics</h2>
+        <p className="text-sm text-black/60">
+          We use cookies and analytics tools (such as Google Analytics) to understand site
+          performance and improve your experience. You can disable cookies in your browser, though
+          some functionality may be affected.
+        </p>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">Third-party links</h2>
+        <p className="text-sm text-black/60">
+          Our website may link to third-party sites. We are not responsible for their privacy
+          practices and encourage you to review their policies.
+        </p>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">Children</h2>
+        <p className="text-sm text-black/60">
+          Our website is not directed at children under 16. We do not knowingly collect personal
+          information from children.
+        </p>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">Changes to this policy</h2>
+        <p className="text-sm text-black/60">
+          We may update this policy from time to time. The latest version will always be available
+          on our website.
+        </p>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">Contact us</h2>
+        <p className="text-sm text-black/60">
+          For privacy questions, contact {process.env.NEXT_PUBLIC_SUPPORT_EMAIL ??
+            'support@cabanacollections.com.au'}.
         </p>
       </div>
 
       <div className="section-card space-y-4 p-6">
         <h2 className="font-heading text-2xl">Complaints</h2>
         <p className="text-sm text-black/60">
-          If you have a privacy concern, please contact us first so we can work to resolve it. If
-          you are not satisfied, you can lodge a complaint with the OAIC.
+          If you believe we have breached the APPs, please contact us first. If you are not satisfied
+          with our response, you can lodge a complaint with the OAIC at www.oaic.gov.au.
         </p>
-        <a
-          className="text-sm text-black/60"
-          href="https://www.oaic.gov.au/privacy/your-privacy-rights"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Learn more about your privacy rights on the OAIC website.
-        </a>
       </div>
-
-      <p className="text-sm text-black/60">
-        Contact us at {process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? 'support@cabanacollections.com.au'}.
-      </p>
     </div>
   );
 }

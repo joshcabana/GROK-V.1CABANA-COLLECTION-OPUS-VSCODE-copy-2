@@ -10,6 +10,8 @@ import type { Metadata } from 'next';
 import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 import { CartProvider } from './providers';
+import CookieBanner from '../components/CookieBanner';
+import { siteMetadata } from './metadata';
 
 const organizationJsonLd = {
   '@context': 'https://schema.org',
@@ -60,21 +62,19 @@ export const metadata: Metadata = {
     default: 'CABANA | Sustainable Australian Underwear',
     template: '%s | CABANA',
   },
-  description:
-    'CABANA is a sustainable Australian underwear brand creating elevated essentials with transparent impact and modern craftsmanship.',
-  metadataBase: new URL('https://cabanacollections.com.au'),
+  description: siteMetadata.description,
+  metadataBase: new URL(siteMetadata.url),
   manifest: '/site.webmanifest',
   icons: {
     icon: '/favicon.ico',
     apple: '/assets/Images/apple-touch-icon.png',
   },
   openGraph: {
-    title: 'CABANA | Sustainable Australian Underwear',
-    description:
-      'CABANA is a sustainable Australian underwear brand creating elevated essentials with transparent impact and modern craftsmanship.',
-    url: 'https://cabanacollections.com.au',
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    url: siteMetadata.url,
     siteName: 'CABANA',
-    images: ['/assets/Images/social-share-1200x630.jpg'],
+    images: [siteMetadata.ogImage],
     type: 'website',
     locale: 'en_AU',
   },
@@ -106,6 +106,7 @@ export default function RootLayout({
             {children}
           </main>
           <SiteFooter />
+          <CookieBanner />
         </CartProvider>
       </body>
     </html>

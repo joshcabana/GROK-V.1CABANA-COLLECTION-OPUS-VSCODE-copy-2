@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { navLinks } from './navLinks';
 import { useCart } from '../app/providers';
 import MobileNav from './MobileNav';
+import SiteSearch from './SiteSearch';
 
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -37,14 +38,7 @@ export default function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-4 md:flex">
-          <form action="/products" className="relative">
-            <input
-              type="search"
-              name="query"
-              placeholder="Search products"
-              className="w-44 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-black/40"
-            />
-          </form>
+          <SiteSearch className="relative" />
           <Link href="/cart" className="relative rounded-full border border-black/10 bg-white px-4 py-2 text-sm">
             Cart
             {itemCount > 0 && (
