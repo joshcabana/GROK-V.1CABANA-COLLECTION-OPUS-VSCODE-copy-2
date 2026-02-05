@@ -169,6 +169,7 @@ TEMP_DIR=$(mktemp -d)
 TARBALL="$TEMP_DIR/project.tgz"
 STAGING_DIR="$TEMP_DIR/staging"
 CLEANUP_TEMP=true
+MAX_SIZE="${CABANA_DEPLOY_MAX_SIZE:-5m}"
 
 cleanup() {
     if [ "$CLEANUP_TEMP" = true ]; then
@@ -199,6 +200,7 @@ elif [ -d "$INPUT_PATH" ]; then
     mkdir -p "$STAGING_DIR"
     echo "Staging project files..." >&2
     rsync -a \
+        --max-size="$MAX_SIZE" \
         --exclude 'node_modules' \
         --exclude '.git' \
         --exclude '.env' \
