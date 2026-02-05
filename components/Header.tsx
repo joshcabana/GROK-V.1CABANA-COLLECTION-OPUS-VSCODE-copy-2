@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingBag } from 'lucide-react'
+import { Menu, ShoppingBag, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useCartStore } from '@/lib/store'
 import { cn } from '@/lib/utils'
@@ -16,6 +16,7 @@ export default function Header() {
   const navLogoRef = useRef<HTMLDivElement | null>(null)
   const overlayRef = useRef<HTMLDivElement | null>(null)
   const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
     let raf = 0
@@ -100,18 +101,51 @@ export default function Header() {
               Terms
             </Link>
           </nav>
-          <button
-            onClick={openDrawer}
-            className="relative rounded-full border border-[#d2d2d7] p-2"
-            aria-label="Open cart"
-          >
-            <ShoppingBag className="h-4 w-4" />
-            {itemCount > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#1d1d1f] px-1 text-[10px] font-semibold text-white">
-                {itemCount}
-              </span>
-            )}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setMobileOpen((open) => !open)}
+              className="rounded-full border border-[#d2d2d7] p-2 md:hidden"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
+            >
+              {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
+            <button
+              onClick={openDrawer}
+              className="relative rounded-full border border-[#d2d2d7] p-2"
+              aria-label="Open cart"
+            >
+              <ShoppingBag className="h-4 w-4" />
+              {itemCount > 0 && (
+                <span className="absolute -right-2 -top-2 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#1d1d1f] px-1 text-[10px] font-semibold text-white">
+                  {itemCount}
+                </span>
+              )}
+            </button>
+          </div>
+        </div>
+        <div
+          id="mobile-nav"
+          className={cn(
+            'md:hidden overflow-hidden transition-[max-height,opacity] duration-200 motion-reduce:transition-none',
+            mobileOpen ? 'max-h-64 opacity-100 border-t border-[#d2d2d7]' : 'max-h-0 opacity-0'
+          )}
+        >
+          <nav className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-3 text-xs uppercase tracking-[0.2em] text-[#1d1d1f]">
+            <Link href="/" className="py-2" onClick={() => setMobileOpen(false)}>
+              Home
+            </Link>
+            <Link href="/products" className="py-2" onClick={() => setMobileOpen(false)}>
+              Products
+            </Link>
+            <Link href="/privacy" className="py-2" onClick={() => setMobileOpen(false)}>
+              Privacy
+            </Link>
+            <Link href="/terms" className="py-2" onClick={() => setMobileOpen(false)}>
+              Terms
+            </Link>
+          </nav>
         </div>
       </header>
     </>

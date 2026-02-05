@@ -15,6 +15,7 @@ export default function HomePage() {
             alt={heroImage.alt}
             sizes={HERO_SIZES}
             priority
+            fetchPriority="high"
             className="absolute inset-0"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/20 to-white/80" />

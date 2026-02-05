@@ -14,6 +14,7 @@ type SafeImageProps = {
   imageClassName?: string
   sizes?: string
   priority?: boolean
+  fetchPriority?: 'high' | 'low' | 'auto'
   fill?: boolean
   width?: number
   height?: number
@@ -27,6 +28,7 @@ export default function SafeImage({
   imageClassName,
   sizes,
   priority,
+  fetchPriority,
   fill = true,
   width,
   height,
@@ -51,6 +53,7 @@ export default function SafeImage({
         height={fill ? undefined : height}
         sizes={sizes}
         priority={priority}
+        fetchPriority={fetchPriority}
         className={cn(
           'h-full w-full object-cover transition-opacity duration-300 motion-reduce:transition-none',
           imageClassName,
