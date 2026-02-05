@@ -1,15 +1,8 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import CartDrawer from '@/components/CartDrawer'
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   title: 'CABANA · Sustainable Underwear',
@@ -18,11 +11,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased bg-[#f5f5f7] text-[#1d1d1f]`}>
+    <html lang="en-AU">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        />
+      </head>
+      <body className="bg-stone text-ink font-body antialiased">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <Header />
         <CartDrawer />
-        <main>{children}</main>
+        <main id="main-content" className="min-h-[60vh]">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

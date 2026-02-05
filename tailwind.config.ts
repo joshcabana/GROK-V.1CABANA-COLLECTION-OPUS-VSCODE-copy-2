@@ -4,8 +4,18 @@ const config: Config = {
   content: ['./app/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
+      colors: {
+        ink: '#1a1a1a',
+        stone: '#f6f3ef',
+        sand: '#efe9e2',
+        gold: '#d4af37',
+        white: '#ffffff',
+        sage: '#9caf88',
+      },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        body: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        heading: ['var(--font-heading)', 'serif'],
       },
       keyframes: {
         shake: {
@@ -21,6 +31,9 @@ const config: Config = {
       animation: {
         shake: 'shake 0.5s ease-in-out',
         shimmer: 'shimmer 1.5s infinite',
+      },
+      boxShadow: {
+        soft: '0 20px 40px rgba(15, 15, 15, 0.08)',
       },
     },
   },

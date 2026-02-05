@@ -169,7 +169,8 @@ TEMP_DIR=$(mktemp -d)
 TARBALL="$TEMP_DIR/project.tgz"
 STAGING_DIR="$TEMP_DIR/staging"
 CLEANUP_TEMP=true
-MAX_SIZE="${CABANA_DEPLOY_MAX_SIZE:-1m}"
+# Default to a larger asset cap so production image sets are not dropped.
+MAX_SIZE="${CABANA_DEPLOY_MAX_SIZE:-50m}"
 
 cleanup() {
     if [ "$CLEANUP_TEMP" = true ]; then

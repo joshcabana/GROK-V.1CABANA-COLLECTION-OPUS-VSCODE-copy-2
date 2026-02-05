@@ -25,8 +25,8 @@ export interface Product {
 }
 
 export const heroImage = {
-  url: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&w=1920&q=80',
-  alt: 'Soft modal fabric texture in warm natural light',
+  url: '/assets/Images/HERO-BANNER.webp',
+  alt: 'CABANA modal underwear in a soft natural palette',
 }
 
 export const products: Product[] = [
@@ -44,27 +44,27 @@ export const products: Product[] = [
     ],
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-BOXERS-34.png',
         alt: 'Black modal boxer brief front view on minimal white background',
       },
       {
-        url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-BOXERS-FRONT.png',
         alt: 'Close-up of premium modal fabric texture showing soft weave',
       },
       {
-        url: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-BOXERS-BACK.png',
         alt: 'Folded underwear stack in minimal packaging',
       },
       {
-        url: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-BOXERS-SIDE.png',
         alt: 'Detail of waistband elastic with subtle branding',
       },
       {
-        url: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA BOXERS3 flat.png',
         alt: 'Fabric detail showing breathable modal blend in soft light',
       },
       {
-        url: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-MODEL-BOXERS-FRONT.png',
         alt: 'Minimalist product packaging on marble surface',
       },
     ],
@@ -92,27 +92,27 @@ export const products: Product[] = [
     ],
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1582533561751-ef6f6ab93a2e?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-WOMEN.webp',
         alt: "Women's modal underwear set in soft neutral tone",
       },
       {
-        url: 'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-WOMEN2.PNG',
         alt: 'Detail of seamless edge finish on modal fabric',
       },
       {
-        url: 'https://images.unsplash.com/photo-1616530940355-351fabd9524b?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-WOMEN3.PNG',
         alt: 'Flat lay of underwear set with eucalyptus branch',
       },
       {
-        url: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-WOMEN4.PNG',
         alt: 'Close-up of soft modal fabric drape',
       },
       {
-        url: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-WOMEN.PNG',
         alt: 'Lifestyle bedroom scene with natural light',
       },
       {
-        url: 'https://images.unsplash.com/photo-1620799139507-2a76f79a2f4d?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/BeyondWoman.png',
         alt: 'Sustainable packaging unboxing experience',
       },
     ],
@@ -141,27 +141,27 @@ export const products: Product[] = [
     ],
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-BOXERS-34.png',
         alt: 'Starter set bundle arranged minimally',
       },
       {
-        url: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-WOMEN.webp',
         alt: 'Premium gift box packaging',
       },
       {
-        url: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-BOXERS-FRONT.png',
         alt: 'Modal fabric texture close-up',
       },
       {
-        url: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-WOMEN2.PNG',
         alt: 'Lifestyle flat lay with folded underwear',
       },
       {
-        url: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-BOXERS-BACK.png',
         alt: 'Waistband detail showing premium finish',
       },
       {
-        url: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80',
+        url: '/assets/Images/CABANA-WOMEN3.PNG',
         alt: 'Unboxing experience with tissue paper',
       },
     ],

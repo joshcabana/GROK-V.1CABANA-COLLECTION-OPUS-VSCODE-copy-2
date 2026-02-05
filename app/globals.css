@@ -2,13 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: light;
+  --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: 'Playfair Display', 'Times New Roman', serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background: #f5f5f7;
-  color: #1d1d1f;
+  @apply bg-stone text-ink font-body antialiased;
+}
+
+a {
+  @apply text-ink no-underline;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 1rem;
+  z-index: 50;
+  background: #1a1a1a;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+}
+
+.skip-link:focus {
+  left: 1rem;
+}
+
+.section-card {
+  @apply rounded-3xl border border-black/5 bg-white shadow-soft;
+}
+
+.text-muted {
+  @apply text-black/60;
 }
 
 .scrollbar-hide {
@@ -17,4 +53,15 @@ body {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

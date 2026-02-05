@@ -15,8 +15,11 @@ export default function ProductCard({ product }: ProductCardProps) {
   const hasSecondary = product.images.length > 1
 
   return (
-    <Link href={`/products/${product.slug}`} className="group flex flex-col gap-4">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-white">
+    <Link
+      href={`/products/${product.slug}`}
+      className="group overflow-hidden rounded-3xl border border-black/5 bg-white shadow-soft transition-transform hover:-translate-y-1 motion-reduce:transform-none"
+    >
+      <div className="relative aspect-[4/5] overflow-hidden">
         <SafeImage src={product.images[0]?.url} alt={product.images[0]?.alt ?? product.title} sizes={cardSizes} />
         {hasSecondary && (
           <SafeImage
@@ -29,23 +32,26 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-2">
+      <div className="flex flex-1 flex-col gap-2 p-6">
+        <p className="text-xs uppercase tracking-[0.2em] text-black/70">
+          {product.category === 'mens' ? 'Men' : product.category === 'womens' ? 'Women' : 'Sets'}
+        </p>
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="text-xl font-medium text-[#1d1d1f] md:text-2xl">{product.title}</h3>
+            <h3 className="font-heading text-lg text-ink md:text-xl">{product.title}</h3>
             <div className="mt-2 flex items-center gap-2">
-              <p className="text-lg font-medium tabular-nums text-[#1d1d1f]">{formatMoney(product.price)}</p>
+              <p className="text-sm font-medium tabular-nums text-ink">{formatMoney(product.price)}</p>
               {product.compareAtPrice && (
-                <p className="text-sm tabular-nums text-[#6e6e73] line-through">
+                <p className="text-sm tabular-nums text-black/50 line-through">
                   {formatMoney(product.compareAtPrice)}
                 </p>
               )}
             </div>
           </div>
-          <div className="flex items-center gap-1 text-sm text-[#6e6e73]">
-            <Star className="h-4 w-4 fill-[#1d1d1f] text-[#1d1d1f]" />
+          <div className="flex items-center gap-1 text-sm text-black/60">
+            <Star className="h-4 w-4 fill-ink text-ink" />
             <span>{product.rating.toFixed(1)}</span>
-            <span>({product.reviewCount})</span>
+            <span className="text-xs">({product.reviewCount})</span>
           </div>
         </div>
       </div>
