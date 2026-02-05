@@ -7,7 +7,9 @@ const presetArg = args.find((arg) => arg.startsWith('--preset='));
 const preset = presetArg ? presetArg.split('=')[1] : process.env.CABANA_LHCI_PRESET || '';
 const normalizedPreset = preset === 'mobile' || preset === 'desktop' ? preset : '';
 
-const lighthouseDir = path.join(process.cwd(), '.lighthouseci');
+const lighthouseDir = process.env.CABANA_LHCI_OUTPUT_DIR
+  ? path.resolve(process.env.CABANA_LHCI_OUTPUT_DIR)
+  : path.join(process.cwd(), '.lighthouseci');
 const manifestPath = path.join(lighthouseDir, 'manifest.json');
 let manifestEntries = [];
 if (fs.existsSync(manifestPath)) {
