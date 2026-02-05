@@ -30,7 +30,7 @@ export default function ProductCard({ product }: { product: Product }) {
       </div>
       <div className="mt-4 space-y-2">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-medium text-[#1d1d1f] md:text-xl">{product.title}</h3>
+          <h2 className="text-lg font-medium text-[#1d1d1f] md:text-xl">{product.title}</h2>
           <span className="text-sm font-medium tabular-nums text-[#1d1d1f]">
             {formatMoney(product.price)}
           </span>
