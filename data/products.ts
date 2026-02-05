@@ -44,27 +44,27 @@ export const products: Product[] = [
     ],
     images: [
       {
-        url: '/assets/Images/CABANA-BOXERS-34.png',
+        url: '/assets/Images/optimised/boxers-34.jpg',
         alt: 'Black modal boxer brief front view on minimal white background',
       },
       {
-        url: '/assets/Images/CABANA-BOXERS-FRONT.png',
+        url: '/assets/Images/optimised/boxers-front.jpg',
         alt: 'Close-up of premium modal fabric texture showing soft weave',
       },
       {
-        url: '/assets/Images/CABANA-BOXERS-BACK.png',
+        url: '/assets/Images/optimised/boxers-back.jpg',
         alt: 'Folded underwear stack in minimal packaging',
       },
       {
-        url: '/assets/Images/CABANA-BOXERS-SIDE.png',
+        url: '/assets/Images/optimised/boxers-side.jpg',
         alt: 'Detail of waistband elastic with subtle branding',
       },
       {
-        url: '/assets/Images/CABANA BOXERS3 flat.png',
+        url: '/assets/Images/optimised/boxers-flat.jpg',
         alt: 'Fabric detail showing breathable modal blend in soft light',
       },
       {
-        url: '/assets/Images/CABANA-MODEL-BOXERS-FRONT.png',
+        url: '/assets/Images/optimised/boxers-model-front.jpg',
         alt: 'Minimalist product packaging on marble surface',
       },
     ],
@@ -96,23 +96,23 @@ export const products: Product[] = [
         alt: "Women's modal underwear set in soft neutral tone",
       },
       {
-        url: '/assets/Images/CABANA-WOMEN2.PNG',
+        url: '/assets/Images/optimised/women-2.jpg',
         alt: 'Detail of seamless edge finish on modal fabric',
       },
       {
-        url: '/assets/Images/CABANA-WOMEN3.PNG',
+        url: '/assets/Images/optimised/women-3.jpg',
         alt: 'Flat lay of underwear set with eucalyptus branch',
       },
       {
-        url: '/assets/Images/CABANA-WOMEN4.PNG',
+        url: '/assets/Images/optimised/women-4.jpg',
         alt: 'Close-up of soft modal fabric drape',
       },
       {
-        url: '/assets/Images/CABANA-WOMEN.PNG',
+        url: '/assets/Images/optimised/women-1.jpg',
         alt: 'Lifestyle bedroom scene with natural light',
       },
       {
-        url: '/assets/Images/BeyondWoman.png',
+        url: '/assets/Images/optimised/women-beyond.jpg',
         alt: 'Sustainable packaging unboxing experience',
       },
     ],
@@ -141,7 +141,7 @@ export const products: Product[] = [
     ],
     images: [
       {
-        url: '/assets/Images/CABANA-BOXERS-34.png',
+        url: '/assets/Images/optimised/boxers-34.jpg',
         alt: 'Starter set bundle arranged minimally',
       },
       {
@@ -149,19 +149,19 @@ export const products: Product[] = [
         alt: 'Premium gift box packaging',
       },
       {
-        url: '/assets/Images/CABANA-BOXERS-FRONT.png',
+        url: '/assets/Images/optimised/boxers-front.jpg',
         alt: 'Modal fabric texture close-up',
       },
       {
-        url: '/assets/Images/CABANA-WOMEN2.PNG',
+        url: '/assets/Images/optimised/women-2.jpg',
         alt: 'Lifestyle flat lay with folded underwear',
       },
       {
-        url: '/assets/Images/CABANA-BOXERS-BACK.png',
+        url: '/assets/Images/optimised/boxers-back.jpg',
         alt: 'Waistband detail showing premium finish',
       },
       {
-        url: '/assets/Images/CABANA-WOMEN3.PNG',
+        url: '/assets/Images/optimised/women-3.jpg',
         alt: 'Unboxing experience with tissue paper',
       },
     ],
