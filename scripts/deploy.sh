@@ -198,21 +198,24 @@ elif [ -d "$INPUT_PATH" ]; then
     # Stage files into a temporary directory to avoid mutating the source tree.
     mkdir -p "$STAGING_DIR"
     echo "Staging project files..." >&2
-    tar -C "$PROJECT_PATH" \
-        --exclude='node_modules' \
-        --exclude='.git' \
-        --exclude='.env' \
-        --exclude='.env.*' \
-        --exclude='.next' \
-        --exclude='dist' \
-        --exclude='.lighthouseci' \
-        --exclude='reports' \
-        --exclude='playwright-report' \
-        --exclude='test-results' \
-        --exclude='*.tgz' \
-        --exclude='lighthouse-*.json' \
-        --exclude='pw-report.json' \
-        -cf - . | tar -C "$STAGING_DIR" -xf -
+    rsync -a \
+        --exclude 'node_modules' \
+        --exclude '.git' \
+        --exclude '.env' \
+        --exclude '.env.*' \
+        --exclude '.next' \
+        --exclude 'dist' \
+        --exclude '.lighthouseci' \
+        --exclude 'reports' \
+        --exclude 'playwright-report' \
+        --exclude 'test-results' \
+        --exclude '*.tgz' \
+        --exclude 'lighthouse-*.json' \
+        --exclude 'pw-report.json' \
+        --exclude '/assets/' \
+        --exclude 'public/assets/Images/*.mp4' \
+        --exclude 'public/assets/Images/*.mov' \
+        "$PROJECT_PATH"/ "$STAGING_DIR"/
 
     # Check if this is a static HTML project (no package.json)
     if [ ! -f "$PROJECT_PATH/package.json" ]; then
