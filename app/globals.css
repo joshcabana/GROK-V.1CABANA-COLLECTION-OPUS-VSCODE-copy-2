@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --font-inter: Inter, system-ui, sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -9,6 +13,20 @@ html {
 body {
   background-color: #f5f5f7;
   color: #1d1d1f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 .scrollbar-hide {
