@@ -4,12 +4,10 @@ import '@fontsource/inter/600.css';
 import '@fontsource/playfair-display/400.css';
 import '@fontsource/playfair-display/500.css';
 import '@fontsource/playfair-display/600.css';
-import '@fontsource/playfair-display/700.css';
 import './globals.css';
 import type { Metadata } from 'next';
 import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
-import { CartProvider } from './providers';
 import CookieBanner from '../components/CookieBanner';
 import { siteMetadata } from './metadata';
 
@@ -97,17 +95,15 @@ export default function RootLayout({
             __html: JSON.stringify([organizationJsonLd, websiteJsonLd]),
           }}
         />
-        <CartProvider>
-          <a href="#main-content" className="skip-link">
-            Skip to content
-          </a>
-          <SiteHeader />
-          <main id="main-content" className="min-h-[60vh]">
-            {children}
-          </main>
-          <SiteFooter />
-          <CookieBanner />
-        </CartProvider>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
+        <SiteHeader />
+        <main id="main-content" className="min-h-[60vh]">
+          {children}
+        </main>
+        <SiteFooter />
+        <CookieBanner />
       </body>
     </html>
   );

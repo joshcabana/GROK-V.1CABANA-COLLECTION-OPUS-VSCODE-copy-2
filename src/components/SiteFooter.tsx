@@ -44,7 +44,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="space-y-3 text-sm">
-          <p className="text-xs uppercase tracking-[0.2em] text-black/50">Shop</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-black/70">Shop</p>
           <Link href="/products" className="block text-black/70">
             All Products
           </Link>
@@ -60,7 +60,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="space-y-3 text-sm">
-          <p className="text-xs uppercase tracking-[0.2em] text-black/50">Legal</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-black/70">Legal</p>
           <Link href="/privacy-policy" className="block text-black/70">
             Privacy Policy
           </Link>
@@ -83,7 +83,7 @@ export default function SiteFooter() {
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs uppercase tracking-[0.2em] text-black/60"
+                className="text-xs uppercase tracking-[0.2em] text-black/70"
               >
                 {link.label}
               </a>
@@ -91,7 +91,7 @@ export default function SiteFooter() {
           </div>
         </div>
       </div>
-      <div className="border-t border-black/5 py-4 text-center text-xs text-black/50">
+      <div className="border-t border-black/5 py-4 text-center text-xs text-black/70">
         &copy; {year} CABANA Collections. All rights reserved.
       </div>
     </footer>

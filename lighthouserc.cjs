@@ -1,21 +1,25 @@
 module.exports = {
   ci: {
     collect: {
-      numberOfRuns: 3,
-      startServerCommand: "npx http-server dist -p 4173 -c-1",
-      startServerReadyPattern: "Available on",
-      url: [
-        "http://127.0.0.1:4173/",
-        "http://127.0.0.1:4173/products/mens-boxer-brief-black.html"
-      ],
-      settings: { preset: "perf", formFactor: "mobile", chromeFlags: "--no-sandbox" }
+      startServerCommand: 'npm run build && npm run start',
+      startServerReadyPattern: 'Ready on|started server on',
+      url: ['http://localhost:3000/'],
+      numberOfRuns: 1,
+      chromePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+      settings: {
+        onlyCategories: ['performance', 'accessibility', 'seo', 'best-practices'],
+      },
     },
     assert: {
       assertions: {
-        "categories:performance": ["warn", { minScore: 0.9 }],
-        "categories:accessibility": ["warn", { minScore: 0.95 }]
-      }
+        'categories:performance': ['warn', { minScore: 0.9 }],
+        'categories:accessibility': ['warn', { minScore: 0.95 }],
+        'categories:seo': ['warn', { minScore: 0.9 }],
+        'categories:best-practices': ['warn', { minScore: 0.9 }],
+      },
     },
-    upload: { target: "filesystem", outputDir: ".lighthouseci" }
-  }
+    upload: {
+      target: 'temporary-public-storage',
+    },
+  },
 };

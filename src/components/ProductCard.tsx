@@ -18,12 +18,12 @@ export default function ProductCard({ product }: { product: Product }) {
         />
       </div>
       <div className="space-y-2 p-6">
-        <p className="text-xs uppercase tracking-[0.2em] text-black/50">{product.category}</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-black/70">{product.category}</p>
         <h3 className="font-heading text-lg text-ink">{product.name}</h3>
         <p className="text-sm text-black/60">{product.shortDescription}</p>
         <div className="flex items-center justify-between text-sm">
           <span className="font-medium">AUD ${product.price}</span>
-          <span className="text-xs text-black/50">{product.rating.toFixed(1)} ★</span>
+          <span className="text-xs text-black/70">{product.rating.toFixed(1)} ★</span>
         </div>
       </div>
     </Link>
