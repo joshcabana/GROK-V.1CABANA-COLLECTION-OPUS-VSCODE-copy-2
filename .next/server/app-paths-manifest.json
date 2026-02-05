@@ -1,18 +1,9 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/cart/page": "app/cart/page.js",
+  "/privacy/page": "app/privacy/page.js",
   "/page": "app/page.js",
-  "/impact/page": "app/impact/page.js",
-  "/about/page": "app/about/page.js",
-  "/contact/page": "app/contact/page.js",
-  "/care-instructions/page": "app/care-instructions/page.js",
-  "/legal/page": "app/legal/page.js",
-  "/privacy-policy/page": "app/privacy-policy/page.js",
-  "/faq/page": "app/faq/page.js",
-  "/return-policy/page": "app/return-policy/page.js",
-  "/products/page": "app/products/page.js",
-  "/size-guide/page": "app/size-guide/page.js",
-  "/terms-of-service/page": "app/terms-of-service/page.js",
-  "/shipping-policy/page": "app/shipping-policy/page.js",
-  "/products/[slug]/page": "app/products/[slug]/page.js"
+  "/terms/page": "app/terms/page.js",
+  "/cart/page": "app/cart/page.js",
+  "/products/[slug]/page": "app/products/[slug]/page.js",
+  "/products/page": "app/products/page.js"
 }

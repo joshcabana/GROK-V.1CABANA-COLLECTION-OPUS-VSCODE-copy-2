@@ -36,8 +36,9 @@ export default function AddToCartButton({
   const timersRef = useRef<number[]>([])
 
   useEffect(() => {
+    const timers = timersRef.current
     return () => {
-      timersRef.current.forEach((timer) => window.clearTimeout(timer))
+      timers.forEach((timer) => window.clearTimeout(timer))
     }
   }, [])
 

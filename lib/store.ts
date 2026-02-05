@@ -72,6 +72,7 @@ export const useCartStore = create<CartState>()(
     {
       name: 'cabana-cart',
       storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({ items: state.items }),
     },
   ),
 )

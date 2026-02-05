@@ -1,18 +1,1 @@
-{
-  "/_not-found/page": "/_not-found",
-  "/cart/page": "/cart",
-  "/page": "/",
-  "/impact/page": "/impact",
-  "/about/page": "/about",
-  "/contact/page": "/contact",
-  "/care-instructions/page": "/care-instructions",
-  "/legal/page": "/legal",
-  "/privacy-policy/page": "/privacy-policy",
-  "/faq/page": "/faq",
-  "/return-policy/page": "/return-policy",
-  "/products/page": "/products",
-  "/size-guide/page": "/size-guide",
-  "/terms-of-service/page": "/terms-of-service",
-  "/shipping-policy/page": "/shipping-policy",
-  "/products/[slug]/page": "/products/[slug]"
-}
+{"/_not-found/page":"/_not-found","/privacy/page":"/privacy","/page":"/","/terms/page":"/terms","/cart/page":"/cart","/products/[slug]/page":"/products/[slug]","/products/page":"/products"}
