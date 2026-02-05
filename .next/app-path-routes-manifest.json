@@ -4,15 +4,15 @@
   "/page": "/",
   "/impact/page": "/impact",
   "/about/page": "/about",
-  "/care-instructions/page": "/care-instructions",
   "/contact/page": "/contact",
-  "/faq/page": "/faq",
+  "/care-instructions/page": "/care-instructions",
   "/legal/page": "/legal",
-  "/return-policy/page": "/return-policy",
   "/privacy-policy/page": "/privacy-policy",
+  "/faq/page": "/faq",
+  "/return-policy/page": "/return-policy",
   "/products/page": "/products",
-  "/shipping-policy/page": "/shipping-policy",
+  "/size-guide/page": "/size-guide",
   "/terms-of-service/page": "/terms-of-service",
-  "/products/[slug]/page": "/products/[slug]",
-  "/size-guide/page": "/size-guide"
+  "/shipping-policy/page": "/shipping-policy",
+  "/products/[slug]/page": "/products/[slug]"
 }

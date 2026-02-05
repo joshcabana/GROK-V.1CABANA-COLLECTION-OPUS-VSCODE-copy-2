@@ -28,12 +28,12 @@
   {
     "url": "http://localhost:3000/products",
     "metrics": {
-      "performance": 0.96,
+      "performance": 0.97,
       "accessibility": 0.98,
       "seo": 0.92,
       "bestPractices": 1,
       "fcp": "1.4 s",
-      "lcp": "2.7 s",
+      "lcp": "2.5 s",
       "tbt": "0 ms",
       "cls": "0"
     }
