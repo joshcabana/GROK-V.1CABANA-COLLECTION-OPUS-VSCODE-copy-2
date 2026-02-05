@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { navLinks } from './navLinks';
+import SiteSearch from './SiteSearch';
 
 type MobileNavProps = {
   open: boolean;
@@ -41,16 +42,9 @@ export default function MobileNav({ open, onClose }: MobileNavProps) {
             </Link>
           ))}
         </div>
-        <div className="mt-8">
-          <form action="/products" className="space-y-3">
-            <label className="text-xs uppercase tracking-[0.2em] text-black/50">Search</label>
-            <input
-              type="search"
-              name="query"
-              placeholder="Search products"
-              className="w-full rounded-2xl border border-black/10 px-4 py-2 text-sm"
-            />
-          </form>
+        <div className="mt-8 space-y-3">
+          <label className="text-xs uppercase tracking-[0.2em] text-black/50">Search</label>
+          <SiteSearch className="w-full" />
         </div>
       </div>
     </div>

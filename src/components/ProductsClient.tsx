@@ -67,7 +67,7 @@ export default function ProductsClient({
             </button>
           ))}
         </div>
-        <p className="mt-4 text-xs uppercase tracking-[0.2em] text-black/40">
+        <p className="mt-4 text-xs uppercase tracking-[0.2em] text-black/70">
           {filtered.length} items
         </p>
       </div>

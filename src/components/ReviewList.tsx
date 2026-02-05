@@ -22,7 +22,7 @@ export default function ReviewList() {
       {reviews.map((review) => (
         <div key={review.name} className="section-card p-6">
           <p className="text-sm text-black/70">“{review.quote}”</p>
-          <p className="mt-4 text-xs uppercase tracking-[0.2em] text-black/50">
+          <p className="mt-4 text-xs uppercase tracking-[0.2em] text-black/70">
             {review.name} — {review.location}
           </p>
         </div>

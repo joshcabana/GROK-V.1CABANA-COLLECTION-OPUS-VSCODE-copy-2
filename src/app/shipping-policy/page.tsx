@@ -13,43 +13,30 @@ export default function ShippingPolicyPage() {
       <p className="text-sm text-black/60">Last updated: 4 February 2026</p>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Dispatch time</h2>
+        <h2 className="font-heading text-2xl">Australia-wide delivery</h2>
         <p className="text-sm text-black/60">
-          Orders are processed within 1-2 business days. During peak periods or product launches,
-          dispatch times may be longer. You will receive a confirmation email with tracking details.
+          Orders dispatch within 1-3 business days from the ACT. We ship with Australia Post and
+          comparable couriers, including delivery to PO Boxes and Parcel Lockers.
         </p>
-      </div>
-
-      <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Shipping rates</h2>
         <p className="text-sm text-black/60">
-          Shipping costs are calculated at checkout based on your delivery location and order size.
-          We occasionally offer free shipping promotions, which will be displayed during checkout.
+          Free standard shipping applies to orders $150+ (after discounts). Otherwise, shipping is
+          calculated at checkout based on weight and destination.
         </p>
       </div>
 
       <div className="section-card space-y-4 p-6">
         <h2 className="font-heading text-2xl">Authority to Leave (ATL)</h2>
         <p className="text-sm text-black/60">
-          If you select Authority to Leave, the carrier may leave the parcel in a safe location at
-          your address. If you prefer a signature on delivery, select the signature option at
-          checkout when available.
+          You can select signature on delivery or ATL at checkout. If ATL is chosen, delivery is
+          deemed complete when the carrier scans the parcel at the address.
         </p>
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Address accuracy</h2>
+        <h2 className="font-heading text-2xl">Risk, title & delays</h2>
         <p className="text-sm text-black/60">
-          Please ensure your delivery details are correct. If a parcel is returned due to an
-          incorrect address, we may charge a re-delivery fee.
-        </p>
-      </div>
-
-      <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">International shipping</h2>
-        <p className="text-sm text-black/60">
-          We currently ship within Australia. For international enquiries, please contact our team
-          before ordering.
+          Title passes when payment is received in full. Risk passes on delivery to your nominated
+          address (including ATL). Estimated timeframes may vary due to carrier or external events.
         </p>
       </div>
 

@@ -10,7 +10,7 @@ export default function HomePage() {
     <div className="space-y-20 pb-20">
       <section className="mx-auto grid max-w-6xl gap-10 px-4 pt-12 md:grid-cols-[1.1fr_0.9fr] md:px-8">
         <div className="space-y-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-black/50">Sustainable Essentials</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-black/70">Sustainable Essentials</p>
           <h1 className="font-heading text-4xl md:text-5xl">
             Quiet refinement for body and earth.
           </h1>
@@ -41,18 +41,20 @@ export default function HomePage() {
             className="object-cover"
             priority
             sizes="(max-width: 768px) 100vw, 45vw"
+            quality={70}
           />
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 md:px-8">
+        <h2 className="sr-only">Trust and transparency</h2>
         <TrustBadges />
       </section>
 
       <section className="mx-auto max-w-6xl space-y-8 px-4 md:px-8">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-black/50">Featured</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-black/70">Featured</p>
             <h2 className="font-heading text-3xl">Signature Pieces</h2>
           </div>
           <Link href="/products" className="text-sm text-black/60">
@@ -68,7 +70,7 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-6xl space-y-6 px-4 md:px-8">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-black/50">Why CABANA</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-black/70">Why CABANA</p>
           <h2 className="font-heading text-3xl">Designed for touch. Built for impact.</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
@@ -95,7 +97,7 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-6xl space-y-6 px-4 md:px-8">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-black/50">Reviews</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-black/70">Reviews</p>
           <h2 className="font-heading text-3xl">Loved by our community</h2>
         </div>
         <ReviewList />

@@ -13,32 +13,44 @@ export default function TermsOfServicePage() {
       <p className="text-sm text-black/60">Last updated: 4 February 2026</p>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Overview</h2>
+        <h2 className="font-heading text-2xl">1. Agreement to terms</h2>
         <p className="text-sm text-black/60">
-          These terms apply to your use of the CABANA website and any purchases made through it. By
-          accessing or using our website, you agree to these terms and our Privacy Policy.
+          By accessing or using our website, you agree to these Terms of Service and our Privacy
+          Policy. If you do not agree, please do not use our website.
         </p>
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Orders and pricing</h2>
+        <h2 className="font-heading text-2xl">2. Use of website</h2>
+        <p className="text-sm text-black/60">You agree not to:</p>
         <ul className="space-y-2 text-sm text-black/60">
-          <li>All prices are listed in Australian dollars (AUD) and include GST where applicable.</li>
-          <li>We may change prices or availability at any time without notice.</li>
-          <li>We reserve the right to cancel orders for errors, suspected fraud, or supply issues.</li>
+          <li>Engage in unlawful, infringing, or misleading activity.</li>
+          <li>Interfere with website security or operation.</li>
+          <li>Use automated scraping without permission.</li>
+          <li>Transmit malware or malicious code.</li>
+          <li>Impersonate another person or brand.</li>
         </ul>
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Shipping and delivery</h2>
+        <h2 className="font-heading text-2xl">3. Products, pricing & orders</h2>
+        <ul className="space-y-2 text-sm text-black/60">
+          <li>All prices are in AUD and include GST where applicable.</li>
+          <li>We may update pricing, availability, or product details without notice.</li>
+          <li>We may cancel orders for errors, suspected fraud, or supply limitations.</li>
+        </ul>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">4. Shipping & delivery</h2>
         <p className="text-sm text-black/60">
-          Delivery timeframes are estimates only and may vary due to carrier delays. Risk of loss
-          passes to you on delivery to the address provided.
+          Delivery timeframes are estimates only. Risk passes to you upon delivery to the nominated
+          address or when Authority to Leave is selected.
         </p>
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Returns and consumer guarantees</h2>
+        <h2 className="font-heading text-2xl">5. Returns, refunds & consumer guarantees</h2>
         <p className="text-sm text-black/60">
           Our returns policy outlines change-of-mind returns. Your rights under Australian Consumer
           Law (ACL) cannot be excluded and apply to faulty goods or services.
@@ -46,32 +58,78 @@ export default function TermsOfServicePage() {
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Intellectual property</h2>
+        <h2 className="font-heading text-2xl">6. Intellectual property</h2>
         <p className="text-sm text-black/60">
-          All content on this website, including designs, images, and trademarks, remains the
-          property of CABANA and may not be used without permission.
+          All content on this website (images, designs, text, trademarks) remains the property of
+          CABANA and must not be used without permission.
         </p>
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Liability</h2>
+        <h2 className="font-heading text-2xl">7. Privacy</h2>
         <p className="text-sm text-black/60">
-          To the maximum extent permitted by law, our liability is limited to the remedies available
-          under the ACL. Nothing in these terms excludes non-excludable consumer guarantees.
+          We handle personal information in accordance with our Privacy Policy and the Australian
+          Privacy Principles.
         </p>
       </div>
 
       <div className="section-card space-y-4 p-6">
-        <h2 className="font-heading text-2xl">Changes to these terms</h2>
+        <h2 className="font-heading text-2xl">8. Disclaimers & liability</h2>
         <p className="text-sm text-black/60">
-          We may update these terms from time to time. The latest version will always be available on
-          our website and applies from the date it is published.
+          To the maximum extent permitted by law, our liability is limited to the remedies
+          available under the ACL. Nothing in these terms excludes non-excludable consumer
+          guarantees.
         </p>
       </div>
 
-      <p className="text-sm text-black/60">
-        Questions? Contact {process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? 'support@cabanacollections.com.au'}.
-      </p>
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">9. User content & reviews</h2>
+        <p className="text-sm text-black/60">
+          If you submit reviews or content, you grant us a non-exclusive licence to use, display,
+          and share that content for promotional purposes.
+        </p>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">10. Programs & pre-orders</h2>
+        <p className="text-sm text-black/60">
+          Pre-orders and limited releases may have extended delivery timelines. We will notify you
+          of any significant delays.
+        </p>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">11. Indemnity</h2>
+        <p className="text-sm text-black/60">
+          You agree to indemnify CABANA for claims arising from your misuse of the website or breach
+          of these terms.
+        </p>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">12. Governing law & disputes</h2>
+        <p className="text-sm text-black/60">
+          These terms are governed by the laws of the Australian Capital Territory. Any disputes
+          will be handled in accordance with ACT law and applicable consumer protections.
+        </p>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">13. Changes to terms</h2>
+        <p className="text-sm text-black/60">
+          We may update these terms from time to time. The latest version will always be available
+          on our website and applies from the date published.
+        </p>
+      </div>
+
+      <div className="section-card space-y-4 p-6">
+        <h2 className="font-heading text-2xl">14. Contact</h2>
+        <ul className="space-y-2 text-sm text-black/60">
+          <li>Email: {process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? 'support@cabanacollections.com.au'}</li>
+          <li>Location: Canberra ACT, Australia</li>
+          <li>ABN: {process.env.NEXT_PUBLIC_ABN ?? '00 000 000 000'}</li>
+        </ul>
+      </div>
     </div>
   );
 }

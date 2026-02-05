@@ -2,10 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCart } from '../providers';
+import { useCartStorage } from '../../lib/useCartStorage';
 
 export default function CartPage() {
-  const { items, subtotal, updateQty, removeItem, clear } = useCart();
+  const { items, subtotal, updateQty, removeItem, clear } = useCartStorage();
 
   return (
     <div className="mx-auto max-w-5xl space-y-8 px-4 py-12 md:px-8">

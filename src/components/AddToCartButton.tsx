@@ -1,10 +1,10 @@
 'use client';
 
-import { useCart } from '../app/providers';
 import type { Product } from '../data/products';
+import { useCartStorage } from '../lib/useCartStorage';
 
 export default function AddToCartButton({ product }: { product: Product }) {
-  const { addItem } = useCart();
+  const { addItem } = useCartStorage();
 
   return (
     <button

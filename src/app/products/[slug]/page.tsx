@@ -37,8 +37,37 @@ export default async function ProductDetailPage({
   const product = products.find((item) => item.slug === slug);
   if (!product) return notFound();
 
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.shortDescription,
+    image: product.images.map((image) => `https://cabanacollections.com.au${image}`),
+    sku: product.id,
+    brand: {
+      '@type': 'Brand',
+      name: 'CABANA',
+    },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'AUD',
+      price: product.price,
+      availability: 'https://schema.org/InStock',
+      url: `https://cabanacollections.com.au/products/${product.slug}`,
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: product.rating,
+      reviewCount: product.reviewCount,
+    },
+  };
+
   return (
     <div className="mx-auto max-w-6xl space-y-12 px-4 py-12 md:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <div className="grid gap-10 md:grid-cols-[1.1fr_0.9fr]">
         <div className="grid gap-4">
           <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-white">
