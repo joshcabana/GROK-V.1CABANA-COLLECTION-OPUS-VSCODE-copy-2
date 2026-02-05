@@ -169,7 +169,7 @@ TEMP_DIR=$(mktemp -d)
 TARBALL="$TEMP_DIR/project.tgz"
 STAGING_DIR="$TEMP_DIR/staging"
 CLEANUP_TEMP=true
-MAX_SIZE="${CABANA_DEPLOY_MAX_SIZE:-5m}"
+MAX_SIZE="${CABANA_DEPLOY_MAX_SIZE:-2m}"
 
 cleanup() {
     if [ "$CLEANUP_TEMP" = true ]; then
@@ -261,9 +261,14 @@ if echo "$RESPONSE" | grep -q '"error"'; then
     exit 1
 fi
 
-# Extract URLs from response
-PREVIEW_URL=$(echo "$RESPONSE" | grep -o '"previewUrl":"[^"]*"' | cut -d'"' -f4)
-CLAIM_URL=$(echo "$RESPONSE" | grep -o '"claimUrl":"[^"]*"' | cut -d'"' -f4)
+# Extract URLs from response (avoid exiting on empty matches)
+PREVIEW_URL=$(echo "$RESPONSE" | grep -o '"previewUrl":"[^"]*"' | cut -d'"' -f4 || true)
+CLAIM_URL=$(echo "$RESPONSE" | grep -o '"claimUrl":"[^"]*"' | cut -d'"' -f4 || true)
+
+if [ -z "$RESPONSE" ]; then
+    echo "Error: Empty response from deploy service" >&2
+    exit 1
+fi
 
 if [ -z "$PREVIEW_URL" ]; then
     echo "Error: Could not extract preview URL from response" >&2
