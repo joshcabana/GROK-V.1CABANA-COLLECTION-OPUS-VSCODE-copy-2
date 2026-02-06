@@ -6,6 +6,7 @@ const writeBaseline = args.includes('--write-baseline');
 const presetArg = args.find((arg) => arg.startsWith('--preset='));
 const preset = presetArg ? presetArg.split('=')[1] : process.env.CABANA_LHCI_PRESET || '';
 const normalizedPreset = preset === 'mobile' || preset === 'desktop' ? preset : '';
+const lhciPort = Number(process.env.CABANA_LHCI_PORT || 3000);
 
 const lighthouseDir = path.join(process.cwd(), '.lighthouseci');
 const manifestPath = path.join(lighthouseDir, 'manifest.json');
@@ -41,15 +42,18 @@ const collectFromLhrFiles = () => {
   return entries;
 };
 
-const isLocalhost = (url) => url && url.startsWith('http://localhost:3000');
-let entries = manifestEntries.filter((entry) => isLocalhost(entry.url));
+const isLhciTargetUrl = (url) =>
+  !!url &&
+  (url.startsWith(`http://localhost:${lhciPort}`) || url.startsWith(`http://127.0.0.1:${lhciPort}`));
+
+let entries = manifestEntries.filter((entry) => isLhciTargetUrl(entry.url));
 
 if (!entries.length) {
-  entries = collectFromLhrFiles().filter((entry) => isLocalhost(entry.url));
+  entries = collectFromLhrFiles().filter((entry) => isLhciTargetUrl(entry.url));
 }
 
 if (!entries.length) {
-  console.error('No LHCI JSON entries for localhost:3000 found in manifest or LHR files.');
+  console.error(`No LHCI JSON entries for localhost:${lhciPort} found in manifest or LHR files.`);
   process.exit(1);
 }
 

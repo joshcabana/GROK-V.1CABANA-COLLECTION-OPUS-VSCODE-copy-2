@@ -155,6 +155,31 @@ test('mobile sticky add-to-cart CTA remains visible', async ({ page }, testInfo)
   expect(position).toBe('fixed')
 })
 
+test('service worker script is reachable and registration succeeds', async ({ page }) => {
+  await page.goto('/')
+
+  const status = await page.request.get('/sw.js')
+  expect(status.status()).toBe(200)
+
+  const result = await page.evaluate(async () => {
+    if (!('serviceWorker' in navigator)) {
+      return { supported: false, registered: false, error: '' }
+    }
+
+    try {
+      await navigator.serviceWorker.register('/sw.js')
+      const registrations = await navigator.serviceWorker.getRegistrations()
+      return { supported: true, registered: registrations.length > 0, error: '' }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
+      return { supported: true, registered: false, error: message }
+    }
+  })
+
+  expect(result.supported).toBeTruthy()
+  expect(result.registered, result.error).toBeTruthy()
+})
+
 test('cart drawer focus trap and escape close', async ({ page }) => {
   await page.goto('/')
 

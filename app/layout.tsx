@@ -4,6 +4,7 @@ import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import CartDrawer from '@/components/CartDrawer'
+import ServiceWorkerRegister from '@/components/ServiceWorkerRegister'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
+        <ServiceWorkerRegister />
       </body>
     </html>
   )

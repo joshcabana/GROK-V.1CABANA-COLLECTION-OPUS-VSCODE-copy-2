@@ -222,6 +222,23 @@ elif [ -d "$INPUT_PATH" ]; then
         --exclude '*.tgz' \
         --exclude 'lighthouse-*.json' \
         --exclude 'pw-report.json' \
+        --exclude '/about.html' \
+        --exclude '/care-instructions.html' \
+        --exclude '/cart.html' \
+        --exclude '/contact.html' \
+        --exclude '/faq.html' \
+        --exclude '/impact.html' \
+        --exclude '/index.html' \
+        --exclude '/privacy-policy.html' \
+        --exclude '/return-policy.html' \
+        --exclude '/shipping-policy.html' \
+        --exclude '/size-guide.html' \
+        --exclude '/terms-of-service.html' \
+        --exclude '/404.html' \
+        --exclude '/css/' \
+        --exclude '/js/' \
+        --exclude '/products/' \
+        --exclude '/legal/' \
         --exclude '/assets/' \
         --exclude 'public/assets/Images/*.mp4' \
         --exclude 'public/assets/Images/*.mov' \
