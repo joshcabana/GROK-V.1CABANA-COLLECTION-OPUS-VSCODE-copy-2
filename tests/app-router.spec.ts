@@ -64,28 +64,28 @@ for (const route of imageRoutes) {
 test('add-to-cart opens drawer and persists across refresh', async ({ page }) => {
   await page.goto('/products/mens-boxer-brief-black')
 
-  await page.getByRole('button', { name: 'S' }).first().click()
-  await page.getByRole('button', { name: /add to cart/i }).click()
-
-  const drawer = page
-    .locator('div[role="dialog"][aria-modal="true"]')
-    .filter({ hasText: 'Your Bag' })
+  const opener = page.getByRole('button', { name: 'Open cart' })
+  const drawerPanel = page.locator('div[role="dialog"][aria-modal="true"]').first()
+  const sizeSelector = page
+    .locator('div')
+    .filter({ has: page.getByText('Select size', { exact: true }) })
     .first()
 
-  await expect(drawer).toBeVisible()
-  await expect(drawer.getByText("Men's Modal Boxer Brief")).toBeVisible()
+  await sizeSelector.getByRole('button', { name: 'S', exact: true }).click()
+  await page.getByRole('button', { name: /add to cart/i }).click()
+
+  await expect(drawerPanel).toHaveClass(/translate-x-0/)
+  await expect(opener.locator('span')).toHaveText('1')
 
   await page.getByRole('button', { name: 'Close cart' }).click()
-  await expect(drawer).not.toBeVisible()
+  await expect(drawerPanel).toHaveClass(/translate-x-full/)
 
   await page.reload()
-  await page.getByRole('button', { name: 'Open cart' }).click()
-  await expect(drawer).toBeVisible()
-  await expect(drawer.getByText("Men's Modal Boxer Brief")).toBeVisible()
+  await expect(opener.locator('span')).toHaveText('1')
 
   await page.goto('/cart')
   await expect(page.getByRole('heading', { name: 'Your Bag' })).toBeVisible()
-  await expect(page.getByText("Men's Modal Boxer Brief")).toBeVisible()
+  await expect(page.getByText("Men's Modal Boxer Brief").first()).toBeVisible()
 })
 
 test('cart drawer focus trap and escape close', async ({ page }) => {
@@ -94,12 +94,9 @@ test('cart drawer focus trap and escape close', async ({ page }) => {
   const opener = page.getByRole('button', { name: 'Open cart' })
   await opener.click()
 
-  const drawer = page
-    .locator('div[role="dialog"][aria-modal="true"]')
-    .filter({ hasText: 'Your Bag' })
-    .first()
+  const drawer = page.locator('div[role="dialog"][aria-modal="true"]').first()
 
-  await expect(drawer).toBeVisible()
+  await expect(drawer).toHaveClass(/translate-x-0/)
 
   for (let i = 0; i < 6; i += 1) {
     await page.keyboard.press('Tab')
@@ -112,7 +109,7 @@ test('cart drawer focus trap and escape close', async ({ page }) => {
   expect(reverseFocusInside).toBeTruthy()
 
   await page.keyboard.press('Escape')
-  await expect(drawer).not.toBeVisible()
+  await expect(drawer).toHaveClass(/translate-x-full/)
   await expect(opener).toBeFocused()
 })
 

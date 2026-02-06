@@ -38,11 +38,11 @@ export default function ProductCard({ product }: ProductCardProps) {
         </p>
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="font-heading text-lg text-ink md:text-xl">{product.title}</h3>
+            <h2 className="font-heading text-lg text-ink md:text-xl">{product.title}</h2>
             <div className="mt-2 flex items-center gap-2">
               <p className="text-sm font-medium tabular-nums text-ink">{formatMoney(product.price)}</p>
               {product.compareAtPrice && (
-                <p className="text-sm tabular-nums text-black/50 line-through">
+                <p className="text-sm tabular-nums text-black/70 line-through">
                   {formatMoney(product.compareAtPrice)}
                 </p>
               )}

@@ -72,7 +72,8 @@ export default function CartDrawer() {
         'fixed inset-0 z-50 transition-opacity duration-300 motion-reduce:transition-none motion-reduce:duration-100',
         isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0',
       )}
-      aria-hidden={!isOpen}
+      aria-hidden={isOpen ? undefined : true}
+      inert={!isOpen}
     >
       <div
         className="absolute inset-0 bg-black/40"
@@ -88,47 +89,51 @@ export default function CartDrawer() {
         role="dialog"
         aria-modal="true"
       >
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-medium text-[#1d1d1f]">Your Bag</h2>
-          <button
-            type="button"
-            onClick={closeDrawer}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#d2d2d7] bg-white text-[#1d1d1f] transition-colors hover:border-[#1d1d1f]"
-            aria-label="Close cart"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-
-        {items.length === 0 ? (
-          <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
-            <ShoppingBag className="h-10 w-10 text-[#6e6e73]" />
-            <div>
-              <p className="text-lg font-medium text-[#1d1d1f]">Your bag is empty</p>
-              <p className="text-sm text-[#6e6e73]">Start with a refined essential.</p>
+        {isOpen && (
+          <>
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-medium text-[#1d1d1f]">Your Bag</h2>
+              <button
+                type="button"
+                onClick={closeDrawer}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#d2d2d7] bg-white text-[#1d1d1f] transition-colors hover:border-[#1d1d1f]"
+                aria-label="Close cart"
+              >
+                <X className="h-5 w-5" />
+              </button>
             </div>
-          </div>
-        ) : (
-          <div className="flex flex-1 flex-col gap-4 overflow-y-auto pr-2 scrollbar-hide">
-            {items.map((item) => (
-              <CartItem key={item.key} item={item} />
-            ))}
-          </div>
-        )}
 
-        <div className="border-t border-[#d2d2d7] pt-4">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-[#6e6e73]">Subtotal</span>
-            <span className="font-medium tabular-nums text-[#1d1d1f]">{formatMoney(subtotal)}</span>
-          </div>
-          <button
-            type="button"
-            disabled
-            className="mt-4 w-full rounded-full border border-[#d2d2d7] bg-white px-4 py-3 text-sm font-medium uppercase tracking-[0.1em] text-[#6e6e73]"
-          >
-            Checkout · Coming Soon
-          </button>
-        </div>
+            {items.length === 0 ? (
+              <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
+                <ShoppingBag className="h-10 w-10 text-[#6e6e73]" />
+                <div>
+                  <p className="text-lg font-medium text-[#1d1d1f]">Your bag is empty</p>
+                  <p className="text-sm text-[#6e6e73]">Start with a refined essential.</p>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-1 flex-col gap-4 overflow-y-auto pr-2 scrollbar-hide">
+                {items.map((item) => (
+                  <CartItem key={item.key} item={item} />
+                ))}
+              </div>
+            )}
+
+            <div className="border-t border-[#d2d2d7] pt-4">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-[#6e6e73]">Subtotal</span>
+                <span className="font-medium tabular-nums text-[#1d1d1f]">{formatMoney(subtotal)}</span>
+              </div>
+              <button
+                type="button"
+                disabled
+                className="mt-4 w-full rounded-full border border-[#d2d2d7] bg-white px-4 py-3 text-sm font-medium uppercase tracking-[0.1em] text-[#6e6e73]"
+              >
+                Checkout · Coming Soon
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   )
