@@ -11,6 +11,10 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)
 }
 
+function lerp(start: number, end: number, progress: number) {
+  return start + (end - start) * progress
+}
+
 export default function Header() {
   const itemCount = useCartStore((state) => state.itemCount())
   const openDrawer = useCartStore((state) => state.openDrawer)
@@ -30,8 +34,8 @@ export default function Header() {
         const overlay = overlayRef.current
         const scrollY = window.scrollY
         const end = Math.max(
-          220,
-          heroSection ? heroSection.offsetHeight * 0.58 : window.innerHeight * 0.42
+          window.innerWidth < 768 ? 90 : 140,
+          heroSection ? heroSection.offsetHeight * 0.16 : window.innerHeight * 0.16
         )
         const progress = clamp(scrollY / end, 0, 1)
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -39,20 +43,27 @@ export default function Header() {
         setScrolled(progress > 0.08)
 
         if (!navLogo || !overlay || !hero || reducedMotion) {
-          if (navLogo) navLogo.style.opacity = '1'
+          if (navLogo) navLogo.style.opacity = scrollY > end ? '1' : '0'
           if (overlay) overlay.style.opacity = '0'
-          if (hero) hero.style.opacity = '1'
+          if (hero) hero.style.opacity = scrollY > end ? '0' : '1'
           return
         }
 
-        hero.style.opacity = `${Math.max(0, 1 - progress * 1.6)}`
+        if (progress <= 0.001) {
+          hero.style.opacity = '1'
+          overlay.style.opacity = '0'
+          navLogo.style.opacity = '0'
+          return
+        }
+
+        hero.style.opacity = '0'
         const heroRect = hero.getBoundingClientRect()
         const navRect = navLogo.getBoundingClientRect()
 
-        const x = heroRect.left + (navRect.left - heroRect.left) * progress
-        const y = heroRect.top + (navRect.top - heroRect.top) * progress
-        const width = heroRect.width + (navRect.width - heroRect.width) * progress
-        const height = heroRect.height + (navRect.height - heroRect.height) * progress
+        const x = lerp(heroRect.left, navRect.left, progress)
+        const y = lerp(heroRect.top, navRect.top, progress)
+        const width = lerp(heroRect.width, navRect.width, progress)
+        const height = lerp(heroRect.height, navRect.height, progress)
         const heroCabanaSize = Math.min(window.innerWidth * 0.22, 158)
         const navCabanaSize = window.innerWidth < 768 ? 18 : 24
         const heroCollectionsSize = Math.min(window.innerWidth * 0.038, 30)
@@ -61,18 +72,18 @@ export default function Header() {
         overlay.style.transform = `translate3d(${x}px, ${y}px, 0)`
         overlay.style.width = `${width}px`
         overlay.style.height = `${height}px`
-        overlay.style.opacity = progress < 0.98 ? '1' : '0'
+        overlay.style.opacity = progress < 0.99 ? '1' : '0'
         overlay.style.setProperty(
           '--cabana-size',
-          `${heroCabanaSize + (navCabanaSize - heroCabanaSize) * progress}px`
+          `${lerp(heroCabanaSize, navCabanaSize, progress)}px`
         )
         overlay.style.setProperty(
           '--collections-size',
-          `${heroCollectionsSize + (navCollectionsSize - heroCollectionsSize) * progress}px`
+          `${lerp(heroCollectionsSize, navCollectionsSize, progress)}px`
         )
-        overlay.style.setProperty('--cabana-track', `${0.42 + (0.2 - 0.42) * progress}em`)
-        overlay.style.setProperty('--collections-track', `${0.72 + (0.34 - 0.72) * progress}em`)
-        navLogo.style.opacity = `${clamp((progress - 0.6) / 0.4, 0, 1)}`
+        overlay.style.setProperty('--cabana-track', `${lerp(0.42, 0.2, progress)}em`)
+        overlay.style.setProperty('--collections-track', `${lerp(0.72, 0.34, progress)}em`)
+        navLogo.style.opacity = progress >= 0.99 ? '1' : '0'
       })
     }
 
@@ -90,7 +101,7 @@ export default function Header() {
     <>
       <div
         ref={overlayRef}
-        className="pointer-events-none fixed left-0 top-0 z-50 flex items-center justify-center transition-opacity duration-200 motion-reduce:transition-none"
+        className="pointer-events-none fixed left-0 top-0 z-50 flex items-center justify-center opacity-0 transition-opacity duration-150 motion-reduce:transition-none"
         aria-hidden="true"
       >
         <BrandWordmark
