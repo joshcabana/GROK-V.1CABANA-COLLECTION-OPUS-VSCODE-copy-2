@@ -4,7 +4,18 @@ const fs = require('node:fs')
 const path = require('node:path')
 
 const REQUEST_TIMEOUT_MS = Number(process.env.CABANA_INSPECT_TIMEOUT_MS || 10000)
-const DEFAULT_ROUTES = ['/', '/products', '/products/mens-boxer-brief-black', '/cart']
+const DEFAULT_ROUTES = [
+  '/',
+  '/products',
+  '/products/mens-boxer-brief-black',
+  '/products/womens-modal-set',
+  '/products/signature-starter-set',
+  '/cart',
+  '/privacy',
+  '/terms',
+  '/assets/Images/HERO-BANNER.webp',
+  '/assets/Images/optimised/boxers-back.jpg',
+]
 const FALLBACK_MARKER = 'Image+Unavailable'
 const baseDir = process.cwd()
 
@@ -45,6 +56,9 @@ function getTargetUrls(args) {
 
   const promoted = normalizeUrl(process.env.CABANA_PROMOTED_URL || '')
   if (promoted) urls.add(promoted)
+
+  const preview = normalizeUrl(process.env.CABANA_PREVIEW_URL || '')
+  if (preview) urls.add(preview)
 
   if (args.includes('--latest-preview')) {
     const latestPreview = getLatestPreviewUrl()
@@ -136,7 +150,7 @@ async function run() {
 
   if (targetUrls.length === 0) {
     console.error(
-      '[live-inspection] No target URLs supplied. Pass URLs as args, set CABANA_LIVE_URLS/CABANA_PROMOTED_URL, or use --latest-preview.',
+      '[live-inspection] No target URLs supplied. Pass URLs as args, set CABANA_LIVE_URLS/CABANA_PREVIEW_URL/CABANA_PROMOTED_URL, or use --latest-preview.',
     )
     process.exit(1)
   }

@@ -24,6 +24,16 @@ Perform this manual pass twice weekly (for example Tuesday and Friday), on:
 1. Latest preview URL
 2. Latest promoted URL
 
+Automated support is also enabled via:
+
+1. `/Users/joshcabana/Cabana Collections 2026/.github/workflows/live-inspection.yml`
+2. Schedule: Tuesday + Friday (`00:00 UTC`)
+
+Set repository secrets for full dual-target coverage:
+
+1. `CABANA_PREVIEW_URL`
+2. `CABANA_PROMOTED_URL`
+
 ### Command
 
 Use the latest preview from `reports/releases/latest.json` and include promoted URL:

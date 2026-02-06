@@ -1,5 +1,6 @@
 const preset = process.env.CABANA_LHCI_PRESET || 'mobile';
 const isDesktop = preset === 'desktop';
+const lhciPort = Number(process.env.CABANA_LHCI_PORT || 3000);
 const chromePath = process.env.CABANA_CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const mobileSettings = {
   formFactor: 'mobile',
@@ -20,16 +21,16 @@ const mobileSettings = {
 };
 
 const urls = [
-  'http://localhost:3000/',
-  'http://localhost:3000/products',
-  'http://localhost:3000/products/mens-boxer-brief-black',
-  'http://localhost:3000/cart',
+  `http://localhost:${lhciPort}/`,
+  `http://localhost:${lhciPort}/products`,
+  `http://localhost:${lhciPort}/products/mens-boxer-brief-black`,
+  `http://localhost:${lhciPort}/cart`,
 ];
 
 module.exports = {
   ci: {
     collect: {
-      startServerCommand: 'pnpm run build && pnpm run start',
+      startServerCommand: `pnpm run build && PORT=${lhciPort} pnpm run start`,
       startServerReadyPattern: 'Local:\\s+http://localhost|Ready in|Ready on|started server on',
       startServerReadyTimeout: 60000,
       url: urls,
