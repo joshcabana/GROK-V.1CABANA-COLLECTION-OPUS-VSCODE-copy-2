@@ -169,7 +169,8 @@ TEMP_DIR=$(mktemp -d)
 TARBALL="$TEMP_DIR/project.tgz"
 STAGING_DIR="$TEMP_DIR/staging"
 CLEANUP_TEMP=true
-MAX_SIZE="${CABANA_DEPLOY_MAX_SIZE:-1m}"
+# Keep payload below claimable deploy endpoint limits for this repository.
+MAX_SIZE="${CABANA_DEPLOY_MAX_SIZE:-900k}"
 
 cleanup() {
     if [ "$CLEANUP_TEMP" = true ]; then
