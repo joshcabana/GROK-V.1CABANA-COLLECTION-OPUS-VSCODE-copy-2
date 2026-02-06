@@ -28,7 +28,7 @@ const urls = [
 module.exports = {
   ci: {
     collect: {
-      startServerCommand: 'npm run build && npm run start',
+      startServerCommand: 'pnpm run build && pnpm run start',
       startServerReadyPattern: 'Local:\\s+http://localhost|Ready in|Ready on|started server on',
       startServerReadyTimeout: 60000,
       url: urls,
