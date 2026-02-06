@@ -10,3 +10,4 @@ pw-report.json
 .playwright/
 .lighthouseci/
 .next/
+reports/releases/
