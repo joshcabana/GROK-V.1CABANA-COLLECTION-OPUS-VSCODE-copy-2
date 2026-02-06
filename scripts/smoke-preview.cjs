@@ -4,6 +4,8 @@ const DEFAULT_PATHS = [
   '/',
   '/products',
   '/products/mens-boxer-brief-black',
+  '/products/womens-modal-set',
+  '/products/signature-starter-set',
   '/assets/Images/HERO-BANNER.webp',
   '/assets/Images/optimised/boxers-back.jpg',
 ]

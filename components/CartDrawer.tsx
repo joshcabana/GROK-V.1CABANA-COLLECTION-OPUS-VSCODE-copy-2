@@ -83,7 +83,7 @@ export default function CartDrawer() {
       <div
         ref={panelRef}
         className={cn(
-          'absolute right-0 top-0 flex h-full w-full max-w-md flex-col gap-6 bg-[#f5f5f7] p-6 shadow-2xl transition-transform duration-300 motion-reduce:transition-none motion-reduce:duration-100',
+          'absolute right-0 top-0 flex h-full w-full max-w-md flex-col gap-6 bg-stone p-6 shadow-2xl transition-transform duration-300 motion-reduce:transition-none motion-reduce:duration-100',
           isOpen ? 'translate-x-0' : 'translate-x-full',
         )}
         role="dialog"
@@ -92,11 +92,11 @@ export default function CartDrawer() {
         {isOpen && (
           <>
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-medium text-[#1d1d1f]">Your Bag</h2>
+              <h2 className="text-lg font-medium text-ink">Your Bag</h2>
               <button
                 type="button"
                 onClick={closeDrawer}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#d2d2d7] bg-white text-[#1d1d1f] transition-colors hover:border-[#1d1d1f]"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-ink transition-colors hover:border-ink"
                 aria-label="Close cart"
               >
                 <X className="h-5 w-5" />
@@ -105,10 +105,10 @@ export default function CartDrawer() {
 
             {items.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
-                <ShoppingBag className="h-10 w-10 text-[#6e6e73]" />
+                <ShoppingBag className="h-10 w-10 text-ink-muted" />
                 <div>
-                  <p className="text-lg font-medium text-[#1d1d1f]">Your bag is empty</p>
-                  <p className="text-sm text-[#6e6e73]">Start with a refined essential.</p>
+                  <p className="text-lg font-medium text-ink">Your bag is empty</p>
+                  <p className="text-sm text-ink-muted">Start with a refined essential.</p>
                 </div>
               </div>
             ) : (
@@ -119,15 +119,15 @@ export default function CartDrawer() {
               </div>
             )}
 
-            <div className="border-t border-[#d2d2d7] pt-4">
+            <div className="border-t border-line pt-4">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-[#6e6e73]">Subtotal</span>
-                <span className="font-medium tabular-nums text-[#1d1d1f]">{formatMoney(subtotal)}</span>
+                <span className="text-ink-muted">Subtotal</span>
+                <span className="font-medium tabular-nums text-ink">{formatMoney(subtotal)}</span>
               </div>
               <button
                 type="button"
                 disabled
-                className="mt-4 w-full rounded-full border border-[#d2d2d7] bg-white px-4 py-3 text-sm font-medium uppercase tracking-[0.1em] text-[#6e6e73]"
+                className="mt-4 w-full rounded-full border border-line bg-white px-4 py-3 text-sm font-medium uppercase tracking-[0.1em] text-ink-muted"
               >
                 Checkout · Coming Soon
               </button>

@@ -272,6 +272,8 @@ fi
 # Extract URLs from response (avoid exiting on empty matches)
 PREVIEW_URL=$(echo "$RESPONSE" | grep -o '"previewUrl":"[^"]*"' | cut -d'"' -f4 || true)
 CLAIM_URL=$(echo "$RESPONSE" | grep -o '"claimUrl":"[^"]*"' | cut -d'"' -f4 || true)
+DEPLOYMENT_ID=$(echo "$RESPONSE" | grep -o '"deploymentId":"[^"]*"' | cut -d'"' -f4 || true)
+PROJECT_ID=$(echo "$RESPONSE" | grep -o '"projectId":"[^"]*"' | cut -d'"' -f4 || true)
 
 if [ -z "$RESPONSE" ]; then
     echo "Error: Empty response from deploy service" >&2
@@ -287,6 +289,10 @@ fi
 if [ "${CABANA_SKIP_SMOKE:-0}" != "1" ] && [ -f "$SCRIPT_DIR/smoke-preview.cjs" ]; then
     echo "Running preview smoke checks..." >&2
     node "$SCRIPT_DIR/smoke-preview.cjs" "$PREVIEW_URL"
+fi
+
+if [ -f "$SCRIPT_DIR/write-release-note.cjs" ]; then
+    node "$SCRIPT_DIR/write-release-note.cjs" "$PREVIEW_URL" "$CLAIM_URL" "$DEPLOYMENT_ID" "$PROJECT_ID"
 fi
 
 echo "" >&2

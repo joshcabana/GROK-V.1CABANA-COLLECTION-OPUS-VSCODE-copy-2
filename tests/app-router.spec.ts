@@ -1,7 +1,13 @@
 import { expect, test, type Page } from '@playwright/test'
 
 const overflowRoutes = ['/', '/products', '/products/mens-boxer-brief-black', '/cart']
-const imageRoutes = ['/', '/products', '/products/mens-boxer-brief-black']
+const imageRoutes = ['/', '/products']
+const pdpRoutes = [
+  '/products/mens-boxer-brief-black',
+  '/products/womens-modal-set',
+  '/products/signature-starter-set',
+]
+const legalRoutes = ['/privacy', '/terms']
 
 async function assertNoHorizontalOverflow(page: Page) {
   const overflow = await page.evaluate(() => {
@@ -53,11 +59,38 @@ for (const route of overflowRoutes) {
   })
 }
 
+test('no horizontal overflow at 1440px desktop sweep', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name.includes('mobile'), 'desktop-only behavior')
+  await page.setViewportSize({ width: 1440, height: 900 })
+
+  for (const route of overflowRoutes) {
+    await page.goto(route)
+    await page.waitForLoadState('domcontentloaded')
+    await assertNoHorizontalOverflow(page)
+  }
+})
+
 for (const route of imageRoutes) {
   test(`visible images are healthy: ${route}`, async ({ page }) => {
     await page.goto(route)
     await page.waitForLoadState('networkidle')
     await assertVisibleImagesHealthy(page)
+  })
+}
+
+for (const route of pdpRoutes) {
+  test(`visible images are healthy: ${route}`, async ({ page }) => {
+    await page.goto(route)
+    await page.waitForLoadState('networkidle')
+    await assertVisibleImagesHealthy(page)
+  })
+}
+
+for (const route of legalRoutes) {
+  test(`legal route renders: ${route}`, async ({ page }) => {
+    await page.goto(route)
+    const heading = page.getByRole('heading', { level: 1 }).first()
+    await expect(heading).toBeVisible()
   })
 }
 
@@ -86,6 +119,40 @@ test('add-to-cart opens drawer and persists across refresh', async ({ page }) =>
   await page.goto('/cart')
   await expect(page.getByRole('heading', { name: 'Your Bag' })).toBeVisible()
   await expect(page.getByText("Men's Modal Boxer Brief").first()).toBeVisible()
+})
+
+test('cart empty state renders with CTA', async ({ page }) => {
+  await page.goto('/cart')
+  await expect(page.getByRole('heading', { name: 'Your bag is empty' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Start Shopping' })).toBeVisible()
+})
+
+test('desktop gallery supports keyboard thumbnail navigation', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name.includes('mobile'), 'desktop-only behavior')
+
+  await page.goto('/products/mens-boxer-brief-black')
+
+  const gallery = page.getByLabel('Product gallery')
+  const thumb1 = page.getByRole('button', { name: 'Select image 1' })
+  const thumb2 = page.getByRole('button', { name: 'Select image 2' })
+
+  await gallery.focus()
+  await expect(thumb1).toHaveClass(/border-ink/)
+  await page.keyboard.press('ArrowRight')
+  await expect(thumb2).toHaveClass(/border-ink/)
+})
+
+test('mobile sticky add-to-cart CTA remains visible', async ({ page }, testInfo) => {
+  test.skip(!testInfo.project.name.includes('mobile'), 'mobile-only behavior')
+
+  await page.goto('/products/mens-boxer-brief-black')
+  const stickyBar = page.locator('div.fixed.bottom-0.left-0.right-0').first()
+
+  await expect(stickyBar).toBeVisible()
+  await expect(page.getByRole('button', { name: /add to cart/i })).toBeVisible()
+
+  const position = await stickyBar.evaluate((node) => getComputedStyle(node).position)
+  expect(position).toBe('fixed')
 })
 
 test('cart drawer focus trap and escape close', async ({ page }) => {

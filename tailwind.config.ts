@@ -9,6 +9,8 @@ const config: Config = {
         stone: '#f6f3ef',
         sand: '#efe9e2',
         gold: '#d4af37',
+        line: '#d2d2d7',
+        'ink-muted': '#6e6e73',
         white: '#ffffff',
         sage: '#9caf88',
       },

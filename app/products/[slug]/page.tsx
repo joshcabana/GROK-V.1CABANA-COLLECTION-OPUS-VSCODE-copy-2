@@ -16,7 +16,7 @@ export default async function ProductPage({ params }: PageProps) {
         <h1 className="text-2xl font-semibold mb-4">Product not found</h1>
         <Link
           href="/products"
-          className="text-[#1d1d1f] underline decoration-[#d2d2d7] hover:decoration-[#1d1d1f] transition-colors"
+          className="text-ink underline decoration-line hover:decoration-ink transition-colors"
         >
           Back to Shop
         </Link>

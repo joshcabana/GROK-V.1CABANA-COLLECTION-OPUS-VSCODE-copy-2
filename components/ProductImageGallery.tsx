@@ -119,7 +119,7 @@ export default function ProductImageGallery({ images, priorityFirst }: ProductIm
                   <button
                     type="button"
                     onClick={openZoom}
-                    className="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-2 text-xs uppercase tracking-[0.1em] text-[#1d1d1f] shadow-sm"
+                    className="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-2 text-xs uppercase tracking-[0.1em] text-ink shadow-sm"
                   >
                     <ZoomIn className="h-4 w-4" />
                     Zoom
@@ -137,7 +137,7 @@ export default function ProductImageGallery({ images, priorityFirst }: ProductIm
                 onClick={() => setSelectedIndex(index)}
                 className={cn(
                   'h-2 w-2 rounded-full transition-colors',
-                  selectedIndex === index ? 'bg-[#1d1d1f]' : 'bg-[#d2d2d7]',
+                  selectedIndex === index ? 'bg-ink' : 'bg-line',
                 )}
               />
             ))}
@@ -164,7 +164,7 @@ export default function ProductImageGallery({ images, priorityFirst }: ProductIm
               onClick={() => setSelectedIndex(index)}
               className={cn(
                 'relative aspect-[4/5] overflow-hidden rounded-2xl border transition-colors',
-                selectedIndex === index ? 'border-[#1d1d1f]' : 'border-[#d2d2d7]',
+                selectedIndex === index ? 'border-ink' : 'border-line',
               )}
             >
               <SafeImage src={image.url} alt={image.alt} sizes="120px" className="object-cover" />
@@ -186,12 +186,12 @@ export default function ProductImageGallery({ images, priorityFirst }: ProductIm
             <button
               type="button"
               onClick={() => setZoomOpen(false)}
-              className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#d2d2d7] bg-white text-[#1d1d1f] transition-colors hover:border-[#1d1d1f]"
+              className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-ink transition-colors hover:border-ink"
             >
               <X className="h-5 w-5" />
             </button>
             <div
-              className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#f5f5f7]"
+              className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-stone"
               style={{ touchAction: 'pinch-zoom' }}
             >
               <SafeImage

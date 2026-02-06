@@ -1,0 +1,79 @@
+name: Release Health
+
+on:
+  schedule:
+    - cron: '0 21 * * 0'
+  workflow_dispatch:
+    inputs:
+      run_preview_deploy:
+        description: 'Run deploy preview (includes smoke checks)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  verify-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Set Chrome path for Lighthouse
+        run: echo "CABANA_CHROME_PATH=$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)" >> "$GITHUB_ENV"
+
+      - name: Verify release gate
+        run: pnpm run verify:release
+
+  deploy-preview:
+    if: github.event_name == 'workflow_dispatch' && inputs.run_preview_deploy
+    needs: verify-release
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Deploy preview with smoke checks
+        run: pnpm run deploy:preview
+
+      - name: Upload release note artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-preview-note
+          path: reports/releases/latest.*

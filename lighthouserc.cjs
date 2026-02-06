@@ -1,5 +1,6 @@
 const preset = process.env.CABANA_LHCI_PRESET || 'mobile';
 const isDesktop = preset === 'desktop';
+const chromePath = process.env.CABANA_CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const mobileSettings = {
   formFactor: 'mobile',
   screenEmulation: {
@@ -33,7 +34,7 @@ module.exports = {
       startServerReadyTimeout: 60000,
       url: urls,
       numberOfRuns: 3,
-      chromePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+      chromePath,
       settings: {
         onlyCategories: ['performance', 'accessibility', 'seo', 'best-practices'],
         preset: isDesktop ? 'desktop' : undefined,

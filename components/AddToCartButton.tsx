@@ -80,7 +80,7 @@ export default function AddToCartButton({
         type="button"
         onClick={handleClick}
         className={cn(
-          'inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1d1d1f] px-6 py-3 text-sm font-semibold uppercase tracking-[0.1em] text-white transition-transform active:scale-[0.98] motion-reduce:transform-none',
+          'inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold uppercase tracking-[0.1em] text-white transition-transform active:scale-[0.98] motion-reduce:transform-none',
           isShaking && 'animate-shake',
         )}
       >
@@ -91,7 +91,7 @@ export default function AddToCartButton({
         {state === 'success' && 'Added'}
       </button>
       {showError && (
-        <p className="text-xs uppercase tracking-[0.1em] text-[#6e6e73]">Please select a size</p>
+        <p className="text-xs uppercase tracking-[0.1em] text-ink-muted">Please select a size</p>
       )}
     </div>
   )
