@@ -2,13 +2,14 @@ import Link from 'next/link'
 import { heroImage, products } from '@/data/products'
 import SafeImage from '@/components/SafeImage'
 import ProductCard from '@/components/ProductCard'
+import BrandWordmark from '@/components/BrandWordmark'
 
 const HERO_SIZES = '100vw'
 
 export default function HomePage() {
   return (
     <main>
-      <section className="relative overflow-hidden bg-[#f5f5f7]">
+      <section className="relative overflow-hidden bg-[#f5f5f7]" data-hero-section>
         <div className="relative h-[70vh] min-h-[520px] w-full md:h-[80vh]">
           <SafeImage
             src={heroImage.url}
@@ -19,14 +20,17 @@ export default function HomePage() {
             className="absolute inset-0"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/20 to-white/80" />
-          <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-end px-4 pb-16 md:px-6 md:pb-24">
-            <div className="max-w-xl">
-              <div
-                data-hero-logo
-                className="mb-6 text-xs font-semibold uppercase tracking-[0.3em] text-[#1d1d1f]"
-              >
-                CABANA
+          <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-between px-4 pb-16 pt-14 md:px-6 md:pb-24 md:pt-16">
+            <div className="flex w-full justify-center">
+              <div data-hero-wordmark className="w-full max-w-[1180px] text-center">
+                <BrandWordmark
+                  className="w-full"
+                  cabanaClassName="text-[clamp(64px,13vw,172px)] tracking-[0.42em]"
+                  collectionsClassName="text-[clamp(14px,2.1vw,32px)] tracking-[0.72em]"
+                />
               </div>
+            </div>
+            <div className="max-w-xl">
               <h1 className="text-5xl font-semibold tracking-[-0.02em] text-[#1d1d1f] md:text-6xl">
                 Quiet luxury, crafted for every day.
               </h1>

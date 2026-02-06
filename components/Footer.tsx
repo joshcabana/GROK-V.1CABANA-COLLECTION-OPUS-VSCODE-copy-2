@@ -1,11 +1,15 @@
 import Link from 'next/link'
+import BrandWordmark from './BrandWordmark'
 
 export default function Footer() {
   return (
     <footer className="border-t border-[#d2d2d7] bg-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-3 md:px-6">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-[#1d1d1f]">CABANA</p>
+          <BrandWordmark
+            cabanaClassName="text-[24px] tracking-[0.22em]"
+            collectionsClassName="text-[10px] tracking-[0.36em]"
+          />
           <p className="mt-3 text-sm text-[#6e6e73]">
             Quiet refinement in sustainable essentials, designed in Australia.
           </p>
