@@ -28,16 +28,30 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
       - name: Run live inspection
         env:
           CABANA_PREVIEW_URL: ${{ secrets.CABANA_PREVIEW_URL }}
           CABANA_PROMOTED_URL: ${{ secrets.CABANA_PROMOTED_URL }}
+          CABANA_INSPECT_ALLOW_EMPTY: '1'
         run: pnpm run inspect:live
+
+      - name: Run visual inspection
+        env:
+          CABANA_PREVIEW_URL: ${{ secrets.CABANA_PREVIEW_URL }}
+          CABANA_PROMOTED_URL: ${{ secrets.CABANA_PROMOTED_URL }}
+          CABANA_INSPECT_ALLOW_EMPTY: '1'
+        run: pnpm run inspect:visual
 
       - name: Upload inspection artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: live-inspection-report
-          path: reports/releases/live-inspection.latest.*
+          path: |
+            reports/releases/live-inspection.latest.*
+            reports/releases/visual-inspection.latest.*
+            reports/releases/visual/
           if-no-files-found: warn

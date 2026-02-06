@@ -45,6 +45,20 @@ jobs:
       - name: Verify release gate
         run: pnpm run verify:release
 
+      - name: Inspect live URLs (skip if not configured)
+        env:
+          CABANA_PREVIEW_URL: ${{ secrets.CABANA_PREVIEW_URL }}
+          CABANA_PROMOTED_URL: ${{ secrets.CABANA_PROMOTED_URL }}
+          CABANA_INSPECT_ALLOW_EMPTY: '1'
+        run: pnpm run inspect:live
+
+      - name: Inspect live visuals (skip if not configured)
+        env:
+          CABANA_PREVIEW_URL: ${{ secrets.CABANA_PREVIEW_URL }}
+          CABANA_PROMOTED_URL: ${{ secrets.CABANA_PROMOTED_URL }}
+          CABANA_INSPECT_ALLOW_EMPTY: '1'
+        run: pnpm run inspect:visual
+
   deploy-preview:
     if: github.event_name == 'workflow_dispatch' && inputs.run_preview_deploy
     needs: verify-release

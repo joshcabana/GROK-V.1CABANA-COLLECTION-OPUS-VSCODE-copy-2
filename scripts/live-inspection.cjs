@@ -4,6 +4,7 @@ const fs = require('node:fs')
 const path = require('node:path')
 
 const REQUEST_TIMEOUT_MS = Number(process.env.CABANA_INSPECT_TIMEOUT_MS || 10000)
+const ALLOW_EMPTY_TARGETS = process.env.CABANA_INSPECT_ALLOW_EMPTY === '1'
 const DEFAULT_ROUTES = [
   '/',
   '/products',
@@ -121,7 +122,8 @@ function writeReports(report) {
   lines.push(`- Generated: ${report.generatedAt}`)
   lines.push(`- Routes checked: ${report.routes.join(', ')}`)
   lines.push(`- Targets: ${report.targets.map((entry) => entry.baseUrl).join(', ')}`)
-  lines.push(`- Result: ${report.failures.length > 0 ? 'FAILED' : 'PASSED'}`)
+  const status = report.status || (report.failures.length > 0 ? 'FAILED' : 'PASSED')
+  lines.push(`- Result: ${status}`)
   lines.push('')
   lines.push('| Target | Route | Status | Fallback Placeholder | Error |')
   lines.push('| --- | --- | --- | --- | --- |')
@@ -149,6 +151,20 @@ async function run() {
   const routes = parseRoutes()
 
   if (targetUrls.length === 0) {
+    if (ALLOW_EMPTY_TARGETS) {
+      const report = {
+        generatedAt: new Date().toISOString(),
+        routes,
+        targets: [],
+        failures: [],
+        status: 'SKIPPED_NO_TARGETS',
+      }
+      writeReports(report)
+      console.error(
+        '[live-inspection] SKIPPED: no target URLs configured. Set CABANA_PREVIEW_URL and CABANA_PROMOTED_URL (or CABANA_LIVE_URLS).',
+      )
+      process.exit(0)
+    }
     console.error(
       '[live-inspection] No target URLs supplied. Pass URLs as args, set CABANA_LIVE_URLS/CABANA_PREVIEW_URL/CABANA_PROMOTED_URL, or use --latest-preview.',
     )

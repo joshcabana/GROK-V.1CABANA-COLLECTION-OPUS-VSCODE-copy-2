@@ -34,6 +34,8 @@ Set repository secrets for full dual-target coverage:
 1. `CABANA_PREVIEW_URL`
 2. `CABANA_PROMOTED_URL`
 
+If secrets are not configured yet, CI live-inspection runs are marked as skipped (non-failing) when `CABANA_INSPECT_ALLOW_EMPTY=1`.
+
 ### Command
 
 Use the latest preview from `reports/releases/latest.json` and include promoted URL:
@@ -52,6 +54,20 @@ The command writes:
 
 1. `reports/releases/live-inspection.latest.json`
 2. `reports/releases/live-inspection.latest.md`
+
+### Visual Capture Command
+
+Capture desktop/mobile screenshots for audited routes:
+
+```bash
+CABANA_PROMOTED_URL="https://your-promoted-url.vercel.app" pnpm run inspect:visual
+```
+
+This writes:
+
+1. `reports/releases/visual-inspection.latest.json`
+2. `reports/releases/visual-inspection.latest.md`
+3. `reports/releases/visual/<target-host>/*.png`
 
 ## Visual Acceptance Checklist
 
