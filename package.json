@@ -15,6 +15,7 @@
     "lhci:baseline:desktop": "CABANA_LHCI_PRESET=desktop pnpm exec lhci collect --config=./lighthouserc.cjs && CABANA_LHCI_PRESET=desktop node scripts/perf-dashboard.cjs --write-baseline",
     "verify:release": "pnpm run verify:build && pnpm run test:e2e && pnpm run lhci:mobile && pnpm run lhci:desktop",
     "deploy:preview": "bash scripts/deploy.sh",
+    "inspect:live": "node scripts/live-inspection.cjs --latest-preview",
     "release:preview": "pnpm run verify:assets && pnpm run deploy:preview",
     "release:ship": "pnpm run verify:release && pnpm run deploy:preview",
     "build": "next build",
