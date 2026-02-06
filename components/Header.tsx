@@ -22,9 +22,7 @@ export default function Header() {
   const overlayRef = useRef<HTMLDivElement | null>(null)
   const heroWordmarkRef = useRef<HTMLElement | null>(null)
   const heroSectionRef = useRef<HTMLElement | null>(null)
-  const progressRef = useRef(0)
   const targetProgressRef = useRef(0)
-  const lastFrameRef = useRef<number | null>(null)
   const tickingRef = useRef(false)
   const dockedRef = useRef(false)
   const [scrolled, setScrolled] = useState(false)
@@ -92,9 +90,9 @@ export default function Header() {
       const y = lerp(heroRect.top, navRect.top, easedProgress)
       const width = lerp(heroRect.width, navRect.width, easedProgress)
       const height = lerp(heroRect.height, navRect.height, easedProgress)
-      const heroCabanaSize = Math.min(window.innerWidth * 0.22, 158)
+      const heroCabanaSize = clamp(window.innerWidth * 0.13, 64, 172)
       const navCabanaSize = window.innerWidth < 768 ? 18 : 24
-      const heroCollectionsSize = Math.min(window.innerWidth * 0.038, 30)
+      const heroCollectionsSize = clamp(window.innerWidth * 0.021, 14, 32)
       const navCollectionsSize = window.innerWidth < 768 ? 8 : 10
 
       overlay.style.transform = `translate3d(${x}px, ${y}px, 0)`
@@ -114,23 +112,9 @@ export default function Header() {
       navLogo.style.opacity = `${dockFade}`
     }
 
-    const animate = (timestamp: number) => {
-      const current = progressRef.current
-      const target = targetProgressRef.current
-      const delta = target - current
-      const last = lastFrameRef.current ?? timestamp
-      const deltaMs = Math.min(timestamp - last, 48)
-      lastFrameRef.current = timestamp
-      const alpha = clamp(deltaMs / 130, 0.12, 0.42)
-      const next = Math.abs(delta) < 0.002 ? target : current + delta * alpha
-      progressRef.current = next
-      applyProgress(next)
-      if (Math.abs(target - next) > 0.002) {
-        raf = requestAnimationFrame(animate)
-      } else {
-        tickingRef.current = false
-        lastFrameRef.current = null
-      }
+    const animate = () => {
+      applyProgress(targetProgressRef.current)
+      tickingRef.current = false
     }
 
     const update = () => {
@@ -144,7 +128,6 @@ export default function Header() {
       targetProgressRef.current = clamp(scrollY / end, 0, 1)
       if (!tickingRef.current) {
         tickingRef.current = true
-        lastFrameRef.current = null
         raf = requestAnimationFrame(animate)
       }
     }
