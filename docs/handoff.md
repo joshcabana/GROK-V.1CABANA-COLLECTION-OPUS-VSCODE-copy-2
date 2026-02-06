@@ -7,9 +7,9 @@
 - Reliable cart flow and polished PDP interactions.
 
 ## Current State Snapshot
-- Date: 2026-02-06 10:59:27 AEDT
+- Date: 2026-02-06 11:15:46 AEDT
 - Branch: grok
-- Latest commit: ec2ea52 Update handoff documentation and add new checkpoint file for Feb 6
+- Latest commit: b79e979 Update Lighthouse dashboard report
 - Build status (`pnpm build`): PASS
 - LHCI status (mobile/desktop): PASS for all budgets (`performance >= 0.90`, `accessibility >= 0.95`, `SEO >= 0.90`, `best-practices >= 0.90`)
 - Latest preview URL: https://skill-deploy-pnqcu39x7c-codex-agent-deploys.vercel.app
@@ -26,6 +26,7 @@
 ## Milestone Log
 | Date | Milestone | What Changed | Validation | Open Risks | Owner |
 |---|---|---|---|---|---|
+| 2026-02-06 | Final QA rerun | Re-ran route smoke and verified deployed preview endpoints | `curl` returned 200 on `/`, `/products`, `/products/mens-boxer-brief-black`, `/cart`, `/privacy`, `/terms` | None observed during this pass | Codex |
 | 2026-02-06 | Budget gate stabilized | Updated LHCI scripts to read from `.lighthouseci` directly, removed brittle `/tmp` dependency in npm scripts | `pnpm run lhci:all:baseline` PASS, `pnpm run lhci:all:dashboard` PASS | Upload endpoint intermittently fails in restricted DNS but assertions still run locally | Codex |
 | 2026-02-06 | Preview handoff | Deployed latest verified build with local images and Gucci-style logo morph preserved | Preview URL + claim URL returned, local route smoke 200 on `/`, `/products`, `/products/[slug]`, `/cart`, `/privacy`, `/terms` | DNS variability may still occur on restricted networks | Codex |
 | 2026-02-06 | Live preview confirmation | Verified deployed routes directly against Vercel preview host | `curl` returned 200 on `/`, `/products`, `/products/mens-boxer-brief-black`, `/cart`, `/privacy`, `/terms` | None observed during this pass | Codex |
