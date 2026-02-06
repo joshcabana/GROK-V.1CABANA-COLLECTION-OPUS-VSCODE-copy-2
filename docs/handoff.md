@@ -7,13 +7,14 @@
 - Reliable cart flow and polished PDP interactions.
 
 ## Current State Snapshot
-- Date: 2026-02-06 10:48:37 AEDT
+- Date: 2026-02-06 10:59:27 AEDT
 - Branch: grok
-- Latest commit: 9c7f0b6 Document Feb 6 checkpoint
+- Latest commit: ec2ea52 Update handoff documentation and add new checkpoint file for Feb 6
 - Build status (`pnpm build`): PASS
 - LHCI status (mobile/desktop): PASS for all budgets (`performance >= 0.90`, `accessibility >= 0.95`, `SEO >= 0.90`, `best-practices >= 0.90`)
 - Latest preview URL: https://skill-deploy-pnqcu39x7c-codex-agent-deploys.vercel.app
 - Latest claim URL: https://vercel.com/claim-deployment?code=221bff73-4b66-4bca-82d7-db67412fe89b
+- Preview route smoke (`curl`): PASS (`200`) for `/`, `/products`, `/products/mens-boxer-brief-black`, `/cart`, `/privacy`, `/terms`
 
 ## Active Milestone
 - Name: Release candidate verification and preview handoff
@@ -26,7 +27,8 @@
 | Date | Milestone | What Changed | Validation | Open Risks | Owner |
 |---|---|---|---|---|---|
 | 2026-02-06 | Budget gate stabilized | Updated LHCI scripts to read from `.lighthouseci` directly, removed brittle `/tmp` dependency in npm scripts | `pnpm run lhci:all:baseline` PASS, `pnpm run lhci:all:dashboard` PASS | Upload endpoint intermittently fails in restricted DNS but assertions still run locally | Codex |
-| 2026-02-06 | Preview handoff | Deployed latest verified build with local images and Gucci-style logo morph preserved | Preview URL + claim URL returned, local route smoke 200 on `/`, `/products`, `/products/[slug]`, `/cart`, `/privacy`, `/terms` | External route checks against Vercel URL from sandbox DNS still unreliable | Codex |
+| 2026-02-06 | Preview handoff | Deployed latest verified build with local images and Gucci-style logo morph preserved | Preview URL + claim URL returned, local route smoke 200 on `/`, `/products`, `/products/[slug]`, `/cart`, `/privacy`, `/terms` | DNS variability may still occur on restricted networks | Codex |
+| 2026-02-06 | Live preview confirmation | Verified deployed routes directly against Vercel preview host | `curl` returned 200 on `/`, `/products`, `/products/mens-boxer-brief-black`, `/cart`, `/privacy`, `/terms` | None observed during this pass | Codex |
 
 ## Next 3 Actions
 1. Browser smoke test the latest preview on desktop and mobile (`/`, `/products`, PDP, `/cart`, `/privacy`, `/terms`).
@@ -34,8 +36,7 @@
 3. Record final release checkpoint commit excluding `.next` cache churn.
 
 ## Blockers
-- None for local build or audits.
-- Network DNS from this sandbox can prevent direct `curl` to preview host.
+- None.
 
 ## Notes
 - Local image assets remain in `public/assets/Images`; product data currently references local paths.
