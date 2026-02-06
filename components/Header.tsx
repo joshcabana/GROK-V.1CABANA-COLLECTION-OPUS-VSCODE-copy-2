@@ -22,6 +22,9 @@ export default function Header() {
   const overlayRef = useRef<HTMLDivElement | null>(null)
   const heroWordmarkRef = useRef<HTMLElement | null>(null)
   const heroSectionRef = useRef<HTMLElement | null>(null)
+  const startRectRef = useRef<{ left: number; top: number; width: number; height: number } | null>(null)
+  const endRectRef = useRef<{ left: number; top: number; width: number; height: number } | null>(null)
+  const measuredRef = useRef(false)
   const targetProgressRef = useRef(0)
   const tickingRef = useRef(false)
   const dockedRef = useRef(false)
@@ -41,6 +44,31 @@ export default function Header() {
       }
     }
 
+    const measureRects = () => {
+      resolveTargets()
+      const hero = heroWordmarkRef.current
+      const navLogo = navLogoRef.current
+      if (!hero || !navLogo) return
+
+      const heroRect = hero.getBoundingClientRect()
+      const navRect = navLogo.getBoundingClientRect()
+
+      startRectRef.current = {
+        left: heroRect.left + window.scrollX,
+        top: heroRect.top + window.scrollY,
+        width: heroRect.width,
+        height: heroRect.height,
+      }
+
+      endRectRef.current = {
+        left: navRect.left,
+        top: navRect.top,
+        width: navRect.width,
+        height: navRect.height,
+      }
+      measuredRef.current = true
+    }
+
     const syncDockedState = (value: boolean) => {
       if (dockedRef.current === value) return
       dockedRef.current = value
@@ -57,6 +85,9 @@ export default function Header() {
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
       if (!navLogo || !overlay || !hero) return
+      if (!measuredRef.current) {
+        measureRects()
+      }
       overlay.style.willChange = 'transform, width, height, opacity'
 
       const easedProgress = 1 - Math.pow(1 - progress, 3)
@@ -65,16 +96,16 @@ export default function Header() {
       const isDocked = dockFade >= 0.992
 
       if (reducedMotion) {
-        syncDockedState(progress >= 1)
-        hero.style.opacity = progress >= 1 ? '0' : '1'
+        syncDockedState(progress >= 0.98)
+        hero.style.opacity = progress >= 0.98 ? '0' : '1'
         overlay.style.opacity = '0'
-        navLogo.style.opacity = progress >= 1 ? '1' : '0'
+        navLogo.style.opacity = progress >= 0.98 ? '1' : '0'
         return
       }
 
       syncDockedState(isDocked)
 
-      if (progress <= 0.001) {
+      if (progress <= 0.02) {
         hero.style.opacity = '1'
         overlay.style.opacity = '0'
         navLogo.style.opacity = '0'
@@ -83,13 +114,17 @@ export default function Header() {
       }
 
       hero.style.opacity = '0'
-      const heroRect = hero.getBoundingClientRect()
-      const navRect = navLogo.getBoundingClientRect()
+      const startRect = startRectRef.current
+      const endRect = endRectRef.current
+      if (!startRect || !endRect) return
 
-      const x = lerp(heroRect.left, navRect.left, easedProgress)
-      const y = lerp(heroRect.top, navRect.top, easedProgress)
-      const width = lerp(heroRect.width, navRect.width, easedProgress)
-      const height = lerp(heroRect.height, navRect.height, easedProgress)
+      const heroLeft = startRect.left - window.scrollX
+      const heroTop = startRect.top - window.scrollY
+
+      const x = lerp(heroLeft, endRect.left, easedProgress)
+      const y = lerp(heroTop, endRect.top, easedProgress)
+      const width = lerp(startRect.width, endRect.width, easedProgress)
+      const height = lerp(startRect.height, endRect.height, easedProgress)
       const heroCabanaSize = clamp(window.innerWidth * 0.13, 64, 172)
       const navCabanaSize = window.innerWidth < 768 ? 18 : 24
       const heroCollectionsSize = clamp(window.innerWidth * 0.021, 14, 32)
@@ -121,6 +156,9 @@ export default function Header() {
       resolveTargets()
       const heroSection = heroSectionRef.current
       const scrollY = window.scrollY
+      if (!measuredRef.current || scrollY <= 2) {
+        measureRects()
+      }
       const end = Math.max(
         window.innerWidth < 768 ? 150 : 220,
         heroSection ? heroSection.offsetHeight * 0.28 : window.innerHeight * 0.28
@@ -132,13 +170,18 @@ export default function Header() {
       }
     }
 
+    const onResize = () => {
+      measuredRef.current = false
+      update()
+    }
+
     update()
     window.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update)
+    window.addEventListener('resize', onResize)
     return () => {
       if (raf) cancelAnimationFrame(raf)
       window.removeEventListener('scroll', update)
-      window.removeEventListener('resize', update)
+      window.removeEventListener('resize', onResize)
     }
   }, [])
 
