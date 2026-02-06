@@ -5,7 +5,7 @@ import Footer from '@/components/Footer'
 import CartDrawer from '@/components/CartDrawer'
 
 export const metadata: Metadata = {
-  title: 'CABANA — Sustainable Modal Underwear',
+  title: 'Cabana Collections — Sustainable Modal Underwear',
   description: 'Quiet luxury underwear crafted from soft, sustainable modal.',
 }
 

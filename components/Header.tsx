@@ -53,13 +53,23 @@ export default function Header() {
         const y = heroRect.top + (navRect.top - heroRect.top) * progress
         const width = heroRect.width + (navRect.width - heroRect.width) * progress
         const height = heroRect.height + (navRect.height - heroRect.height) * progress
+        const heroCabanaSize = Math.min(window.innerWidth * 0.22, 158)
+        const navCabanaSize = window.innerWidth < 768 ? 18 : 24
+        const heroCollectionsSize = Math.min(window.innerWidth * 0.038, 30)
+        const navCollectionsSize = window.innerWidth < 768 ? 8 : 10
 
         overlay.style.transform = `translate3d(${x}px, ${y}px, 0)`
         overlay.style.width = `${width}px`
         overlay.style.height = `${height}px`
         overlay.style.opacity = progress < 0.98 ? '1' : '0'
-        overlay.style.setProperty('--cabana-size', `${112 + (24 - 112) * progress}px`)
-        overlay.style.setProperty('--collections-size', `${23 + (10 - 23) * progress}px`)
+        overlay.style.setProperty(
+          '--cabana-size',
+          `${heroCabanaSize + (navCabanaSize - heroCabanaSize) * progress}px`
+        )
+        overlay.style.setProperty(
+          '--collections-size',
+          `${heroCollectionsSize + (navCollectionsSize - heroCollectionsSize) * progress}px`
+        )
         overlay.style.setProperty('--cabana-track', `${0.42 + (0.2 - 0.42) * progress}em`)
         overlay.style.setProperty('--collections-track', `${0.72 + (0.34 - 0.72) * progress}em`)
         navLogo.style.opacity = `${clamp((progress - 0.6) / 0.4, 0, 1)}`
