@@ -20,83 +20,126 @@ export default function Header() {
   const openDrawer = useCartStore((state) => state.openDrawer)
   const navLogoRef = useRef<HTMLDivElement | null>(null)
   const overlayRef = useRef<HTMLDivElement | null>(null)
+  const heroWordmarkRef = useRef<HTMLElement | null>(null)
+  const heroSectionRef = useRef<HTMLElement | null>(null)
+  const progressRef = useRef(0)
+  const targetProgressRef = useRef(0)
+  const tickingRef = useRef(false)
+  const dockedRef = useRef(false)
   const [scrolled, setScrolled] = useState(false)
   const [docked, setDocked] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
     let raf = 0
+
+    const resolveTargets = () => {
+      if (!heroWordmarkRef.current) {
+        heroWordmarkRef.current = document.querySelector<HTMLElement>('[data-hero-wordmark]')
+      }
+      if (!heroSectionRef.current) {
+        heroSectionRef.current = document.querySelector<HTMLElement>('[data-hero-section]')
+      }
+    }
+
+    const syncDockedState = (value: boolean) => {
+      if (dockedRef.current === value) return
+      dockedRef.current = value
+      setDocked(value)
+      setScrolled(value)
+    }
+
+    const applyProgress = (progress: number) => {
+      resolveTargets()
+      const hero = heroWordmarkRef.current
+      const heroSection = heroSectionRef.current
+      const navLogo = navLogoRef.current
+      const overlay = overlayRef.current
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+      if (!navLogo || !overlay || !hero) return
+      overlay.style.willChange = 'transform, width, height, opacity'
+
+      const easedProgress = 1 - Math.pow(1 - progress, 3)
+      const fadeWindowStart = 0.74
+      const dockFade = clamp((easedProgress - fadeWindowStart) / (1 - fadeWindowStart), 0, 1)
+      const isDocked = dockFade >= 0.985
+
+      if (reducedMotion) {
+        syncDockedState(progress >= 1)
+        hero.style.opacity = progress >= 1 ? '0' : '1'
+        overlay.style.opacity = '0'
+        navLogo.style.opacity = progress >= 1 ? '1' : '0'
+        return
+      }
+
+      syncDockedState(isDocked)
+
+      if (progress <= 0.001) {
+        hero.style.opacity = '1'
+        overlay.style.opacity = '0'
+        navLogo.style.opacity = '0'
+        syncDockedState(false)
+        return
+      }
+
+      hero.style.opacity = '0'
+      const heroRect = hero.getBoundingClientRect()
+      const navRect = navLogo.getBoundingClientRect()
+
+      const x = lerp(heroRect.left, navRect.left, easedProgress)
+      const y = lerp(heroRect.top, navRect.top, easedProgress)
+      const width = lerp(heroRect.width, navRect.width, easedProgress)
+      const height = lerp(heroRect.height, navRect.height, easedProgress)
+      const heroCabanaSize = Math.min(window.innerWidth * 0.22, 158)
+      const navCabanaSize = window.innerWidth < 768 ? 18 : 24
+      const heroCollectionsSize = Math.min(window.innerWidth * 0.038, 30)
+      const navCollectionsSize = window.innerWidth < 768 ? 8 : 10
+
+      overlay.style.transform = `translate3d(${x}px, ${y}px, 0)`
+      overlay.style.width = `${width}px`
+      overlay.style.height = `${height}px`
+      overlay.style.setProperty(
+        '--cabana-size',
+        `${lerp(heroCabanaSize, navCabanaSize, easedProgress)}px`
+      )
+      overlay.style.setProperty(
+        '--collections-size',
+        `${lerp(heroCollectionsSize, navCollectionsSize, easedProgress)}px`
+      )
+      overlay.style.setProperty('--cabana-track', `${lerp(0.42, 0.2, easedProgress)}em`)
+      overlay.style.setProperty('--collections-track', `${lerp(0.72, 0.34, easedProgress)}em`)
+      overlay.style.opacity = `${1 - dockFade}`
+      navLogo.style.opacity = `${dockFade}`
+    }
+
+    const animate = () => {
+      const current = progressRef.current
+      const target = targetProgressRef.current
+      const delta = target - current
+      const next = Math.abs(delta) < 0.002 ? target : current + delta * 0.17
+      progressRef.current = next
+      applyProgress(next)
+      if (Math.abs(target - next) > 0.002) {
+        raf = requestAnimationFrame(animate)
+      } else {
+        tickingRef.current = false
+      }
+    }
+
     const update = () => {
-      if (raf) cancelAnimationFrame(raf)
-      raf = requestAnimationFrame(() => {
-        const hero = document.querySelector<HTMLElement>('[data-hero-wordmark]')
-        const heroSection = document.querySelector<HTMLElement>('[data-hero-section]')
-        const navLogo = navLogoRef.current
-        const overlay = overlayRef.current
-        const scrollY = window.scrollY
-        const end = Math.max(
-          window.innerWidth < 768 ? 120 : 180,
-          heroSection ? heroSection.offsetHeight * 0.22 : window.innerHeight * 0.22
-        )
-        const progress = clamp(scrollY / end, 0, 1)
-        const easedProgress = 1 - Math.pow(1 - progress, 3)
-        const isDocked = progress >= 0.985
-        const fadeWindowStart = 0.9
-        const dockFade = clamp((progress - fadeWindowStart) / (1 - fadeWindowStart), 0, 1)
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-        setScrolled(isDocked)
-        setDocked(isDocked)
-
-        if (!navLogo || !overlay || !hero || reducedMotion) {
-          const reducedDocked = scrollY > end
-          setScrolled(reducedDocked)
-          setDocked(reducedDocked)
-          if (navLogo) navLogo.style.opacity = reducedDocked ? '1' : '0'
-          if (overlay) overlay.style.opacity = '0'
-          if (hero) hero.style.opacity = reducedDocked ? '0' : '1'
-          return
-        }
-
-        if (progress <= 0.001) {
-          hero.style.opacity = '1'
-          overlay.style.opacity = '0'
-          navLogo.style.opacity = '0'
-          setScrolled(false)
-          setDocked(false)
-          return
-        }
-
-        hero.style.opacity = '0'
-        const heroRect = hero.getBoundingClientRect()
-        const navRect = navLogo.getBoundingClientRect()
-
-        const x = lerp(heroRect.left, navRect.left, easedProgress)
-        const y = lerp(heroRect.top, navRect.top, easedProgress)
-        const width = lerp(heroRect.width, navRect.width, easedProgress)
-        const height = lerp(heroRect.height, navRect.height, easedProgress)
-        const heroCabanaSize = Math.min(window.innerWidth * 0.22, 158)
-        const navCabanaSize = window.innerWidth < 768 ? 18 : 24
-        const heroCollectionsSize = Math.min(window.innerWidth * 0.038, 30)
-        const navCollectionsSize = window.innerWidth < 768 ? 8 : 10
-
-        overlay.style.transform = `translate3d(${x}px, ${y}px, 0)`
-        overlay.style.width = `${width}px`
-        overlay.style.height = `${height}px`
-        overlay.style.opacity = isDocked ? '0' : '1'
-        overlay.style.setProperty(
-          '--cabana-size',
-          `${lerp(heroCabanaSize, navCabanaSize, easedProgress)}px`
-        )
-        overlay.style.setProperty(
-          '--collections-size',
-          `${lerp(heroCollectionsSize, navCollectionsSize, easedProgress)}px`
-        )
-        overlay.style.setProperty('--cabana-track', `${lerp(0.42, 0.2, easedProgress)}em`)
-        overlay.style.setProperty('--collections-track', `${lerp(0.72, 0.34, easedProgress)}em`)
-        overlay.style.opacity = `${1 - dockFade}`
-        navLogo.style.opacity = `${dockFade}`
-      })
+      resolveTargets()
+      const heroSection = heroSectionRef.current
+      const scrollY = window.scrollY
+      const end = Math.max(
+        window.innerWidth < 768 ? 120 : 180,
+        heroSection ? heroSection.offsetHeight * 0.22 : window.innerHeight * 0.22
+      )
+      targetProgressRef.current = clamp(scrollY / end, 0, 1)
+      if (!tickingRef.current) {
+        tickingRef.current = true
+        raf = requestAnimationFrame(animate)
+      }
     }
 
     update()

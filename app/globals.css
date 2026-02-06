@@ -15,6 +15,44 @@ body {
   color: #1d1d1f;
 }
 
+@layer base {
+  button {
+    transition-property: color, background-color, border-color, opacity, transform, box-shadow;
+    transition-duration: 220ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  button:not(:disabled):hover {
+    box-shadow: 0 0 0 1px rgba(217, 194, 159, 0.55), 0 10px 26px rgba(98, 73, 34, 0.22);
+  }
+
+  button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(181, 141, 79, 0.45), 0 8px 22px rgba(78, 57, 27, 0.22);
+  }
+}
+
+@layer utilities {
+  .btn-glow {
+    transition-property: color, background-color, border-color, opacity, transform, box-shadow;
+    transition-duration: 220ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 0 0 1px rgba(217, 194, 159, 0.6), 0 14px 34px rgba(98, 73, 34, 0.28);
+  }
+
+  .btn-glow:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(181, 141, 79, 0.45), 0 12px 28px rgba(78, 57, 27, 0.24);
+  }
+
+  .btn-glow:disabled {
+    box-shadow: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -26,6 +64,11 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  button:not(:disabled):hover,
+  .btn-glow:hover {
+    box-shadow: none;
   }
 }
 

@@ -26,7 +26,7 @@ export default function CartPage() {
             <p className="text-lg font-medium text-[#1d1d1f]">Your bag is empty</p>
             <Link
               href="/products"
-              className="rounded-full bg-[#1d1d1f] px-6 py-3 text-xs uppercase tracking-[0.2em] text-white"
+              className="btn-glow rounded-full bg-[#1d1d1f] px-6 py-3 text-xs uppercase tracking-[0.2em] text-white"
             >
               Start Shopping
             </Link>
