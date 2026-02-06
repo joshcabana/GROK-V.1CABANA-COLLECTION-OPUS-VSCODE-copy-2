@@ -24,6 +24,7 @@ export default function Header() {
   const heroSectionRef = useRef<HTMLElement | null>(null)
   const progressRef = useRef(0)
   const targetProgressRef = useRef(0)
+  const lastFrameRef = useRef<number | null>(null)
   const tickingRef = useRef(false)
   const dockedRef = useRef(false)
   const [scrolled, setScrolled] = useState(false)
@@ -61,9 +62,9 @@ export default function Header() {
       overlay.style.willChange = 'transform, width, height, opacity'
 
       const easedProgress = 1 - Math.pow(1 - progress, 3)
-      const fadeWindowStart = 0.74
+      const fadeWindowStart = 0.8
       const dockFade = clamp((easedProgress - fadeWindowStart) / (1 - fadeWindowStart), 0, 1)
-      const isDocked = dockFade >= 0.985
+      const isDocked = dockFade >= 0.992
 
       if (reducedMotion) {
         syncDockedState(progress >= 1)
@@ -113,17 +114,22 @@ export default function Header() {
       navLogo.style.opacity = `${dockFade}`
     }
 
-    const animate = () => {
+    const animate = (timestamp: number) => {
       const current = progressRef.current
       const target = targetProgressRef.current
       const delta = target - current
-      const next = Math.abs(delta) < 0.002 ? target : current + delta * 0.17
+      const last = lastFrameRef.current ?? timestamp
+      const deltaMs = Math.min(timestamp - last, 48)
+      lastFrameRef.current = timestamp
+      const alpha = clamp(deltaMs / 130, 0.12, 0.42)
+      const next = Math.abs(delta) < 0.002 ? target : current + delta * alpha
       progressRef.current = next
       applyProgress(next)
       if (Math.abs(target - next) > 0.002) {
         raf = requestAnimationFrame(animate)
       } else {
         tickingRef.current = false
+        lastFrameRef.current = null
       }
     }
 
@@ -132,12 +138,13 @@ export default function Header() {
       const heroSection = heroSectionRef.current
       const scrollY = window.scrollY
       const end = Math.max(
-        window.innerWidth < 768 ? 120 : 180,
-        heroSection ? heroSection.offsetHeight * 0.22 : window.innerHeight * 0.22
+        window.innerWidth < 768 ? 150 : 220,
+        heroSection ? heroSection.offsetHeight * 0.28 : window.innerHeight * 0.28
       )
       targetProgressRef.current = clamp(scrollY / end, 0, 1)
       if (!tickingRef.current) {
         tickingRef.current = true
+        lastFrameRef.current = null
         raf = requestAnimationFrame(animate)
       }
     }
