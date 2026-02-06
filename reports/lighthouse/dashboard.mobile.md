@@ -1,6 +1,6 @@
 # Lighthouse Performance Dashboard
 
-Generated: 2026-02-06T00:06:11.704Z
+Generated: 2026-02-06T00:39:24.100Z
 
 | URL | Perf | A11y | SEO | BP | FCP | LCP | TBT | CLS | Δ Perf |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
