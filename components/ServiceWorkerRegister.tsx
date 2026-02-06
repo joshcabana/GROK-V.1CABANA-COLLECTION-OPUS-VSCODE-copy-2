@@ -11,5 +11,5 @@ export default function ServiceWorkerRegister() {
     })
   }, [])
 
-  return <span hidden aria-hidden="true" data-sw-register="true" />
+  return null
 }
