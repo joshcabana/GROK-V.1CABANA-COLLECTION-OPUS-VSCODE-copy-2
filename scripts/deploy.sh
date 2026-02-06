@@ -7,6 +7,7 @@
 set -euo pipefail
 
 DEPLOY_ENDPOINT="https://codex-deploy-skills.vercel.sh/api/deploy"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Detect framework from package.json
 detect_framework() {
@@ -197,6 +198,12 @@ elif [ -d "$INPUT_PATH" ]; then
     # Detect framework from package.json
     FRAMEWORK=$(detect_framework "$PROJECT_PATH/package.json")
 
+    # CABANA guardrail: fail fast if product image references are invalid.
+    if [ -f "$PROJECT_PATH/data/products.ts" ] && [ -f "$SCRIPT_DIR/validate-product-assets.cjs" ]; then
+        echo "Validating product image assets..." >&2
+        node "$SCRIPT_DIR/validate-product-assets.cjs" "$PROJECT_PATH/data/products.ts" "$PROJECT_PATH/public" "$MAX_SIZE"
+    fi
+
     # Stage files into a temporary directory to avoid mutating the source tree.
     mkdir -p "$STAGING_DIR"
     echo "Staging project files..." >&2
@@ -275,6 +282,11 @@ if [ -z "$PREVIEW_URL" ]; then
     echo "Error: Could not extract preview URL from response" >&2
     echo "$RESPONSE" >&2
     exit 1
+fi
+
+if [ "${CABANA_SKIP_SMOKE:-0}" != "1" ] && [ -f "$SCRIPT_DIR/smoke-preview.cjs" ]; then
+    echo "Running preview smoke checks..." >&2
+    node "$SCRIPT_DIR/smoke-preview.cjs" "$PREVIEW_URL"
 fi
 
 echo "" >&2
