@@ -24,7 +24,7 @@ export default function HomePage() {
             <div className="flex w-full justify-center">
               <div data-hero-wordmark className="w-full max-w-[1180px] text-center">
                 <BrandWordmark
-                  className="w-full"
+                  className="w-full text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.35)]"
                   cabanaClassName="text-[clamp(64px,13vw,172px)] tracking-[0.42em]"
                   collectionsClassName="text-[clamp(14px,2.1vw,32px)] tracking-[0.72em]"
                 />

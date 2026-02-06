@@ -12,7 +12,7 @@ export default function BrandWordmark({
   collectionsClassName,
 }: BrandWordmarkProps) {
   return (
-    <div className={cn('select-none text-[#101417]', className)}>
+    <div className={cn('select-none', className)}>
       <div
         className={cn(
           "font-['Didot','Baskerville','Times_New_Roman',serif] leading-none uppercase",

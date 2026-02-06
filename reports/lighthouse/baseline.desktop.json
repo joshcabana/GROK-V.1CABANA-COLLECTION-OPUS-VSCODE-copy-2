@@ -3,7 +3,7 @@
     "url": "http://localhost:3000/cart",
     "metrics": {
       "performance": 1,
-      "accessibility": 1,
+      "accessibility": 0.96,
       "seo": 1,
       "bestPractices": 1,
       "fcp": "0.2 s",
@@ -16,7 +16,7 @@
     "url": "http://localhost:3000/products/mens-boxer-brief-black",
     "metrics": {
       "performance": 1,
-      "accessibility": 1,
+      "accessibility": 0.96,
       "seo": 1,
       "bestPractices": 1,
       "fcp": "0.2 s",
@@ -29,7 +29,7 @@
     "url": "http://localhost:3000/products",
     "metrics": {
       "performance": 1,
-      "accessibility": 1,
+      "accessibility": 0.96,
       "seo": 1,
       "bestPractices": 1,
       "fcp": "0.2 s",
@@ -42,7 +42,7 @@
     "url": "http://localhost:3000/",
     "metrics": {
       "performance": 1,
-      "accessibility": 1,
+      "accessibility": 0.96,
       "seo": 1,
       "bestPractices": 1,
       "fcp": "0.2 s",

@@ -21,6 +21,7 @@ export default function Header() {
   const navLogoRef = useRef<HTMLDivElement | null>(null)
   const overlayRef = useRef<HTMLDivElement | null>(null)
   const [scrolled, setScrolled] = useState(false)
+  const [docked, setDocked] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
@@ -34,18 +35,26 @@ export default function Header() {
         const overlay = overlayRef.current
         const scrollY = window.scrollY
         const end = Math.max(
-          window.innerWidth < 768 ? 90 : 140,
-          heroSection ? heroSection.offsetHeight * 0.16 : window.innerHeight * 0.16
+          window.innerWidth < 768 ? 120 : 180,
+          heroSection ? heroSection.offsetHeight * 0.22 : window.innerHeight * 0.22
         )
         const progress = clamp(scrollY / end, 0, 1)
+        const easedProgress = 1 - Math.pow(1 - progress, 3)
+        const isDocked = progress >= 0.985
+        const fadeWindowStart = 0.9
+        const dockFade = clamp((progress - fadeWindowStart) / (1 - fadeWindowStart), 0, 1)
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-        setScrolled(progress > 0.08)
+        setScrolled(isDocked)
+        setDocked(isDocked)
 
         if (!navLogo || !overlay || !hero || reducedMotion) {
-          if (navLogo) navLogo.style.opacity = scrollY > end ? '1' : '0'
+          const reducedDocked = scrollY > end
+          setScrolled(reducedDocked)
+          setDocked(reducedDocked)
+          if (navLogo) navLogo.style.opacity = reducedDocked ? '1' : '0'
           if (overlay) overlay.style.opacity = '0'
-          if (hero) hero.style.opacity = scrollY > end ? '0' : '1'
+          if (hero) hero.style.opacity = reducedDocked ? '0' : '1'
           return
         }
 
@@ -53,6 +62,8 @@ export default function Header() {
           hero.style.opacity = '1'
           overlay.style.opacity = '0'
           navLogo.style.opacity = '0'
+          setScrolled(false)
+          setDocked(false)
           return
         }
 
@@ -60,10 +71,10 @@ export default function Header() {
         const heroRect = hero.getBoundingClientRect()
         const navRect = navLogo.getBoundingClientRect()
 
-        const x = lerp(heroRect.left, navRect.left, progress)
-        const y = lerp(heroRect.top, navRect.top, progress)
-        const width = lerp(heroRect.width, navRect.width, progress)
-        const height = lerp(heroRect.height, navRect.height, progress)
+        const x = lerp(heroRect.left, navRect.left, easedProgress)
+        const y = lerp(heroRect.top, navRect.top, easedProgress)
+        const width = lerp(heroRect.width, navRect.width, easedProgress)
+        const height = lerp(heroRect.height, navRect.height, easedProgress)
         const heroCabanaSize = Math.min(window.innerWidth * 0.22, 158)
         const navCabanaSize = window.innerWidth < 768 ? 18 : 24
         const heroCollectionsSize = Math.min(window.innerWidth * 0.038, 30)
@@ -72,18 +83,19 @@ export default function Header() {
         overlay.style.transform = `translate3d(${x}px, ${y}px, 0)`
         overlay.style.width = `${width}px`
         overlay.style.height = `${height}px`
-        overlay.style.opacity = progress < 0.99 ? '1' : '0'
+        overlay.style.opacity = isDocked ? '0' : '1'
         overlay.style.setProperty(
           '--cabana-size',
-          `${lerp(heroCabanaSize, navCabanaSize, progress)}px`
+          `${lerp(heroCabanaSize, navCabanaSize, easedProgress)}px`
         )
         overlay.style.setProperty(
           '--collections-size',
-          `${lerp(heroCollectionsSize, navCollectionsSize, progress)}px`
+          `${lerp(heroCollectionsSize, navCollectionsSize, easedProgress)}px`
         )
-        overlay.style.setProperty('--cabana-track', `${lerp(0.42, 0.2, progress)}em`)
-        overlay.style.setProperty('--collections-track', `${lerp(0.72, 0.34, progress)}em`)
-        navLogo.style.opacity = progress >= 0.99 ? '1' : '0'
+        overlay.style.setProperty('--cabana-track', `${lerp(0.42, 0.2, easedProgress)}em`)
+        overlay.style.setProperty('--collections-track', `${lerp(0.72, 0.34, easedProgress)}em`)
+        overlay.style.opacity = `${1 - dockFade}`
+        navLogo.style.opacity = `${dockFade}`
       })
     }
 
@@ -101,7 +113,7 @@ export default function Header() {
     <>
       <div
         ref={overlayRef}
-        className="pointer-events-none fixed left-0 top-0 z-50 flex items-center justify-center opacity-0 transition-opacity duration-150 motion-reduce:transition-none"
+        className="pointer-events-none fixed left-0 top-0 z-50 flex items-center justify-center text-white opacity-0 transition-opacity duration-200 motion-reduce:transition-none"
         aria-hidden="true"
       >
         <BrandWordmark
@@ -118,7 +130,10 @@ export default function Header() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
           <Link href="/" className="flex items-center">
-            <div ref={navLogoRef} className="text-[#1d1d1f] transition-opacity duration-200">
+            <div
+              ref={navLogoRef}
+              className="text-[#1d1d1f] opacity-0 transition-opacity duration-200"
+            >
               <BrandWordmark
                 className="leading-none"
                 cabanaClassName="text-[22px] tracking-[0.2em]"
@@ -126,24 +141,40 @@ export default function Header() {
               />
             </div>
           </Link>
-          <nav className="hidden items-center gap-8 text-xs uppercase tracking-[0.2em] text-[#1d1d1f] md:flex">
-            <Link href="/" className="hover:text-black/70">
+          <nav
+            className={cn(
+              'hidden items-center gap-8 text-xs uppercase tracking-[0.2em] transition-colors duration-300 md:flex',
+              docked ? 'text-[#1d1d1f]' : 'text-white'
+            )}
+          >
+            <Link href="/" className={cn(docked ? 'hover:text-black/70' : 'hover:text-white/80')}>
               Home
             </Link>
-            <Link href="/products" className="hover:text-black/70">
+            <Link
+              href="/products"
+              className={cn(docked ? 'hover:text-black/70' : 'hover:text-white/80')}
+            >
               Products
             </Link>
-            <Link href="/privacy" className="hover:text-black/70">
+            <Link
+              href="/privacy"
+              className={cn(docked ? 'hover:text-black/70' : 'hover:text-white/80')}
+            >
               Privacy
             </Link>
-            <Link href="/terms" className="hover:text-black/70">
+            <Link href="/terms" className={cn(docked ? 'hover:text-black/70' : 'hover:text-white/80')}>
               Terms
             </Link>
           </nav>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setMobileOpen((open) => !open)}
-              className="rounded-full border border-[#d2d2d7] p-2 md:hidden"
+              className={cn(
+                'rounded-full p-2 transition-colors duration-300 md:hidden',
+                docked
+                  ? 'border border-[#d2d2d7] text-[#1d1d1f]'
+                  : 'border border-white/70 text-white'
+              )}
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
@@ -152,7 +183,12 @@ export default function Header() {
             </button>
             <button
               onClick={openDrawer}
-              className="relative rounded-full border border-[#d2d2d7] p-2"
+              className={cn(
+                'relative rounded-full p-2 transition-colors duration-300',
+                docked
+                  ? 'border border-[#d2d2d7] text-[#1d1d1f]'
+                  : 'border border-white/70 text-white'
+              )}
               aria-label="Open cart"
             >
               <ShoppingBag className="h-4 w-4" />
@@ -168,10 +204,19 @@ export default function Header() {
           id="mobile-nav"
           className={cn(
             'md:hidden overflow-hidden transition-[max-height,opacity] duration-200 motion-reduce:transition-none',
-            mobileOpen ? 'max-h-64 opacity-100 border-t border-[#d2d2d7]' : 'max-h-0 opacity-0'
+            mobileOpen
+              ? docked
+                ? 'max-h-64 opacity-100 border-t border-[#d2d2d7] bg-white'
+                : 'max-h-64 opacity-100 border-t border-white/35 bg-black/35 backdrop-blur'
+              : 'max-h-0 opacity-0'
           )}
         >
-          <nav className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-3 text-xs uppercase tracking-[0.2em] text-[#1d1d1f]">
+          <nav
+            className={cn(
+              'mx-auto flex max-w-7xl flex-col gap-2 px-4 py-3 text-xs uppercase tracking-[0.2em]',
+              docked ? 'text-[#1d1d1f]' : 'text-white'
+            )}
+          >
             <Link href="/" className="py-2" onClick={() => setMobileOpen(false)}>
               Home
             </Link>
