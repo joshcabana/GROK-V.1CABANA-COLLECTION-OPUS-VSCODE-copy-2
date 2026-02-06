@@ -28,8 +28,10 @@ export default function Header() {
   const targetProgressRef = useRef(0)
   const tickingRef = useRef(false)
   const dockedRef = useRef(false)
+  const navDarkRef = useRef(false)
   const [scrolled, setScrolled] = useState(false)
   const [docked, setDocked] = useState(false)
+  const [navDark, setNavDark] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
@@ -48,6 +50,7 @@ export default function Header() {
       resolveTargets()
       const hero = heroWordmarkRef.current
       const navLogo = navLogoRef.current
+      const overlay = overlayRef.current
       if (!hero || !navLogo) return
 
       const heroRect = hero.getBoundingClientRect()
@@ -66,6 +69,10 @@ export default function Header() {
         width: navRect.width,
         height: navRect.height,
       }
+      if (overlay) {
+        overlay.style.width = `${heroRect.width}px`
+        overlay.style.height = `${heroRect.height}px`
+      }
       measuredRef.current = true
     }
 
@@ -73,6 +80,12 @@ export default function Header() {
       if (dockedRef.current === value) return
       dockedRef.current = value
       setDocked(value)
+    }
+
+    const syncNavDarkState = (value: boolean) => {
+      if (navDarkRef.current === value) return
+      navDarkRef.current = value
+      setNavDark(value)
       setScrolled(value)
     }
 
@@ -88,15 +101,17 @@ export default function Header() {
       if (!measuredRef.current) {
         measureRects()
       }
-      overlay.style.willChange = 'transform, width, height, opacity'
+      overlay.style.willChange = 'transform, opacity'
 
       const easedProgress = 1 - Math.pow(1 - progress, 3)
-      const fadeWindowStart = 0.8
+      const fadeWindowStart = 0.7
       const dockFade = clamp((easedProgress - fadeWindowStart) / (1 - fadeWindowStart), 0, 1)
       const isDocked = dockFade >= 0.992
+      const darkNav = dockFade >= 0.96
 
       if (reducedMotion) {
         syncDockedState(progress >= 0.98)
+        syncNavDarkState(progress >= 0.98)
         hero.style.opacity = progress >= 0.98 ? '0' : '1'
         overlay.style.opacity = '0'
         navLogo.style.opacity = progress >= 0.98 ? '1' : '0'
@@ -104,12 +119,14 @@ export default function Header() {
       }
 
       syncDockedState(isDocked)
+      syncNavDarkState(darkNav)
 
       if (progress <= 0.02) {
         hero.style.opacity = '1'
         overlay.style.opacity = '0'
         navLogo.style.opacity = '0'
         syncDockedState(false)
+        syncNavDarkState(false)
         return
       }
 
@@ -123,26 +140,12 @@ export default function Header() {
 
       const x = lerp(heroLeft, endRect.left, easedProgress)
       const y = lerp(heroTop, endRect.top, easedProgress)
-      const width = lerp(startRect.width, endRect.width, easedProgress)
-      const height = lerp(startRect.height, endRect.height, easedProgress)
-      const heroCabanaSize = clamp(window.innerWidth * 0.13, 64, 172)
-      const navCabanaSize = window.innerWidth < 768 ? 18 : 24
-      const heroCollectionsSize = clamp(window.innerWidth * 0.021, 14, 32)
-      const navCollectionsSize = window.innerWidth < 768 ? 8 : 10
+      const targetScaleX = endRect.width / startRect.width
+      const targetScaleY = endRect.height / startRect.height
+      const scaleX = lerp(1, targetScaleX, easedProgress)
+      const scaleY = lerp(1, targetScaleY, easedProgress)
 
-      overlay.style.transform = `translate3d(${x}px, ${y}px, 0)`
-      overlay.style.width = `${width}px`
-      overlay.style.height = `${height}px`
-      overlay.style.setProperty(
-        '--cabana-size',
-        `${lerp(heroCabanaSize, navCabanaSize, easedProgress)}px`
-      )
-      overlay.style.setProperty(
-        '--collections-size',
-        `${lerp(heroCollectionsSize, navCollectionsSize, easedProgress)}px`
-      )
-      overlay.style.setProperty('--cabana-track', `${lerp(0.42, 0.2, easedProgress)}em`)
-      overlay.style.setProperty('--collections-track', `${lerp(0.72, 0.34, easedProgress)}em`)
+      overlay.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scaleX}, ${scaleY})`
       overlay.style.opacity = `${1 - dockFade}`
       navLogo.style.opacity = `${dockFade}`
     }
@@ -190,18 +193,19 @@ export default function Header() {
       <div
         ref={overlayRef}
         className="pointer-events-none fixed left-0 top-0 z-50 flex items-center justify-center text-white opacity-0 transition-opacity duration-200 motion-reduce:transition-none"
+        style={{ transformOrigin: 'top left' }}
         aria-hidden="true"
       >
         <BrandWordmark
           className="flex h-full w-full flex-col items-center justify-center text-center"
-          cabanaClassName="text-[var(--cabana-size)] tracking-[var(--cabana-track)]"
-          collectionsClassName="text-[var(--collections-size)] tracking-[var(--collections-track)]"
+          cabanaClassName="text-[clamp(64px,13vw,172px)] tracking-[0.42em]"
+          collectionsClassName="text-[clamp(14px,2.1vw,32px)] tracking-[0.72em]"
         />
       </div>
       <header
         className={cn(
           'sticky top-0 z-40 w-full transition-colors duration-300 motion-reduce:transition-none',
-          scrolled ? 'bg-white/90 backdrop-blur border-b border-[#d2d2d7]' : 'bg-transparent'
+          scrolled ? 'bg-white border-b border-[#d2d2d7]' : 'bg-transparent'
         )}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
@@ -220,25 +224,25 @@ export default function Header() {
           <nav
             className={cn(
               'hidden items-center gap-8 text-xs uppercase tracking-[0.2em] transition-colors duration-300 md:flex',
-              docked ? 'text-[#1d1d1f]' : 'text-white'
+              navDark ? 'text-[#1d1d1f]' : 'text-white'
             )}
           >
-            <Link href="/" className={cn(docked ? 'hover:text-black/70' : 'hover:text-white/80')}>
+            <Link href="/" className={cn(navDark ? 'hover:text-black/70' : 'hover:text-white/80')}>
               Home
             </Link>
             <Link
               href="/products"
-              className={cn(docked ? 'hover:text-black/70' : 'hover:text-white/80')}
+              className={cn(navDark ? 'hover:text-black/70' : 'hover:text-white/80')}
             >
               Products
             </Link>
             <Link
               href="/privacy"
-              className={cn(docked ? 'hover:text-black/70' : 'hover:text-white/80')}
+              className={cn(navDark ? 'hover:text-black/70' : 'hover:text-white/80')}
             >
               Privacy
             </Link>
-            <Link href="/terms" className={cn(docked ? 'hover:text-black/70' : 'hover:text-white/80')}>
+            <Link href="/terms" className={cn(navDark ? 'hover:text-black/70' : 'hover:text-white/80')}>
               Terms
             </Link>
           </nav>
@@ -247,7 +251,7 @@ export default function Header() {
               onClick={() => setMobileOpen((open) => !open)}
               className={cn(
                 'rounded-full p-2 transition-colors duration-300 md:hidden',
-                docked
+                navDark
                   ? 'border border-[#d2d2d7] text-[#1d1d1f]'
                   : 'border border-white/70 text-white'
               )}
@@ -261,7 +265,7 @@ export default function Header() {
               onClick={openDrawer}
               className={cn(
                 'relative rounded-full p-2 transition-colors duration-300',
-                docked
+                navDark
                   ? 'border border-[#d2d2d7] text-[#1d1d1f]'
                   : 'border border-white/70 text-white'
               )}
@@ -281,7 +285,7 @@ export default function Header() {
           className={cn(
             'md:hidden overflow-hidden transition-[max-height,opacity] duration-200 motion-reduce:transition-none',
             mobileOpen
-              ? docked
+              ? navDark
                 ? 'max-h-64 opacity-100 border-t border-[#d2d2d7] bg-white'
                 : 'max-h-64 opacity-100 border-t border-white/35 bg-black/35 backdrop-blur'
               : 'max-h-0 opacity-0'
@@ -290,7 +294,7 @@ export default function Header() {
           <nav
             className={cn(
               'mx-auto flex max-w-7xl flex-col gap-2 px-4 py-3 text-xs uppercase tracking-[0.2em]',
-              docked ? 'text-[#1d1d1f]' : 'text-white'
+              navDark ? 'text-[#1d1d1f]' : 'text-white'
             )}
           >
             <Link href="/" className="py-2" onClick={() => setMobileOpen(false)}>
