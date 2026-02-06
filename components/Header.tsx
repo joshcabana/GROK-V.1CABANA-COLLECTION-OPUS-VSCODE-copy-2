@@ -5,6 +5,7 @@ import { Menu, ShoppingBag, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useCartStore } from '@/lib/store'
 import { cn } from '@/lib/utils'
+import BrandWordmark from './BrandWordmark'
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)
@@ -23,23 +24,28 @@ export default function Header() {
     const update = () => {
       if (raf) cancelAnimationFrame(raf)
       raf = requestAnimationFrame(() => {
-        const hero = document.querySelector<HTMLElement>('[data-hero-logo]')
+        const hero = document.querySelector<HTMLElement>('[data-hero-wordmark]')
+        const heroSection = document.querySelector<HTMLElement>('[data-hero-section]')
         const navLogo = navLogoRef.current
         const overlay = overlayRef.current
         const scrollY = window.scrollY
-        const end = Math.max(140, window.innerHeight * 0.35)
+        const end = Math.max(
+          220,
+          heroSection ? heroSection.offsetHeight * 0.58 : window.innerHeight * 0.42
+        )
         const progress = clamp(scrollY / end, 0, 1)
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-        setScrolled(progress > 0.05)
+        setScrolled(progress > 0.08)
 
         if (!navLogo || !overlay || !hero || reducedMotion) {
           if (navLogo) navLogo.style.opacity = '1'
           if (overlay) overlay.style.opacity = '0'
+          if (hero) hero.style.opacity = '1'
           return
         }
 
-        hero.style.opacity = '0'
+        hero.style.opacity = `${Math.max(0, 1 - progress * 1.6)}`
         const heroRect = hero.getBoundingClientRect()
         const navRect = navLogo.getBoundingClientRect()
 
@@ -51,8 +57,12 @@ export default function Header() {
         overlay.style.transform = `translate3d(${x}px, ${y}px, 0)`
         overlay.style.width = `${width}px`
         overlay.style.height = `${height}px`
-        overlay.style.opacity = progress < 1 ? '1' : '0'
-        navLogo.style.opacity = progress >= 1 ? '1' : '0'
+        overlay.style.opacity = progress < 0.98 ? '1' : '0'
+        overlay.style.setProperty('--cabana-size', `${112 + (24 - 112) * progress}px`)
+        overlay.style.setProperty('--collections-size', `${23 + (10 - 23) * progress}px`)
+        overlay.style.setProperty('--cabana-track', `${0.42 + (0.2 - 0.42) * progress}em`)
+        overlay.style.setProperty('--collections-track', `${0.72 + (0.34 - 0.72) * progress}em`)
+        navLogo.style.opacity = `${clamp((progress - 0.6) / 0.4, 0, 1)}`
       })
     }
 
@@ -70,10 +80,14 @@ export default function Header() {
     <>
       <div
         ref={overlayRef}
-        className="pointer-events-none fixed left-0 top-0 z-50 flex items-center justify-center text-center text-sm font-semibold uppercase tracking-[0.3em] text-[#1d1d1f] transition-opacity duration-200 motion-reduce:transition-none"
+        className="pointer-events-none fixed left-0 top-0 z-50 flex items-center justify-center transition-opacity duration-200 motion-reduce:transition-none"
         aria-hidden="true"
       >
-        CABANA
+        <BrandWordmark
+          className="flex h-full w-full flex-col items-center justify-center text-center"
+          cabanaClassName="text-[var(--cabana-size)] tracking-[var(--cabana-track)]"
+          collectionsClassName="text-[var(--collections-size)] tracking-[var(--collections-track)]"
+        />
       </div>
       <header
         className={cn(
@@ -82,10 +96,14 @@ export default function Header() {
         )}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
-          <Link href="/" className="text-xs uppercase tracking-[0.3em]">
-            <span ref={navLogoRef} className="text-[#1d1d1f]">
-              CABANA
-            </span>
+          <Link href="/" className="flex items-center">
+            <div ref={navLogoRef} className="text-[#1d1d1f] transition-opacity duration-200">
+              <BrandWordmark
+                className="leading-none"
+                cabanaClassName="text-[22px] tracking-[0.2em]"
+                collectionsClassName="text-[9px] tracking-[0.34em]"
+              />
+            </div>
           </Link>
           <nav className="hidden items-center gap-8 text-xs uppercase tracking-[0.2em] text-[#1d1d1f] md:flex">
             <Link href="/" className="hover:text-black/70">
