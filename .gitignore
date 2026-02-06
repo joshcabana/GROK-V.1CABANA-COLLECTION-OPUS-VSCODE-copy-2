@@ -10,3 +10,8 @@ test-results/
 pw-report.json
 .playwright/
 .lighthouseci/
+.pnpm-store/
+npm-debug.log*
+pnpm-debug.log*
+*.log
+.cache/
