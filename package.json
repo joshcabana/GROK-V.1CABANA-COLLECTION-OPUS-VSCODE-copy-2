@@ -17,6 +17,7 @@
     "deploy:preview": "bash scripts/deploy.sh",
     "inspect:live": "node scripts/live-inspection.cjs --latest-preview",
     "inspect:visual": "node scripts/visual-inspection.cjs --latest-preview",
+    "checkpoint:session": "node scripts/session-checkpoint.cjs",
     "release:preview": "pnpm run verify:assets && pnpm run deploy:preview",
     "release:ship": "pnpm run verify:release && pnpm run deploy:preview",
     "build": "next build",
