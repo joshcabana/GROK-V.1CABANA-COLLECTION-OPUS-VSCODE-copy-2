@@ -44,8 +44,24 @@ function show(lhr) {
 }
 
 const lh = files.map(load);
-const home = lh.find((l) => l.finalUrl && l.finalUrl.endsWith("/"));
-const product = lh.find((l) => l.finalUrl && l.finalUrl.includes("mens-boxer-brief-black.html"));
+const home = lh.find((l) => {
+  if (!l.finalUrl) return false;
+  try {
+    const url = new URL(l.finalUrl);
+    return url.pathname === "/";
+  } catch {
+    return false;
+  }
+});
+const product = lh.find((l) => {
+  if (!l.finalUrl) return false;
+  try {
+    const url = new URL(l.finalUrl);
+    return url.pathname === "/products/mens-boxer-brief-black";
+  } catch {
+    return false;
+  }
+});
 
 if (home) show(home);
 if (product) show(product);

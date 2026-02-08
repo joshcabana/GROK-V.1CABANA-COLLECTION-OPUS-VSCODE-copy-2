@@ -11,3 +11,8 @@ pw-report.json
 .lighthouseci/
 .next/
 reports/releases/
+.pnpm-store/
+lighthouse-*.json
+*.log
+*.tmp
+*.temp

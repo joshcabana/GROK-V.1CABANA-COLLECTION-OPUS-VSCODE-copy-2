@@ -123,6 +123,20 @@ if (fs.existsSync(baselinePath)) {
   baseline = JSON.parse(fs.readFileSync(baselinePath, 'utf8'));
 }
 
+const normaliseRouteKey = (rawUrl) => {
+  try {
+    const parsed = new URL(rawUrl);
+    const pathname = parsed.pathname.replace(/\/+$/, '');
+    return pathname || '/';
+  } catch {
+    return String(rawUrl || '');
+  }
+};
+
+const baselineByRoute = new Map(
+  (baseline || []).map((entry) => [normaliseRouteKey(entry.url), entry.metrics]),
+);
+
 const compare = (current, base) => {
   if (!base) return '';
   const delta = (current.performance - base.performance).toFixed(2);
@@ -139,7 +153,7 @@ dashboardLines.push('| URL | Perf | A11y | SEO | BP | FCP | LCP | TBT | CLS | Δ
 dashboardLines.push('| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |');
 
 summary.forEach((item) => {
-  const base = baseline?.find((b) => b.url === item.url)?.metrics || null;
+  const base = baselineByRoute.get(normaliseRouteKey(item.url)) || null;
   const delta = compare(item.metrics, base);
   dashboardLines.push(
     `| ${item.url} | ${item.metrics.performance} | ${item.metrics.accessibility} | ${item.metrics.seo} | ${item.metrics.bestPractices} | ${item.metrics.fcp} | ${item.metrics.lcp} | ${item.metrics.tbt} | ${item.metrics.cls} | ${delta} |`
@@ -159,11 +173,11 @@ console.log(`Dashboard written to ${dashboardPath}`);
 if (!writeBaseline && baseline) {
   const drops = summary
     .map((item) => {
-      const base = baseline.find((b) => b.url === item.url);
+      const base = baselineByRoute.get(normaliseRouteKey(item.url));
       if (!base) return null;
       return {
         url: item.url,
-        delta: item.metrics.performance - base.metrics.performance,
+        delta: item.metrics.performance - base.performance,
       };
     })
     .filter(Boolean)
