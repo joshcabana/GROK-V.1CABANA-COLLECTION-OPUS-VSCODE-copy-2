@@ -30,7 +30,7 @@ export default function HomePage() {
               </h1>
               <p className="mt-4 text-base leading-relaxed text-white/78">
                 Sustainable modal essentials with a refined, barely-there feel. Designed in Australia
-                for effortless comfort. 15% of every purchase supports men’s mental health and
+                for effortless comfort. 10% of every purchase supports men’s mental health and
                 women’s empowerment.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">

@@ -83,11 +83,11 @@ export const products: Product[] = [
     reviewCount: 124,
     impactProgram: 'mens_mental_health',
     impactSummary:
-      "15% of every men's purchase funds men's mental health services through verified Australian partners.",
+      "10% of every men's purchase funds men's mental health services through verified Australian partners.",
   },
   {
     id: 'womens-modal-set',
-    slug: 'womens-modal-set',
+    slug: 'womens-set',
     title: "Women's Modal Set",
     price: 6800,
     description: 'Soft, seamless essentials with a barely-there feel.',
@@ -134,7 +134,7 @@ export const products: Product[] = [
     reviewCount: 89,
     impactProgram: 'womens_empowerment',
     impactSummary:
-      "15% of every women's purchase supports women's empowerment initiatives and gender-equity programs.",
+      "10% of every women's purchase supports women's empowerment initiatives and gender-equity programs.",
   },
   {
     id: 'signature-starter-set',
@@ -186,6 +186,6 @@ export const products: Product[] = [
     reviewCount: 56,
     impactProgram: 'split',
     impactSummary:
-      "15% of every bundle purchase is split across men's mental health and women's empowerment initiatives.",
+      "10% of every bundle purchase is split across men's mental health and women's empowerment initiatives.",
   },
 ]

@@ -39,7 +39,7 @@ export default function TermsPage() {
             </p>
             <p className="mt-2 text-[#6e6e73]">
               See full details in the{' '}
-              <Link href="/shipping" className="underline hover:no-underline">
+              <Link href="/shipping-policy" className="underline hover:no-underline">
                 Shipping Policy
               </Link>
               .
@@ -53,7 +53,7 @@ export default function TermsPage() {
             </p>
             <p className="mt-2 text-[#6e6e73]">
               See full details in the{' '}
-              <Link href="/returns" className="underline hover:no-underline">
+              <Link href="/return-policy" className="underline hover:no-underline">
                 Return Policy
               </Link>
               .
@@ -63,7 +63,7 @@ export default function TermsPage() {
             <h2 className="text-lg font-medium">5. Privacy</h2>
             <p className="mt-2 text-[#6e6e73]">
               We handle personal information in accordance with our{' '}
-              <Link href="/privacy" className="underline hover:no-underline">
+              <Link href="/privacy-policy" className="underline hover:no-underline">
                 Privacy Policy
               </Link>
               .

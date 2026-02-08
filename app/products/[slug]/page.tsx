@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { products } from '@/data/products'
 import ProductDetail from './ProductDetail'
 
@@ -8,6 +9,10 @@ interface PageProps {
 
 export default async function ProductPage({ params }: PageProps) {
   const resolvedParams = params instanceof Promise ? await params : params
+  if (resolvedParams.slug === 'womens-modal-set') {
+    redirect('/products/womens-set')
+  }
+
   const product = products.find((p) => p.slug === resolvedParams.slug)
 
   if (!product) {
