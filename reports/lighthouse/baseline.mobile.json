@@ -1,54 +1,54 @@
 [
   {
-    "url": "http://localhost:3000/cart",
+    "url": "http://localhost:3300/cart",
     "metrics": {
-      "performance": 0.98,
+      "performance": 0.94,
       "accessibility": 1,
       "seo": 1,
       "bestPractices": 1,
-      "fcp": "1.2 s",
-      "lcp": "2.3 s",
-      "tbt": "0 ms",
-      "cls": "0.001"
-    }
-  },
-  {
-    "url": "http://localhost:3000/products/mens-boxer-brief-black",
-    "metrics": {
-      "performance": 0.97,
-      "accessibility": 0.96,
-      "seo": 1,
-      "bestPractices": 1,
-      "fcp": "1.4 s",
-      "lcp": "2.5 s",
+      "fcp": "0.8 s",
+      "lcp": "3.1 s",
       "tbt": "0 ms",
       "cls": "0"
     }
   },
   {
-    "url": "http://localhost:3000/products",
+    "url": "http://localhost:3300/products/mens-boxer-brief-black",
     "metrics": {
-      "performance": 0.97,
-      "accessibility": 0.98,
-      "seo": 0.92,
+      "performance": 0.9,
+      "accessibility": 1,
+      "seo": 0.93,
       "bestPractices": 1,
-      "fcp": "1.4 s",
-      "lcp": "2.5 s",
+      "fcp": "0.8 s",
+      "lcp": "3.6 s",
       "tbt": "0 ms",
       "cls": "0"
     }
   },
   {
-    "url": "http://localhost:3000/",
+    "url": "http://localhost:3300/products",
     "metrics": {
-      "performance": 0.97,
+      "performance": 0.94,
       "accessibility": 1,
       "seo": 1,
       "bestPractices": 1,
-      "fcp": "1.4 s",
-      "lcp": "2.5 s",
+      "fcp": "0.8 s",
+      "lcp": "3.0 s",
       "tbt": "0 ms",
-      "cls": "0.02"
+      "cls": "0"
+    }
+  },
+  {
+    "url": "http://localhost:3300/",
+    "metrics": {
+      "performance": 0.91,
+      "accessibility": 1,
+      "seo": 1,
+      "bestPractices": 1,
+      "fcp": "0.8 s",
+      "lcp": "3.5 s",
+      "tbt": "0 ms",
+      "cls": "0"
     }
   }
 ]
