@@ -11,11 +11,20 @@ Run in this exact order:
 1. `pnpm run verify:assets`
 2. `pnpm run verify:build`
 3. `pnpm run test:e2e`
-4. `pnpm run lhci:mobile`
-5. `pnpm run lhci:desktop`
+4. `pnpm run verify:perf:mobile`
+5. `pnpm run verify:perf:desktop`
 6. `pnpm run deploy:preview`
 
 Release is blocked if any step fails.
+
+## Lighthouse Baseline Policy
+
+Refresh baseline only after intentional performance changes.
+
+Use:
+
+1. `pnpm run lhci:baseline:mobile`
+2. `pnpm run lhci:baseline:desktop`
 
 ## Twice-Weekly Live Inspection Cadence
 

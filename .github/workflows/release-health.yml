@@ -45,6 +45,9 @@ jobs:
       - name: Verify release gate
         run: pnpm run verify:release
 
+      - name: Update session checkpoint
+        run: pnpm run checkpoint:session
+
       - name: Inspect live URLs (skip if not configured)
         env:
           CABANA_PREVIEW_URL: ${{ secrets.CABANA_PREVIEW_URL }}
@@ -58,6 +61,17 @@ jobs:
           CABANA_PROMOTED_URL: ${{ secrets.CABANA_PROMOTED_URL }}
           CABANA_INSPECT_ALLOW_EMPTY: '1'
         run: pnpm run inspect:visual
+
+      - name: Upload quality artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-health-artifacts
+          path: |
+            reports/lighthouse/*.md
+            reports/lighthouse/*.json
+            docs/operations/session-notes.md
+          if-no-files-found: warn
 
   deploy-preview:
     if: github.event_name == 'workflow_dispatch' && inputs.run_preview_deploy
