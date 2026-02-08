@@ -64,3 +64,16 @@
 
 ### Next Safe Action
 - Run `pnpm run verify:release` before any deploy and update this checkpoint afterward.
+
+## 09/02/2026, 08:07:22 AEDT
+
+### Automated Checkpoint
+- Branch: `Cabana-Collections-2026`
+- HEAD: `484b54b chore(perf): refresh lhci baselines and dashboards`
+- Working tree: `M reports/lighthouse/dashboard.desktop.md |  M reports/lighthouse/dashboard.mobile.md`
+- Latest preview URL: https://skill-deploy-4wy9xgy94s-codex-agent-deploys.vercel.app
+- Live inspection report present: yes
+- Visual inspection report present: yes
+
+### Next Safe Action
+- Run `pnpm run verify:release` before any deploy and update this checkpoint afterward.
