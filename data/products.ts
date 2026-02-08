@@ -1,3 +1,5 @@
+import type { ImpactProgram } from '@/lib/policy'
+
 export interface ProductImage {
   url: string
   alt: string
@@ -22,6 +24,8 @@ export interface Product {
   category: 'mens' | 'womens' | 'bundle'
   rating: number
   reviewCount: number
+  impactProgram: ImpactProgram
+  impactSummary: string
 }
 
 export const heroImage = {
@@ -77,6 +81,9 @@ export const products: Product[] = [
     category: 'mens',
     rating: 4.8,
     reviewCount: 124,
+    impactProgram: 'mens_mental_health',
+    impactSummary:
+      "15% of every men's purchase funds men's mental health services through verified Australian partners.",
   },
   {
     id: 'womens-modal-set',
@@ -125,6 +132,9 @@ export const products: Product[] = [
     category: 'womens',
     rating: 4.9,
     reviewCount: 89,
+    impactProgram: 'womens_empowerment',
+    impactSummary:
+      "15% of every women's purchase supports women's empowerment initiatives and gender-equity programs.",
   },
   {
     id: 'signature-starter-set',
@@ -132,12 +142,12 @@ export const products: Product[] = [
     title: 'Signature Starter Set',
     price: 9800,
     compareAtPrice: 11000,
-    description: 'A curated bundle of best sellers with 10% savings.',
+    description: 'A curated bundle of best sellers with built-in value.',
     features: [
       'Three pairs of signature boxer briefs',
       'One of each: Black, Navy, Charcoal',
       'Premium gift box packaging',
-      '10% bundle discount',
+      'Bundle value pricing',
     ],
     images: [
       {
@@ -174,5 +184,8 @@ export const products: Product[] = [
     category: 'bundle',
     rating: 4.7,
     reviewCount: 56,
+    impactProgram: 'split',
+    impactSummary:
+      "15% of every bundle purchase is split across men's mental health and women's empowerment initiatives.",
   },
 ]

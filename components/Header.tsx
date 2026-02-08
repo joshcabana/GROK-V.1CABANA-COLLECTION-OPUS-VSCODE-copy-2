@@ -223,7 +223,7 @@ export default function Header() {
           </Link>
           <nav
             className={cn(
-              'hidden items-center gap-8 text-xs uppercase tracking-[0.2em] transition-colors duration-300 md:flex',
+              'hidden items-center gap-6 text-xs uppercase tracking-[0.2em] transition-colors duration-300 md:flex',
               navDark ? 'text-[#1d1d1f]' : 'text-white'
             )}
           >
@@ -234,16 +234,22 @@ export default function Header() {
               href="/products"
               className={cn(navDark ? 'hover:text-black/70' : 'hover:text-white/80')}
             >
-              Products
+              Shop
             </Link>
             <Link
-              href="/privacy"
+              href="/about"
               className={cn(navDark ? 'hover:text-black/70' : 'hover:text-white/80')}
             >
-              Privacy
+              About
             </Link>
-            <Link href="/terms" className={cn(navDark ? 'hover:text-black/70' : 'hover:text-white/80')}>
-              Terms
+            <Link href="/impact" className={cn(navDark ? 'hover:text-black/70' : 'hover:text-white/80')}>
+              Impact
+            </Link>
+            <Link href="/contact" className={cn(navDark ? 'hover:text-black/70' : 'hover:text-white/80')}>
+              Contact
+            </Link>
+            <Link href="/legal" className={cn(navDark ? 'hover:text-black/70' : 'hover:text-white/80')}>
+              Legal
             </Link>
           </nav>
           <div className="flex items-center gap-2">
@@ -301,13 +307,19 @@ export default function Header() {
               Home
             </Link>
             <Link href="/products" className="py-2" onClick={() => setMobileOpen(false)}>
-              Products
+              Shop
             </Link>
-            <Link href="/privacy" className="py-2" onClick={() => setMobileOpen(false)}>
-              Privacy
+            <Link href="/about" className="py-2" onClick={() => setMobileOpen(false)}>
+              About
             </Link>
-            <Link href="/terms" className="py-2" onClick={() => setMobileOpen(false)}>
-              Terms
+            <Link href="/impact" className="py-2" onClick={() => setMobileOpen(false)}>
+              Impact
+            </Link>
+            <Link href="/contact" className="py-2" onClick={() => setMobileOpen(false)}>
+              Contact
+            </Link>
+            <Link href="/legal" className="py-2" onClick={() => setMobileOpen(false)}>
+              Legal
             </Link>
           </nav>
         </div>

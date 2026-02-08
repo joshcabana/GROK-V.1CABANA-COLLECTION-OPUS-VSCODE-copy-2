@@ -4,7 +4,7 @@
     <!-- UPDATED: canonical -->
     <link
       rel="canonical"
-      href="https://cabanacollections.com.au/products/mens-boxer-brief-black.html"
+      href="https://cabanacollections.com.au/products/mens-boxer-brief-black"
     />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,7 +25,7 @@
     />
     <meta
       property="og:url"
-      content="https://cabanacollections.com.au/products/mens-boxer-brief-black.html"
+      content="https://cabanacollections.com.au/products/mens-boxer-brief-black"
     />
     <meta
       property="og:image"
@@ -531,7 +531,7 @@
         },
         "offers": {
           "@type": "Offer",
-          "url": "https://cabanacollections.com.au/products/mens-boxer-brief-black.html",
+          "url": "https://cabanacollections.com.au/products/mens-boxer-brief-black",
           "priceCurrency": "AUD",
           "price": "50",
           "availability": "https://schema.org/InStock"
@@ -550,8 +550,11 @@
     <script>
       // Permanent redirect to new product URL
       (function () {
-        var newUrl = '/products/mens-boxer-brief-black.html';
-        if (location.pathname.endsWith('/products/mens-underwear.html')) {
+        var newUrl = '/products/mens-boxer-brief-black';
+        var isLegacyPath =
+          location.pathname.endsWith('/products/mens-underwear') ||
+          location.pathname.endsWith('/products/mens-underwear.html');
+        if (isLegacyPath) {
           // Use replace to avoid back button loop
           location.replace(newUrl);
         }
@@ -574,18 +577,18 @@
         <nav class="hidden md:flex items-center gap-10" aria-label="Primary">
           <a href="/" class="link-hover text-xs tracking-widest">HOME</a>
           <a
-            href="/products/mens-boxer-brief-black.html"
+            href="/products/mens-boxer-brief-black"
             class="link-hover text-xs tracking-widest text-gold"
             aria-current="page"
             >MEN</a
           >
-          <a href="/products/womens-set.html" class="link-hover text-xs tracking-widest">WOMEN</a>
-          <a href="/about.html" class="link-hover text-xs tracking-widest">ABOUT</a>
-          <a href="/impact.html" class="link-hover text-xs tracking-widest">IMPACT</a>
-          <a href="/contact.html" class="link-hover text-xs tracking-widest">CONTACT</a>
+          <a href="/products/womens-set" class="link-hover text-xs tracking-widest">WOMEN</a>
+          <a href="/about" class="link-hover text-xs tracking-widest">ABOUT</a>
+          <a href="/impact" class="link-hover text-xs tracking-widest">IMPACT</a>
+          <a href="/contact" class="link-hover text-xs tracking-widest">CONTACT</a>
         </nav>
         <div class="flex items-center gap-4">
-          <a href="/cart.html" aria-label="Cart" class="hidden md:inline">🛒</a>
+          <a href="/cart" aria-label="Cart" class="hidden md:inline">🛒</a>
           <button class="md:hidden p-2" aria-label="Open menu" data-mobile-open>
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -610,21 +613,21 @@
       <button class="drawer-close" aria-label="Close menu" data-mobile-close>&times;</button>
       <nav class="drawer-nav mt-6" aria-label="Mobile">
         <a href="/">Home</a>
-        <a href="/products/mens-boxer-brief-black.html" aria-current="page">Men</a>
-        <a href="/products/womens-set.html">Women</a>
-        <a href="/about.html">About</a>
-        <a href="/impact.html">Impact</a>
-        <a href="/contact.html">Contact</a>
-        <a href="/cart.html">Cart</a>
+        <a href="/products/mens-boxer-brief-black" aria-current="page">Men</a>
+        <a href="/products/womens-set">Women</a>
+        <a href="/about">About</a>
+        <a href="/impact">Impact</a>
+        <a href="/contact">Contact</a>
+        <a href="/cart">Cart</a>
       </nav>
     </aside>
 
     <!-- Breadcrumbs -->
     <nav class="lv-breadcrumb pt-24 px-6 md:px-12" aria-label="Breadcrumb">
       <ol class="flex items-center space-x-2 text-xs text-gray-600">
-        <li><a href="../index.html" class="hover:text-gold">Home</a></li>
+        <li><a href="/" class="hover:text-gold">Home</a></li>
         <li aria-hidden="true">/</li>
-        <li><a href="mens-underwear.html" class="hover:text-gold">Men</a></li>
+        <li><a href="/products/mens-boxer-brief-black" class="hover:text-gold">Men</a></li>
         <li aria-hidden="true">/</li>
         <li aria-current="page" class="text-black">Essential Boxer Brief</li>
       </ol>
@@ -843,7 +846,7 @@
                 <div class="flex items-center gap-2 text-sm text-gray-600">
                   <span class="text-gold text-lg">&#9733;</span>
                   <span class="font-heading text-base text-black"
-                    >15% of every purchase supports men’s mental health & women’s empowerment</span
+                    >10% of every purchase supports men’s mental health</span
                   >
                 </div>
                 <div class="flex flex-wrap gap-2 text-xs">
@@ -874,7 +877,7 @@
                   <li>• Modal-soft stretch (95% modal / 5% elastane) that keeps its shape</li>
                   <li>• Stay‑put leg with clean, cover‑stitched hems</li>
                   <li>• Matte black waistband with double gold piping; rear monogram tab</li>
-                  <li>• Purpose built‑in: 15% of every purchase funds impact initiatives</li>
+                  <li>• Purpose built‑in: 10% of every purchase funds impact initiatives</li>
                 </ul>
               </div>
             </header>
@@ -893,7 +896,7 @@
               </div>
               <!-- UPDATED: size guide link -->
               <p class="text-xs mb-4">
-                <a href="/size-guide.html" class="underline">View full Size Guide</a>
+                <a href="/size-guide" class="underline">View full Size Guide</a>
               </p>
               <div class="grid grid-cols-6 gap-2" role="radiogroup" aria-required="true">
                 <button
@@ -1096,8 +1099,7 @@
               <!-- Impact Badge -->
               <div class="text-center py-4 border-y border-gray-100">
                 <p class="text-xs tracking-wider font-light">
-                  <span class="text-gold">15%</span> OF THIS PURCHASE SUPPORTS MEN’S MENTAL HEALTH &
-                  WOMEN’S EMPOWERMENT
+                  <span class="text-gold">10%</span> OF THIS PURCHASE SUPPORTS MEN’S MENTAL HEALTH
                 </p>
               </div>
 
@@ -1125,7 +1127,7 @@
                     <li>• Modal‑soft stretch (95% modal / 5% elastane) that keeps its shape</li>
                     <li>• Stay‑put leg with clean, cover‑stitched hems</li>
                     <li>• Matte black waistband with double gold piping; rear monogram tab</li>
-                    <li>• Purpose built‑in: 15% of every purchase funds impact initiatives</li>
+                    <li>• Purpose built‑in: 10% of every purchase funds impact initiatives</li>
                   </ul>
                 </div>
               </details>
@@ -1153,7 +1155,7 @@
                     <li>• Care: Cold machine wash, line dry; avoid high heat</li>
                   </ul>
                   <p class="text-xs mt-3">
-                    <a href="/care-instructions.html" class="underline">Care Instructions</a>
+                    <a href="/care-instructions" class="underline">Care Instructions</a>
                   </p>
                 </div>
               </details>
@@ -1198,7 +1200,7 @@
                     <li>• Modal‑rich hand feel: Cool, silky, resilient after many washes</li>
                     <li>• Quiet details: Gold‑edge waistband, minimal branding, refined finish</li>
                     <li>
-                      • Purpose built‑in: 15% supports men’s mental health & women’s empowerment
+                      • Purpose built‑in: 10% supports men’s mental health
                     </li>
                   </ul>
                 </div>
@@ -1319,7 +1321,7 @@
                   <span class="font-heading text-2xl text-gray-900" id="totalPrice">$50 AUD</span>
                 </div>
                 <div class="flex justify-between items-center text-lg">
-                  <span class="text-gray-700 font-medium">Mental Health Contribution (15%):</span>
+                  <span class="text-gray-700 font-medium">Mental Health Contribution (10%):</span>
                   <span class="font-heading text-2xl text-gold font-medium" id="donationAmount"
                     >$7.50 AUD</span
                   >
@@ -2482,10 +2484,10 @@
         <div>
           <h3 class="text-white font-semibold mb-4">Customer Care</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="/shipping-policy.html" class="hover:text-gold">Shipping Policy</a></li>
-            <li><a href="/return-policy.html" class="hover:text-gold">Return Policy</a></li>
-            <li><a href="/privacy-policy.html" class="hover:text-gold">Privacy Policy</a></li>
-            <li><a href="/terms-of-service.html" class="hover:text-gold">Terms of Service</a></li>
+            <li><a href="/shipping-policy" class="hover:text-gold">Shipping Policy</a></li>
+            <li><a href="/return-policy" class="hover:text-gold">Return Policy</a></li>
+            <li><a href="/privacy-policy" class="hover:text-gold">Privacy Policy</a></li>
+            <li><a href="/terms-of-service" class="hover:text-gold">Terms of Service</a></li>
           </ul>
         </div>
 
@@ -2493,9 +2495,9 @@
         <div>
           <h3 class="text-white font-semibold mb-4">About</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="/about.html" class="hover:text-gold">Our Story</a></li>
-            <li><a href="/legal/index.html" class="hover:text-gold">Legal & Policies</a></li>
-            <li><a href="/contact.html" class="hover:text-gold">Contact Us</a></li>
+            <li><a href="/about" class="hover:text-gold">Our Story</a></li>
+            <li><a href="/legal" class="hover:text-gold">Legal & Policies</a></li>
+            <li><a href="/contact" class="hover:text-gold">Contact Us</a></li>
           </ul>
         </div>
 

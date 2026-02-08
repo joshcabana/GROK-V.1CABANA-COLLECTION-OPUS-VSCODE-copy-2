@@ -116,7 +116,7 @@ export default function CartDrawer() {
                 className="mt-4 w-full rounded-full border border-[#d2d2d7] bg-white py-3 text-sm uppercase tracking-[0.2em] text-[#6e6e73]"
                 disabled
               >
-                Checkout · Coming Soon
+                Checkout unavailable while payments are being finalized
               </button>
             </div>
           </div>

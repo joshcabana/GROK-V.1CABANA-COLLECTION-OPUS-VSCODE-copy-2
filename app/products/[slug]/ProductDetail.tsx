@@ -5,15 +5,73 @@ import ProductImageGallery from '@/components/ProductImageGallery'
 import SizeSelector from '@/components/SizeSelector'
 import AddToCartButton from '@/components/AddToCartButton'
 import { formatMoney } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import type { Product } from '@/data/products'
+import { impactPercentLabel } from '@/lib/policy'
+
+const PRODUCT_360_VIDEO: Partial<Record<Product['id'], string>> = {
+  'mens-boxer-brief-black': '/assets/Images/CABANA-BOXERS-360-opt.mp4',
+  'womens-modal-set': '/assets/Images/Women-360-opt.mp4',
+  'signature-starter-set': '/assets/Images/Discover-360-opt.mp4',
+}
 
 export default function ProductDetail({ product }: { product: Product }) {
   const [selectedSize, setSelectedSize] = useState<Product['variants'][number]['size'] | null>(null)
+  const [activeMedia, setActiveMedia] = useState<'images' | 'video'>('images')
+  const videoSrc = PRODUCT_360_VIDEO[product.id]
 
   return (
     <main className="min-h-screen py-16 md:py-24 lg:py-32">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 md:px-6 lg:grid-cols-2">
-        <ProductImageGallery images={product.images} />
+        <div className="space-y-4">
+          {videoSrc && (
+            <div className="inline-flex rounded-full border border-[#d2d2d7] bg-white p-1">
+              <button
+                className={cn(
+                  'rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.2em]',
+                  activeMedia === 'images'
+                    ? 'bg-[#1d1d1f] text-white'
+                    : 'text-[#6e6e73] hover:text-[#1d1d1f]'
+                )}
+                onClick={() => setActiveMedia('images')}
+                aria-pressed={activeMedia === 'images'}
+              >
+                Gallery
+              </button>
+              <button
+                className={cn(
+                  'rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.2em]',
+                  activeMedia === 'video'
+                    ? 'bg-[#1d1d1f] text-white'
+                    : 'text-[#6e6e73] hover:text-[#1d1d1f]'
+                )}
+                onClick={() => setActiveMedia('video')}
+                aria-pressed={activeMedia === 'video'}
+              >
+                360 View
+              </button>
+            </div>
+          )}
+
+          {videoSrc && activeMedia === 'video' ? (
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-white">
+              <video
+                className="h-full w-full object-cover"
+                controls
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={product.images[0]?.url}
+                aria-label={`${product.title} 360 degree view`}
+              >
+                <source src={videoSrc} type="video/mp4" />
+              </video>
+            </div>
+          ) : (
+            <ProductImageGallery images={product.images} />
+          )}
+        </div>
         <div className="space-y-6 lg:sticky lg:top-24 lg:self-start">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-[#6e6e73]">{product.category}</p>
@@ -50,6 +108,15 @@ export default function ProductDetail({ product }: { product: Product }) {
                 </li>
               ))}
             </ul>
+          </div>
+          <div className="rounded-2xl border border-[#d2d2d7] bg-white p-4">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#6e6e73]">Your impact</p>
+            <p className="mt-2 text-sm text-[#1d1d1f]">
+              {product.impactSummary}
+            </p>
+            <p className="mt-2 text-xs text-[#6e6e73]">
+              Impact commitment: {impactPercentLabel()} of every purchase.
+            </p>
           </div>
         </div>
       </div>

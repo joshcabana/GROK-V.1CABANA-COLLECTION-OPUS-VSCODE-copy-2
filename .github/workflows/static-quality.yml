@@ -1,0 +1,46 @@
+name: Static Quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - grok
+
+jobs:
+  static-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Setup pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Setup Chrome for Lighthouse
+        id: chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Export CHROME_PATH
+        run: echo "CHROME_PATH=${{ steps.chrome.outputs.chrome-path }}" >> $GITHUB_ENV
+
+      - name: Static content checks
+        run: pnpm run check:static:content
+
+      - name: Static route checks
+        run: pnpm run check:static:routes
+
+      - name: Lighthouse mobile budget
+        run: pnpm run lhci:mobile

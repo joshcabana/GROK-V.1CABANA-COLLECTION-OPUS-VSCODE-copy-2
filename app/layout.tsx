@@ -4,10 +4,12 @@ import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import CartDrawer from '@/components/CartDrawer'
+import CookieConsent from '@/components/CookieConsent'
 
 export const metadata: Metadata = {
   title: 'Cabana Collections — Sustainable Modal Underwear',
-  description: 'Quiet luxury underwear crafted from soft, sustainable modal.',
+  description:
+    "Quiet luxury essentials in premium modal. 15% of every purchase supports men's mental health and women's empowerment.",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -23,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </div>
         <Footer />
+        <CookieConsent />
         <Script id="sw-register" strategy="afterInteractive">
           {`
             if ('serviceWorker' in navigator) {
