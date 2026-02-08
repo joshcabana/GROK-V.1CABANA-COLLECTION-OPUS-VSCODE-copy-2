@@ -3,6 +3,7 @@ set -euo pipefail
 
 PRESET="${1:-mobile}"
 MAX_RETRIES="${2:-4}"
+LOCK_DIR="${TMPDIR:-/tmp}/cabana-lhci.lock"
 
 if [[ "${PRESET}" != "mobile" && "${PRESET}" != "desktop" ]]; then
   echo "Usage: bash scripts/lhci-stable.sh <mobile|desktop> [max_retries]" >&2
@@ -21,9 +22,29 @@ cleanup_port_3000() {
 
 cleanup_lhci_dir() {
   if [[ -d ".lighthouseci" ]]; then
-    find ".lighthouseci" -mindepth 1 -delete
+    # Ignore transient unlink races from prior interrupted runs.
+    find ".lighthouseci" -mindepth 1 -delete 2>/dev/null || true
   fi
 }
+
+acquire_lock() {
+  local attempts=0
+  until mkdir "${LOCK_DIR}" >/dev/null 2>&1; do
+    attempts=$((attempts + 1))
+    if [[ ${attempts} -ge 60 ]]; then
+      echo "Unable to acquire LHCI lock at ${LOCK_DIR}" >&2
+      exit 1
+    fi
+    sleep 1
+  done
+}
+
+release_lock() {
+  rmdir "${LOCK_DIR}" >/dev/null 2>&1 || true
+}
+
+acquire_lock
+trap release_lock EXIT INT TERM
 
 cleanup_port_3000
 cleanup_lhci_dir

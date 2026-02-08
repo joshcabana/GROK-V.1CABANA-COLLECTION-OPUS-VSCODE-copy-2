@@ -44,19 +44,19 @@ export const products: Product[] = [
     ],
     images: [
       {
-        url: '/assets/Images/CABANA-BOXERS-FRONT.png',
+        url: '/assets/Images/CABANA-BOXERS-FRONT-opt.jpg',
         alt: 'Men’s modal boxer brief front view',
       },
       {
-        url: '/assets/Images/CABANA-BOXERS-BACK.png',
+        url: '/assets/Images/CABANA-BOXERS-BACK-opt.jpg',
         alt: 'Men’s modal boxer brief back view',
       },
       {
-        url: '/assets/Images/CABANA-BOXERS-SIDE.png',
+        url: '/assets/Images/CABANA-BOXERS-SIDE-opt.jpg',
         alt: 'Men’s modal boxer brief side view',
       },
       {
-        url: '/assets/Images/CABANA-BOXERS-34.png',
+        url: '/assets/Images/CABANA-BOXERS-34-opt.jpg',
         alt: 'Men’s modal boxer brief laid flat',
       },
       {
@@ -64,7 +64,7 @@ export const products: Product[] = [
         alt: 'Model wearing men’s modal boxer brief',
       },
       {
-        url: '/assets/Images/CABANA-MONOGRAM-BLACK.png',
+        url: '/assets/Images/CABANA-MONOGRAM-BLACK-opt.jpg',
         alt: 'CABANA monogram detail',
       },
     ],
@@ -96,23 +96,23 @@ export const products: Product[] = [
         alt: 'Women’s modal set in soft neutral tone',
       },
       {
-        url: '/assets/Images/CABANA-WOMEN2.PNG',
+        url: '/assets/Images/CABANA-WOMEN2-opt.jpg',
         alt: 'Women’s modal set detail view',
       },
       {
-        url: '/assets/Images/CABANA-WOMEN3.PNG',
+        url: '/assets/Images/CABANA-WOMEN3-opt.jpg',
         alt: 'Women’s modal set lifestyle view',
       },
       {
-        url: '/assets/Images/CABANA-WOMEN4.PNG',
+        url: '/assets/Images/CABANA-WOMEN4-opt.jpg',
         alt: 'Women’s modal set close-up',
       },
       {
-        url: '/assets/Images/BeyondWoman.png',
+        url: '/assets/Images/BeyondWoman-opt.jpg',
         alt: 'Soft drape of modal fabric',
       },
       {
-        url: '/assets/Images/homepage-green.png',
+        url: '/assets/Images/homepage-green-opt.jpg',
         alt: 'Sustainable lifestyle flat lay',
       },
     ],
@@ -141,27 +141,27 @@ export const products: Product[] = [
     ],
     images: [
       {
-        url: '/assets/Images/CABANA-BOXERS-34.png',
+        url: '/assets/Images/CABANA-BOXERS-34-opt.jpg',
         alt: 'Signature starter set flat lay',
       },
       {
-        url: '/assets/Images/CABANA-BOXERS-FRONT.png',
+        url: '/assets/Images/CABANA-BOXERS-FRONT-opt.jpg',
         alt: 'Signature boxer brief front view',
       },
       {
-        url: '/assets/Images/CABANA-WOMEN2.PNG',
+        url: '/assets/Images/CABANA-WOMEN2-opt.jpg',
         alt: 'Signature set pairing with women’s modal set',
       },
       {
-        url: '/assets/Images/CABANA-MONOGRAM-BLACK.png',
+        url: '/assets/Images/CABANA-MONOGRAM-BLACK-opt.jpg',
         alt: 'Signature monogram detail',
       },
       {
-        url: '/assets/Images/CABANA-BOXERS-SIDE.png',
+        url: '/assets/Images/CABANA-BOXERS-SIDE-opt.jpg',
         alt: 'Signature boxer brief side view',
       },
       {
-        url: '/assets/Images/CABANA-WOMEN3.PNG',
+        url: '/assets/Images/CABANA-WOMEN3-opt.jpg',
         alt: 'Signature set lifestyle scene',
       },
     ],
