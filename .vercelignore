@@ -19,7 +19,37 @@ privacy-policy.html
 return-policy.html
 shipping-policy.html
 size-guide.html
-legal/
-products/
-css/
-js/
+/legal/
+/products/
+/css/
+/js/
+
+# Keep optimized website media, exclude oversized source originals from deploy package.
+public/assets/Images/CABANA BOXERS3 flat.png
+public/assets/Images/CABANA-BOXERS-BACK.png
+public/assets/Images/CABANA-BOXERS-FRONT.png
+public/assets/Images/CABANA-BOXERS-SIDE.png
+public/assets/Images/CABANA-BOXERS-34.png
+public/assets/Images/CABANA-BOXERS-360-Desktop.mov
+public/assets/Images/CABANA-BOXERS-360-Mobile.mov
+public/assets/Images/CABANA-BOXERS-LAYFLAT-360.mp4
+public/assets/Images/BeyondWoman.png
+public/assets/Images/CABANA-WOMEN.PNG
+public/assets/Images/CABANA-WOMEN2.PNG
+public/assets/Images/CABANA-WOMEN3.PNG
+public/assets/Images/CABANA-WOMEN4.PNG
+public/assets/Images/CABANA-MONOGRAM-BLACK.png
+public/assets/Images/CABANA-MODEL-BOXERS-FRONT.png
+public/assets/Images/homepage-green.png
+public/assets/Images/HERO-BANNER.png
+public/assets/Images/HERO-BANNER1.png
+public/assets/Images/HERO-BANNER2.png
+public/assets/Images/MobileHome.png
+public/assets/Images/Breathable.mp4
+public/assets/Images/Discover.mp4
+public/assets/Images/HERO-BANNER.mp4
+public/assets/Images/Men's background.mp4
+public/assets/Images/Perfectfix.mp4
+public/assets/Images/Sustainable.mp4
+public/assets/Images/Whymodal.mp4
+public/assets/Images/Women.mp4

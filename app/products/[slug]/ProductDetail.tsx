@@ -9,10 +9,24 @@ import { cn } from '@/lib/utils'
 import type { Product } from '@/data/products'
 import { impactPercentLabel } from '@/lib/policy'
 
-const PRODUCT_360_VIDEO: Partial<Record<Product['id'], string>> = {
-  'mens-boxer-brief-black': '/assets/Images/CABANA-BOXERS-360-opt.mp4',
-  'womens-modal-set': '/assets/Images/Women-360-opt.mp4',
-  'signature-starter-set': '/assets/Images/Discover-360-opt.mp4',
+type ProductVideoSource = {
+  webm: string
+  mp4: string
+}
+
+const PRODUCT_360_VIDEO: Partial<Record<Product['id'], ProductVideoSource>> = {
+  'mens-boxer-brief-black': {
+    webm: '/assets/Images/CABANA-BOXERS-360-opt.webm',
+    mp4: '/assets/Images/CABANA-BOXERS-360-opt.mp4',
+  },
+  'womens-modal-set': {
+    webm: '/assets/Images/Women-360-opt.webm',
+    mp4: '/assets/Images/Women-360-opt.mp4',
+  },
+  'signature-starter-set': {
+    webm: '/assets/Images/Discover-360-opt.webm',
+    mp4: '/assets/Images/Discover-360-opt.mp4',
+  },
 }
 
 export default function ProductDetail({ product }: { product: Product }) {
@@ -65,7 +79,8 @@ export default function ProductDetail({ product }: { product: Product }) {
                 poster={product.images[0]?.url}
                 aria-label={`${product.title} 360 degree view`}
               >
-                <source src={videoSrc} type="video/mp4" />
+                <source src={videoSrc.webm} type="video/webm" />
+                <source src={videoSrc.mp4} type="video/mp4" />
               </video>
             </div>
           ) : (

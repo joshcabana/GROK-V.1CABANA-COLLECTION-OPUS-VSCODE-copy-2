@@ -26,11 +26,9 @@ export default function Header() {
   const endRectRef = useRef<{ left: number; top: number; width: number; height: number } | null>(null)
   const measuredRef = useRef(false)
   const targetProgressRef = useRef(0)
+  const currentProgressRef = useRef(0)
   const tickingRef = useRef(false)
-  const dockedRef = useRef(false)
   const navDarkRef = useRef(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [docked, setDocked] = useState(false)
   const [navDark, setNavDark] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -76,17 +74,10 @@ export default function Header() {
       measuredRef.current = true
     }
 
-    const syncDockedState = (value: boolean) => {
-      if (dockedRef.current === value) return
-      dockedRef.current = value
-      setDocked(value)
-    }
-
     const syncNavDarkState = (value: boolean) => {
       if (navDarkRef.current === value) return
       navDarkRef.current = value
       setNavDark(value)
-      setScrolled(value)
     }
 
     const applyProgress = (progress: number) => {
@@ -103,14 +94,12 @@ export default function Header() {
       }
       overlay.style.willChange = 'transform, opacity'
 
-      const easedProgress = 1 - Math.pow(1 - progress, 3)
-      const fadeWindowStart = 0.7
-      const dockFade = clamp((easedProgress - fadeWindowStart) / (1 - fadeWindowStart), 0, 1)
-      const isDocked = dockFade >= 0.992
-      const darkNav = dockFade >= 0.96
+      const easedProgress = 1 - Math.pow(1 - progress, 2.35)
+      const dockThreshold = 0.985
+      const isDocked = easedProgress >= dockThreshold
+      const darkNav = isDocked
 
       if (reducedMotion) {
-        syncDockedState(progress >= 0.98)
         syncNavDarkState(progress >= 0.98)
         hero.style.opacity = progress >= 0.98 ? '0' : '1'
         overlay.style.opacity = '0'
@@ -118,14 +107,12 @@ export default function Header() {
         return
       }
 
-      syncDockedState(isDocked)
       syncNavDarkState(darkNav)
 
-      if (progress <= 0.02) {
+      if (progress <= 0.01) {
         hero.style.opacity = '1'
         overlay.style.opacity = '0'
         navLogo.style.opacity = '0'
-        syncDockedState(false)
         syncNavDarkState(false)
         return
       }
@@ -144,14 +131,25 @@ export default function Header() {
       const targetScaleY = endRect.height / startRect.height
       const scaleX = lerp(1, targetScaleX, easedProgress)
       const scaleY = lerp(1, targetScaleY, easedProgress)
+      const overlayFadeProgress = clamp((easedProgress - 0.82) / 0.16, 0, 1)
 
       overlay.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scaleX}, ${scaleY})`
-      overlay.style.opacity = `${1 - dockFade}`
-      navLogo.style.opacity = `${dockFade}`
+      overlay.style.opacity = `${1 - overlayFadeProgress}`
+      navLogo.style.opacity = isDocked ? '1' : '0'
     }
 
     const animate = () => {
-      applyProgress(targetProgressRef.current)
+      const target = targetProgressRef.current
+      const current = currentProgressRef.current
+      const delta = target - current
+      const next = Math.abs(delta) <= 0.001 ? target : current + delta * 0.32
+      currentProgressRef.current = next
+      applyProgress(next)
+
+      if (Math.abs(target - next) > 0.001) {
+        raf = requestAnimationFrame(animate)
+        return
+      }
       tickingRef.current = false
     }
 
@@ -192,7 +190,7 @@ export default function Header() {
     <>
       <div
         ref={overlayRef}
-        className="pointer-events-none fixed left-0 top-0 z-50 flex items-center justify-center text-white opacity-0 transition-opacity duration-200 motion-reduce:transition-none"
+        className="pointer-events-none fixed left-0 top-0 z-50 flex items-center justify-center text-white opacity-0"
         style={{ transformOrigin: 'top left' }}
         aria-hidden="true"
       >
@@ -204,15 +202,15 @@ export default function Header() {
       </div>
       <header
         className={cn(
-          'sticky top-0 z-40 w-full transition-colors duration-300 motion-reduce:transition-none',
-          scrolled ? 'bg-white border-b border-[#d2d2d7]' : 'bg-transparent'
+          'sticky top-0 z-40 w-full transition-colors duration-150 motion-reduce:transition-none',
+          navDark ? 'bg-white border-b border-[#d2d2d7]' : 'bg-transparent'
         )}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
           <Link href="/" className="flex items-center">
             <div
               ref={navLogoRef}
-              className="text-[#1d1d1f] opacity-0 transition-opacity duration-200"
+              className="text-[#1d1d1f] opacity-0"
             >
               <BrandWordmark
                 className="leading-none"
@@ -223,7 +221,7 @@ export default function Header() {
           </Link>
           <nav
             className={cn(
-              'hidden items-center gap-6 text-xs uppercase tracking-[0.2em] transition-colors duration-300 md:flex',
+              'hidden items-center gap-6 text-xs uppercase tracking-[0.2em] transition-colors duration-150 md:flex',
               navDark ? 'text-[#1d1d1f]' : 'text-white'
             )}
           >
@@ -256,7 +254,7 @@ export default function Header() {
             <button
               onClick={() => setMobileOpen((open) => !open)}
               className={cn(
-                'rounded-full p-2 transition-colors duration-300 md:hidden',
+                'rounded-full p-2 transition-colors duration-150 md:hidden',
                 navDark
                   ? 'border border-[#d2d2d7] text-[#1d1d1f]'
                   : 'border border-white/70 text-white'
@@ -270,7 +268,7 @@ export default function Header() {
             <button
               onClick={openDrawer}
               className={cn(
-                'relative rounded-full p-2 transition-colors duration-300',
+                'relative rounded-full p-2 transition-colors duration-150',
                 navDark
                   ? 'border border-[#d2d2d7] text-[#1d1d1f]'
                   : 'border border-white/70 text-white'
