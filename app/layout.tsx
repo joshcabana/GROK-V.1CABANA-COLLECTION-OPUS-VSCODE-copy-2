@@ -9,7 +9,7 @@ import CookieConsent from '@/components/CookieConsent'
 export const metadata: Metadata = {
   title: 'Cabana Collections — Sustainable Modal Underwear',
   description:
-    "Quiet luxury essentials in premium modal. 15% of every purchase supports men's mental health and women's empowerment.",
+    "Quiet luxury essentials in premium modal. 10% of every purchase supports men's mental health and women's empowerment.",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

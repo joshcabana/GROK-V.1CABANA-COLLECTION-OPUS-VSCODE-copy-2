@@ -53,22 +53,22 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/privacy" className="hover:text-black/70">
+              <Link href="/privacy-policy" className="hover:text-black/70">
                 Privacy
               </Link>
             </li>
             <li>
-              <Link href="/terms" className="hover:text-black/70">
+              <Link href="/terms-of-service" className="hover:text-black/70">
                 Terms
               </Link>
             </li>
             <li>
-              <Link href="/shipping" className="hover:text-black/70">
+              <Link href="/shipping-policy" className="hover:text-black/70">
                 Shipping
               </Link>
             </li>
             <li>
-              <Link href="/returns" className="hover:text-black/70">
+              <Link href="/return-policy" className="hover:text-black/70">
                 Returns
               </Link>
             </li>
@@ -78,7 +78,7 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/care" className="hover:text-black/70">
+              <Link href="/care-instructions" className="hover:text-black/70">
                 Care
               </Link>
             </li>
@@ -89,8 +89,11 @@ export default function Footer() {
           <p className="mt-3 text-[#6e6e73]">ABN: 91 302 503 433</p>
           <p className="text-[#6e6e73]">Canberra ACT 2601</p>
           <p className="mt-3 text-[#6e6e73]">
-            <a href="mailto:Cabana.Collections2025@gmail.com" className="underline hover:no-underline">
-              Cabana.Collections2025@gmail.com
+            <a
+              href="mailto:support@cabanacollections.com.au"
+              className="underline hover:no-underline"
+            >
+              support@cabanacollections.com.au
             </a>
           </p>
           <p className="mt-3 text-xs uppercase tracking-[0.2em] text-[#6e6e73]">

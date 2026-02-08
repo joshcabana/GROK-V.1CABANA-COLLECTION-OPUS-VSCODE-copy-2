@@ -38,7 +38,10 @@ export default function CookieConsent() {
         >
           Essential Only
         </button>
-        <Link href="/privacy" className="text-xs uppercase tracking-[0.2em] text-[#6e6e73] underline">
+        <Link
+          href="/privacy-policy"
+          className="text-xs uppercase tracking-[0.2em] text-[#6e6e73] underline"
+        >
           Privacy Policy
         </Link>
       </div>

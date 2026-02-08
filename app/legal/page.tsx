@@ -2,12 +2,12 @@ import Link from 'next/link'
 import { supportEmailHref, sitePolicy } from '@/lib/policy'
 
 const links = [
-  { href: '/privacy', label: 'Privacy Policy' },
-  { href: '/terms', label: 'Terms of Service' },
-  { href: '/shipping', label: 'Shipping Policy' },
-  { href: '/returns', label: 'Return Policy' },
+  { href: '/privacy-policy', label: 'Privacy Policy' },
+  { href: '/terms-of-service', label: 'Terms of Service' },
+  { href: '/shipping-policy', label: 'Shipping Policy' },
+  { href: '/return-policy', label: 'Return Policy' },
   { href: '/size-guide', label: 'Size Guide' },
-  { href: '/care', label: 'Care Instructions' },
+  { href: '/care-instructions', label: 'Care Instructions' },
 ]
 
 export default function LegalPage() {
