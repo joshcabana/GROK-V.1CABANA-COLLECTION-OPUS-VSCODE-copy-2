@@ -15,7 +15,10 @@
     "perf:baseline:desktop": "CABANA_LHCI_PRESET=desktop node scripts/perf-dashboard.cjs --write-baseline",
     "lhci:all:baseline": "pnpm run lhci:mobile && pnpm run perf:baseline:mobile && pnpm run lhci:desktop && pnpm run perf:baseline:desktop",
     "lhci:all:dashboard": "pnpm run lhci:mobile && pnpm run perf:dashboard:mobile && pnpm run lhci:desktop && pnpm run perf:dashboard:desktop",
-    "test:smoke": "pnpm exec playwright test tests/mobile.spec.ts",
+    "test:smoke": "pnpm exec playwright test tests/mobile.spec.ts tests/redirects.spec.ts tests/policy-consistency.spec.ts",
+    "check:static:content": "bash scripts/check-static-content.sh",
+    "check:static:routes": "bash scripts/check-static-routes.sh",
+    "check:static": "pnpm run check:static:content && pnpm run check:static:routes",
     "checkpoint": "bash -lc 'echo \"=== CHECKPOINT ===\"; echo \"Branch: $(git branch --show-current)\"; echo \"Commit: $(git log -1 --oneline)\"; echo; git status --short'",
     "checkpoint:save": "bash scripts/checkpoint-save.sh"
   },
