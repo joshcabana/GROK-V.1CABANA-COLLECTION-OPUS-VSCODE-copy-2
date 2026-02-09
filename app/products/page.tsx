@@ -23,14 +23,14 @@ export default function ProductsPage() {
   }, [activeFilter])
 
   return (
-    <main className="py-12 md:py-16">
+    <main className="py-12 md:py-16 lg:py-20">
       <div className="mx-auto max-w-6xl space-y-6 px-4 md:px-8">
-        <div className="section-card p-6">
+        <div className="luxury-surface motion-rise rounded-3xl p-6">
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-black/70">Shop</p>
-              <h1 className="font-heading text-3xl">CABANA Collection</h1>
-              <p className="mt-2 text-sm text-black/60">
+              <p className="luxury-kicker">Shop</p>
+              <h1 className="font-heading text-3xl md:text-4xl">CABANA Collection</h1>
+              <p className="mt-2 max-w-xl text-sm text-black/60 md:text-base">
                 Curated essentials for men, women, and signature sets.
               </p>
             </div>
@@ -39,11 +39,11 @@ export default function ProductsPage() {
                 <button
                   key={filter.value}
                   type="button"
-                  onClick={() => setActiveFilter(filter.value)}
-                  className={cn(
-                    'rounded-full border px-4 py-2 text-xs uppercase tracking-[0.2em] transition-colors',
+                onClick={() => setActiveFilter(filter.value)}
+                className={cn(
+                    'rounded-full border px-4 py-2 text-xs uppercase tracking-[0.2em] transition-colors duration-300',
                     activeFilter === filter.value
-                      ? 'border-ink bg-ink text-white'
+                      ? 'border-ink bg-ink text-white shadow-sm'
                       : 'border-black/10 bg-white text-black/60 hover:border-black/30 hover:text-black',
                   )}
                 >
@@ -52,7 +52,7 @@ export default function ProductsPage() {
               ))}
             </div>
           </div>
-          <p className="mt-4 text-xs uppercase tracking-[0.2em] text-black/70">{filtered.length} items</p>
+          <p className="mt-4 text-xs uppercase tracking-[0.24em] text-black/70">{filtered.length} items</p>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((product) => (

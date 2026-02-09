@@ -17,10 +17,15 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group overflow-hidden rounded-3xl border border-black/5 bg-white shadow-soft transition-transform hover:-translate-y-1 motion-reduce:transform-none"
+      className="group motion-sheen motion-rise overflow-hidden rounded-3xl border border-black/5 bg-white shadow-soft transition-transform duration-500 hover:-translate-y-1 motion-reduce:transform-none"
     >
       <div className="relative aspect-[4/5] overflow-hidden">
-        <SafeImage src={product.images[0]?.url} alt={product.images[0]?.alt ?? product.title} sizes={cardSizes} />
+        <SafeImage
+          src={product.images[0]?.url}
+          alt={product.images[0]?.alt ?? product.title}
+          sizes={cardSizes}
+          className="transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transform-none"
+        />
         {hasSecondary && (
           <SafeImage
             src={product.images[1]?.url}
@@ -33,7 +38,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
       </div>
       <div className="flex flex-1 flex-col gap-2 p-6">
-        <p className="text-xs uppercase tracking-[0.2em] text-black/70">
+        <p className="text-xs uppercase tracking-[0.24em] text-black/65">
           {product.category === 'mens' ? 'Men' : product.category === 'womens' ? 'Women' : 'Sets'}
         </p>
         <div className="flex items-start justify-between gap-4">
@@ -48,7 +53,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               )}
             </div>
           </div>
-          <div className="flex items-center gap-1 text-sm text-black/60">
+          <div className="flex items-center gap-1 rounded-full border border-black/10 bg-stone/70 px-2 py-1 text-sm text-black/60">
             <Star className="h-4 w-4 fill-ink text-ink" />
             <span>{product.rating.toFixed(1)}</span>
             <span className="text-xs">({product.reviewCount})</span>

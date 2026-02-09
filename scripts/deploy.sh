@@ -170,8 +170,8 @@ TEMP_DIR=$(mktemp -d)
 TARBALL="$TEMP_DIR/project.tgz"
 STAGING_DIR="$TEMP_DIR/staging"
 CLEANUP_TEMP=true
-# Keep payload below claimable deploy endpoint limits for this repository.
-MAX_SIZE="${CABANA_DEPLOY_MAX_SIZE:-900k}"
+# Keep claimable deploy payload below endpoint limits by default.
+MAX_SIZE="${CABANA_DEPLOY_MAX_SIZE:-600k}"
 
 cleanup() {
     if [ "$CLEANUP_TEMP" = true ]; then
@@ -207,8 +207,13 @@ elif [ -d "$INPUT_PATH" ]; then
     # Stage files into a temporary directory to avoid mutating the source tree.
     mkdir -p "$STAGING_DIR"
     echo "Staging project files..." >&2
+    RSYNC_EXCLUDE_FROM=()
+    if [ -f "$PROJECT_PATH/.vercelignore" ]; then
+        RSYNC_EXCLUDE_FROM=(--exclude-from "$PROJECT_PATH/.vercelignore")
+    fi
     rsync -a \
         --max-size="$MAX_SIZE" \
+        "${RSYNC_EXCLUDE_FROM[@]}" \
         --exclude 'node_modules' \
         --exclude '.git' \
         --exclude '.env' \
@@ -240,7 +245,6 @@ elif [ -d "$INPUT_PATH" ]; then
         --exclude '/products/' \
         --exclude '/legal/' \
         --exclude '/assets/' \
-        --exclude 'public/assets/Images/*.mp4' \
         --exclude 'public/assets/Images/*.mov' \
         "$PROJECT_PATH"/ "$STAGING_DIR"/
 

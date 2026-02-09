@@ -77,3 +77,16 @@
 
 ### Next Safe Action
 - Run `pnpm run verify:release` before any deploy and update this checkpoint afterward.
+
+## 09/02/2026, 16:06:53 AEDT
+
+### Automated Checkpoint
+- Branch: `Cabana-Collections-2026`
+- HEAD: `df569a2 chore(ops): checkpoint release verification and inspections`
+- Working tree: `M .vercelignore |  M app/cart/page.tsx |  M app/globals.css |  M app/page.tsx |  M app/products/[slug]/ProductDetail.tsx |  M app/products/page.tsx |  M components/AddToCartButton.tsx |  M components/Footer.tsx |  M components/Header.tsx |  M components/ProductCard.tsx |  M components/ProductImageGallery.tsx |  M components/ServiceWorkerRegister.tsx |  M package.json |  M public/assets/Images/optimised/boxers-back.jpg |  M public/assets/Images/optimised/boxers-front.jpg |  M reports/lighthouse/dashboard.desktop.md |  M reports/lighthouse/dashboard.mobile.md |  M scripts/deploy.sh | ?? public/assets/Images/CABANA-BOXERS-360-opt.mp4 | ?? public/assets/Images/CABANA-BOXERS-360-opt.webm | ?? public/assets/Images/Discover-360-opt.mp4 | ?? public/assets/Images/Discover-360-opt.webm | ?? public/assets/Images/Women-360-opt.mp4 | ?? public/assets/Images/Women-360-opt.webm`
+- Latest preview URL: https://skill-deploy-ardjr14x6p-codex-agent-deploys.vercel.app
+- Live inspection report present: yes
+- Visual inspection report present: yes
+
+### Next Safe Action
+- Run `pnpm run verify:release` before any deploy and update this checkpoint afterward.

@@ -175,18 +175,18 @@ export default function ProductImageGallery({ images, priorityFirst }: ProductIm
 
       {zoomOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
+          className="motion-fade fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4"
           role="dialog"
           aria-modal="true"
         >
           <div
             ref={zoomRef}
-            className="relative w-full max-w-4xl rounded-3xl bg-white p-4"
+            className="motion-rise relative w-full max-w-4xl rounded-3xl bg-white p-4"
           >
             <button
               type="button"
               onClick={() => setZoomOpen(false)}
-              className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-ink transition-colors hover:border-ink"
+              className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-ink transition-colors duration-300 hover:border-ink"
             >
               <X className="h-5 w-5" />
             </button>

@@ -6,6 +6,11 @@
   color-scheme: light;
   --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   --font-heading: 'Playfair Display', 'Times New Roman', serif;
+  --lux-stone: #f6f3ef;
+  --lux-stone-2: #efe8df;
+  --lux-ink: #1a1a1a;
+  --lux-muted: #575757;
+  --lux-gold: #b6933f;
 }
 
 * {
@@ -18,6 +23,10 @@ html {
 
 body {
   @apply bg-stone text-ink font-body antialiased;
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(182, 147, 63, 0.09) 0%, rgba(182, 147, 63, 0) 28%),
+    radial-gradient(circle at 84% 3%, rgba(26, 26, 26, 0.08) 0%, rgba(26, 26, 26, 0) 22%),
+    linear-gradient(180deg, #f9f7f3 0%, #f6f3ef 48%, #f4f0eb 100%);
 }
 
 a {
@@ -47,6 +56,91 @@ a {
   @apply text-black/60;
 }
 
+.luxury-surface {
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0.88) 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(244, 240, 235, 0.65) 100%);
+  border: 1px solid rgba(26, 26, 26, 0.06);
+  box-shadow:
+    0 24px 44px rgba(10, 10, 10, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.luxury-outline {
+  border: 1px solid rgba(26, 26, 26, 0.12);
+}
+
+.luxury-copy {
+  color: var(--lux-muted);
+}
+
+.luxury-kicker {
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  color: rgba(26, 26, 26, 0.58);
+}
+
+.motion-rise {
+  animation: cabana-rise 560ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.motion-rise-delay-1 {
+  animation-delay: 80ms;
+}
+
+.motion-rise-delay-2 {
+  animation-delay: 160ms;
+}
+
+.motion-rise-delay-3 {
+  animation-delay: 240ms;
+}
+
+.motion-fade {
+  animation: cabana-fade 420ms ease-out both;
+}
+
+.motion-sheen {
+  position: relative;
+  isolation: isolate;
+}
+
+.motion-sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 22%, rgba(255, 255, 255, 0.3) 48%, transparent 72%);
+  transform: translateX(-120%);
+  transition: transform 850ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.motion-sheen:hover::after,
+.motion-sheen:focus-visible::after {
+  transform: translateX(120%);
+}
+
+@keyframes cabana-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes cabana-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -63,5 +157,9 @@ a {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .motion-sheen::after {
+    display: none !important;
   }
 }
