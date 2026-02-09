@@ -14,11 +14,16 @@ const nextConfig = {
       { source: '/impact.html', destination: '/impact', permanent: true },
       { source: '/contact.html', destination: '/contact', permanent: true },
       { source: '/privacy-policy.html', destination: '/privacy', permanent: true },
+      { source: '/privacy-policy', destination: '/privacy', permanent: true },
       { source: '/terms-of-service.html', destination: '/terms', permanent: true },
+      { source: '/terms-of-service', destination: '/terms', permanent: true },
       { source: '/shipping-policy.html', destination: '/shipping', permanent: true },
+      { source: '/shipping-policy', destination: '/shipping', permanent: true },
       { source: '/return-policy.html', destination: '/returns', permanent: true },
+      { source: '/return-policy', destination: '/returns', permanent: true },
       { source: '/size-guide.html', destination: '/size-guide', permanent: true },
       { source: '/care-instructions.html', destination: '/care', permanent: true },
+      { source: '/care-instructions', destination: '/care', permanent: true },
       { source: '/legal/index.html', destination: '/legal', permanent: true },
       { source: '/cart.html', destination: '/cart', permanent: true },
       {
@@ -36,7 +41,13 @@ const nextConfig = {
         destination: '/products/womens-modal-set',
         permanent: true,
       },
+      {
+        source: '/products/womens-set',
+        destination: '/products/womens-modal-set',
+        permanent: true,
+      },
       { source: '/faq.html', destination: '/contact', permanent: true },
+      { source: '/faq', destination: '/contact', permanent: true },
     ]
   },
 }

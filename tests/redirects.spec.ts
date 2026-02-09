@@ -22,14 +22,28 @@ const redirects = [
 test.describe('legacy redirects', () => {
   for (const mapping of redirects) {
     test(`${mapping.from} -> ${mapping.to}`, async ({ baseURL, request }) => {
+      const normalizePath = (location: string) =>
+        new URL(location, baseURL || 'http://127.0.0.1:3101').pathname
+
       const response = await request.get(mapping.from, { maxRedirects: 0 })
       expect([307, 308]).toContain(response.status())
 
       const location = response.headers()['location']
       expect(location).toBeTruthy()
 
-      const normalized = new URL(location || '', baseURL || 'http://127.0.0.1:3101').pathname
-      expect(normalized).toBe(mapping.to)
+      const firstHop = normalizePath(location || '')
+      if (firstHop === mapping.to) return
+
+      const strippedHtml = mapping.from.replace(/\.html$/, '')
+      expect(firstHop).toBe(strippedHtml)
+
+      const secondResponse = await request.get(firstHop, { maxRedirects: 0 })
+      expect([307, 308]).toContain(secondResponse.status())
+
+      const secondLocation = secondResponse.headers()['location']
+      expect(secondLocation).toBeTruthy()
+      const secondHop = normalizePath(secondLocation || '')
+      expect(secondHop).toBe(mapping.to)
     })
   }
 })
