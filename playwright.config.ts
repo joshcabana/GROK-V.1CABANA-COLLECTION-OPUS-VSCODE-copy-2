@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const testPort = process.env.PLAYWRIGHT_PORT || '3101';
+const testPort = process.env.PLAYWRIGHT_PORT || '3000';
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || `http://127.0.0.1:${testPort}`;
 
 export default defineConfig({
@@ -20,10 +20,12 @@ export default defineConfig({
       use: { ...devices['Pixel 5'], reducedMotion: 'reduce' },
     },
   ],
-  webServer: {
-    command: `pnpm build && PORT=${testPort} pnpm start`,
-    url: baseURL,
-    reuseExistingServer: false,
-    timeout: 180000,
-  },
+  webServer: process.env.PLAYWRIGHT_SKIP_WEBSERVER
+    ? undefined
+    : {
+        command: `pnpm build && pnpm exec next start --hostname 127.0.0.1 --port ${testPort}`,
+        url: baseURL,
+        reuseExistingServer: true,
+        timeout: 180000,
+      },
 });

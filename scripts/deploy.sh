@@ -170,7 +170,7 @@ TARBALL="$TEMP_DIR/project.tgz"
 STAGING_DIR="$TEMP_DIR/staging"
 CLEANUP_TEMP=true
 # Keep claimable deploy payload below endpoint limits by default.
-MAX_SIZE="${CABANA_DEPLOY_MAX_SIZE:-600k}"
+MAX_SIZE="${CABANA_DEPLOY_MAX_SIZE:-350k}"
 
 cleanup() {
     if [ "$CLEANUP_TEMP" = true ]; then

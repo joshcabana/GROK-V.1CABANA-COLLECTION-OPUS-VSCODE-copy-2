@@ -29,6 +29,7 @@ export default function Header() {
   const currentProgressRef = useRef(0)
   const tickingRef = useRef(false)
   const navDarkRef = useRef(false)
+  const dockedRef = useRef(false)
   const [navDark, setNavDark] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -94,9 +95,11 @@ export default function Header() {
       }
       overlay.style.willChange = 'transform, opacity'
 
-      const easedProgress = 1 - Math.pow(1 - progress, 2.35)
-      const dockThreshold = 0.985
-      const isDocked = easedProgress >= dockThreshold
+      const easedProgress = 1 - Math.pow(1 - progress, 2.2)
+      const dockEnter = 0.986
+      const dockExit = 0.93
+      const isDocked = dockedRef.current ? easedProgress > dockExit : easedProgress >= dockEnter
+      dockedRef.current = isDocked
       const darkNav = isDocked
 
       if (reducedMotion) {
@@ -109,10 +112,11 @@ export default function Header() {
 
       syncNavDarkState(darkNav)
 
-      if (progress <= 0.01) {
+      if (progress <= 0.008) {
         hero.style.opacity = '1'
         overlay.style.opacity = '0'
         navLogo.style.opacity = '0'
+        dockedRef.current = false
         syncNavDarkState(false)
         return
       }
@@ -131,25 +135,18 @@ export default function Header() {
       const targetScaleY = endRect.height / startRect.height
       const scaleX = lerp(1, targetScaleX, easedProgress)
       const scaleY = lerp(1, targetScaleY, easedProgress)
-      const overlayFadeProgress = clamp((easedProgress - 0.82) / 0.16, 0, 1)
+      const overlayFadeProgress = clamp((easedProgress - 0.8) / 0.18, 0, 1)
+      const navLogoFade = clamp((easedProgress - 0.88) / 0.1, 0, 1)
 
       overlay.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scaleX}, ${scaleY})`
       overlay.style.opacity = `${1 - overlayFadeProgress}`
-      navLogo.style.opacity = isDocked ? '1' : '0'
+      navLogo.style.opacity = `${navLogoFade}`
     }
 
     const animate = () => {
       const target = targetProgressRef.current
-      const current = currentProgressRef.current
-      const delta = target - current
-      const next = Math.abs(delta) <= 0.001 ? target : current + delta * 0.32
-      currentProgressRef.current = next
-      applyProgress(next)
-
-      if (Math.abs(target - next) > 0.001) {
-        raf = requestAnimationFrame(animate)
-        return
-      }
+      currentProgressRef.current = target
+      applyProgress(target)
       tickingRef.current = false
     }
 
