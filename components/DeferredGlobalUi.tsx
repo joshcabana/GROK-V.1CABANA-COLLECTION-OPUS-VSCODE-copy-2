@@ -3,7 +3,6 @@
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 
-const CartDrawer = dynamic(() => import('./CartDrawer'))
 const CookieConsent = dynamic(() => import('./CookieConsent'))
 
 type IdleCallbackHandle = number
@@ -50,10 +49,5 @@ export default function DeferredGlobalUi() {
 
   if (!ready) return null
 
-  return (
-    <>
-      <CartDrawer />
-      <CookieConsent />
-    </>
-  )
+  return <CookieConsent />
 }

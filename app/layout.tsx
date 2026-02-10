@@ -3,6 +3,7 @@ import Script from 'next/script'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import CartDrawer from '@/components/CartDrawer'
 import DeferredGlobalUi from '@/components/DeferredGlobalUi'
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
         <Header />
+        <CartDrawer />
         <div id="main-content" tabIndex={-1}>
           {children}
         </div>
