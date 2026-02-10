@@ -32,7 +32,7 @@ module.exports = {
     collect: {
       startServerCommand: `pnpm run build && PORT=${lhciPort} pnpm run start`,
       startServerReadyPattern: 'Local:\\s+http://localhost|Ready in|Ready on|started server on',
-      startServerReadyTimeout: 60000,
+      startServerReadyTimeout: 180000,
       url: urls,
       numberOfRuns: 3,
       chromePath,

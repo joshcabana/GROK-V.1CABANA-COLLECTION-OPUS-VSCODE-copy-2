@@ -90,3 +90,16 @@
 
 ### Next Safe Action
 - Run `pnpm run verify:release` before any deploy and update this checkpoint afterward.
+
+## 10/02/2026, 16:07:21 AEDT
+
+### Automated Checkpoint
+- Branch: `Cabana-Collections-2026`
+- HEAD: `b512603 Audit performance regressions`
+- Working tree: `M lighthouserc.cjs |  M reports/lighthouse/dashboard.desktop.md |  M reports/lighthouse/dashboard.mobile.md`
+- Latest preview URL: https://skill-deploy-mcnedlsl7i-codex-agent-deploys.vercel.app
+- Live inspection report present: yes
+- Visual inspection report present: yes
+
+### Next Safe Action
+- Run `pnpm run verify:release` before any deploy and update this checkpoint afterward.
