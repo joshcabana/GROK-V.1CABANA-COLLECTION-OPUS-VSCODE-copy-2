@@ -15,18 +15,38 @@ export default function DeferredGlobalUi() {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    const start = () => setReady(true)
-    const idle = window.requestIdleCallback as IdleCallback | undefined
-    const cancelIdle = window.cancelIdleCallback as CancelIdleCallback | undefined
+    if (ready) return
 
-    if (idle && cancelIdle) {
-      const handle = idle(() => start(), { timeout: 1200 })
-      return () => cancelIdle(handle)
+    const start = () => setReady(true)
+    const interactionEvents: Array<keyof WindowEventMap> = ['pointerdown', 'keydown', 'touchstart']
+    const onInteraction = () => start()
+
+    for (const eventName of interactionEvents) {
+      window.addEventListener(eventName, onInteraction, { passive: true, once: true })
     }
 
-    const timer = window.setTimeout(start, 400)
-    return () => window.clearTimeout(timer)
-  }, [])
+    const idle = window.requestIdleCallback as IdleCallback | undefined
+    const cancelIdle = window.cancelIdleCallback as CancelIdleCallback | undefined
+    const timer = window.setTimeout(start, 3000)
+
+    if (idle && cancelIdle) {
+      const handle = idle(() => start(), { timeout: 3000 })
+      return () => {
+        window.clearTimeout(timer)
+        cancelIdle(handle)
+        for (const eventName of interactionEvents) {
+          window.removeEventListener(eventName, onInteraction)
+        }
+      }
+    }
+
+    return () => {
+      window.clearTimeout(timer)
+      for (const eventName of interactionEvents) {
+        window.removeEventListener(eventName, onInteraction)
+      }
+    }
+  }, [ready])
 
   if (!ready) return null
 
