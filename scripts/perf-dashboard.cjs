@@ -88,29 +88,67 @@ const metrics = (lhr) => {
   };
 };
 
-const sorted = entries
+const isValidScore = (score) => typeof score === 'number' && Number.isFinite(score);
+
+const prepared = entries
   .map((entry) => ({ entry, mtime: fs.statSync(entry.jsonPath).mtimeMs }))
-  .sort((a, b) => b.mtime - a.mtime);
+  .sort((a, b) => b.mtime - a.mtime)
+  .map(({ entry, mtime }) => {
+    const lhr = safeRead(entry);
+    if (!lhr) return null;
+    const formFactor = getFormFactor(lhr);
+    if (normalizedPreset && formFactor !== normalizedPreset) return null;
+    return {
+      entry,
+      mtime,
+      metrics: metrics(lhr),
+    };
+  })
+  .filter(Boolean);
 
-const selected = new Map();
-for (const { entry } of sorted) {
-  const lhr = safeRead(entry);
-  if (!lhr) continue;
-  const formFactor = getFormFactor(lhr);
-  if (normalizedPreset && formFactor !== normalizedPreset) continue;
-  if (selected.has(entry.url)) continue;
-  selected.set(entry.url, { entry, lhr, formFactor });
-}
-
-if (!selected.size) {
+if (!prepared.length) {
   const label = normalizedPreset ? `${normalizedPreset}` : 'all';
   console.error(`No LHCI JSON entries matched preset "${label}".`);
   process.exit(1);
 }
 
-const summary = Array.from(selected.values()).map(({ entry, lhr }) => ({
+const groupedByUrl = new Map();
+for (const candidate of prepared) {
+  if (!groupedByUrl.has(candidate.entry.url)) {
+    groupedByUrl.set(candidate.entry.url, []);
+  }
+  groupedByUrl.get(candidate.entry.url).push(candidate);
+}
+
+const unstableRoutes = [];
+const missingScoreRoutes = [];
+const selected = [];
+
+for (const [url, candidates] of groupedByUrl.entries()) {
+  const validCount = candidates.filter((candidate) => isValidScore(candidate.metrics.performance)).length;
+  const latestValid = candidates.find((candidate) => isValidScore(candidate.metrics.performance)) || null;
+
+  selected.push(latestValid || candidates[0]);
+
+  if (validCount !== candidates.length) {
+    unstableRoutes.push({ url, validCount, total: candidates.length });
+  }
+
+  if (!latestValid) {
+    missingScoreRoutes.push({ url, total: candidates.length });
+  }
+}
+
+if (unstableRoutes.length) {
+  console.warn('Some LHCI runs returned invalid performance scores; using the latest valid run per route.');
+  unstableRoutes.forEach(({ url, validCount, total }) => {
+    console.warn(`${url} valid runs: ${validCount}/${total}`);
+  });
+}
+
+const summary = selected.map(({ entry, metrics }) => ({
   url: entry.url,
-  metrics: metrics(lhr),
+  metrics,
 }));
 
 const outputDir = path.join(process.cwd(), 'reports', 'lighthouse');
@@ -139,6 +177,7 @@ const baselineByRoute = new Map(
 
 const compare = (current, base) => {
   if (!base) return '';
+  if (!isValidScore(current.performance) || !isValidScore(base.performance)) return 'n/a';
   const delta = (current.performance - base.performance).toFixed(2);
   const sign = Number(delta) > 0 ? '+' : '';
   return `${sign}${delta}`;
@@ -166,15 +205,32 @@ fs.writeFileSync(dashboardPath, dashboardLines.join('\n'));
 if (writeBaseline) {
   fs.writeFileSync(baselinePath, JSON.stringify(summary, null, 2));
   console.log(`Baseline written to ${baselinePath}`);
+
+  if (missingScoreRoutes.length) {
+    console.warn('Baseline includes routes missing valid performance scores:');
+    missingScoreRoutes.forEach(({ url, total }) => {
+      console.warn(`${url} valid runs: 0/${total}`);
+    });
+  }
 }
 
 console.log(`Dashboard written to ${dashboardPath}`);
 
 if (!writeBaseline && baseline) {
+  const missingScores = summary
+    .map((item) => {
+      const base = baselineByRoute.get(normaliseRouteKey(item.url));
+      if (!base || !isValidScore(base.performance)) return null;
+      if (isValidScore(item.metrics.performance)) return null;
+      return { url: item.url };
+    })
+    .filter(Boolean);
+
   const drops = summary
     .map((item) => {
       const base = baselineByRoute.get(normaliseRouteKey(item.url));
       if (!base) return null;
+      if (!isValidScore(item.metrics.performance) || !isValidScore(base.performance)) return null;
       return {
         url: item.url,
         delta: item.metrics.performance - base.performance,
@@ -183,8 +239,9 @@ if (!writeBaseline && baseline) {
     .filter(Boolean)
     .filter((item) => item.delta <= -0.03);
 
-  if (drops.length) {
+  if (missingScores.length || drops.length) {
     console.error('Performance regression detected:');
+    missingScores.forEach((item) => console.error(`${item.url} missing valid performance score`));
     drops.forEach((d) => console.error(`${d.url} Δ ${d.delta.toFixed(2)}`));
     process.exit(2);
   }
