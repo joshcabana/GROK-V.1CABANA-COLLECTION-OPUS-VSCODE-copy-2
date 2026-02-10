@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Menu, ShoppingBag, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useCartStore } from '@/lib/store'
@@ -16,6 +17,9 @@ function lerp(start: number, end: number, progress: number) {
 }
 
 export default function Header() {
+  const pathname = usePathname()
+  const isHomeRoute = pathname === '/'
+  const initialNavDark = !isHomeRoute
   const itemCount = useCartStore((state) => state.itemCount())
   const openDrawer = useCartStore((state) => state.openDrawer)
   const navLogoRef = useRef<HTMLDivElement | null>(null)
@@ -30,11 +34,29 @@ export default function Header() {
   const tickingRef = useRef(false)
   const navDarkRef = useRef(false)
   const dockedRef = useRef(false)
-  const [navDark, setNavDark] = useState(false)
+  const [navDark, setNavDark] = useState(initialNavDark)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
+    if (!isHomeRoute) {
+      navDarkRef.current = true
+      dockedRef.current = true
+      setNavDark(true)
+      if (overlayRef.current) {
+        overlayRef.current.style.opacity = '0'
+      }
+      if (navLogoRef.current) {
+        navLogoRef.current.style.opacity = '1'
+      }
+      return
+    }
+
+    navDarkRef.current = false
+    dockedRef.current = false
+    setNavDark(false)
+
     let raf = 0
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const resolveTargets = () => {
       if (!heroWordmarkRef.current) {
@@ -87,7 +109,6 @@ export default function Header() {
       const heroSection = heroSectionRef.current
       const navLogo = navLogoRef.current
       const overlay = overlayRef.current
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
       if (!navLogo || !overlay || !hero) return
       if (!measuredRef.current) {
@@ -181,7 +202,7 @@ export default function Header() {
       window.removeEventListener('scroll', update)
       window.removeEventListener('resize', onResize)
     }
-  }, [])
+  }, [isHomeRoute])
 
   return (
     <>
@@ -207,7 +228,7 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             <div
               ref={navLogoRef}
-              className="text-[#1d1d1f] opacity-0"
+              className={cn('text-[#1d1d1f]', isHomeRoute ? 'opacity-0' : 'opacity-100')}
             >
               <BrandWordmark
                 className="leading-none"

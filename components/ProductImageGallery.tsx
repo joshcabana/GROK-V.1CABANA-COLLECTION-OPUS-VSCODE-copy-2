@@ -9,6 +9,11 @@ import { cn } from '@/lib/utils'
 import type { ProductImage } from '@/data/products'
 
 const GALLERY_SIZES = '(max-width: 1024px) 100vw, 60vw'
+const THUMBNAIL_SIZES = '(max-width: 767px) 1px, 120px'
+
+function buildInitialLoadedIndexes(length: number) {
+  return [0, 1].filter((index) => index < length)
+}
 
 function getFocusable(container: HTMLElement | null) {
   if (!container) return []
@@ -22,15 +27,38 @@ function getFocusable(container: HTMLElement | null) {
 export default function ProductImageGallery({ images }: { images: ProductImage[] }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false })
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [loadedSlideIndexes, setLoadedSlideIndexes] = useState<number[]>(() =>
+    buildInitialLoadedIndexes(images.length)
+  )
   const [zoomOpen, setZoomOpen] = useState(false)
   const [zoomIndex, setZoomIndex] = useState(0)
   const modalRef = useRef<HTMLDivElement | null>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)
 
+  const ensureSlideWindowLoaded = useCallback(
+    (index: number) => {
+      setLoadedSlideIndexes((prev) => {
+        const next = new Set(prev)
+        for (const candidate of [index - 1, index, index + 1]) {
+          if (candidate >= 0 && candidate < images.length) next.add(candidate)
+        }
+        if (next.size === prev.length) return prev
+        return Array.from(next).sort((a, b) => a - b)
+      })
+    },
+    [images.length]
+  )
+
+  useEffect(() => {
+    setLoadedSlideIndexes(buildInitialLoadedIndexes(images.length))
+  }, [images.length])
+
   const onSelect = useCallback(() => {
     if (!emblaApi) return
-    setSelectedIndex(emblaApi.selectedScrollSnap())
-  }, [emblaApi])
+    const index = emblaApi.selectedScrollSnap()
+    setSelectedIndex(index)
+    ensureSlideWindowLoaded(index)
+  }, [emblaApi, ensureSlideWindowLoaded])
 
   useEffect(() => {
     if (!emblaApi) return
@@ -40,17 +68,19 @@ export default function ProductImageGallery({ images }: { images: ProductImage[]
 
   const scrollTo = useCallback(
     (index: number) => {
+      ensureSlideWindowLoaded(index)
       emblaApi?.scrollTo(index)
     },
-    [emblaApi]
+    [emblaApi, ensureSlideWindowLoaded]
   )
 
   const openZoom = useCallback(
     (index: number) => {
+      ensureSlideWindowLoaded(index)
       setZoomIndex(index)
       setZoomOpen(true)
     },
-    []
+    [ensureSlideWindowLoaded]
   )
 
   const closeZoom = useCallback(() => {
@@ -118,6 +148,8 @@ export default function ProductImageGallery({ images }: { images: ProductImage[]
     [images, scrollTo, selectedIndex]
   )
 
+  const loadedSlideIndexSet = useMemo(() => new Set(loadedSlideIndexes), [loadedSlideIndexes])
+
   return (
     <div className="w-full">
       <div
@@ -139,15 +171,23 @@ export default function ProductImageGallery({ images }: { images: ProductImage[]
           {images.map((image, index) => (
             <div key={image.url} className="min-w-0 flex-[0_0_100%]">
               <div className="relative aspect-[4/5]">
-                <SafeImage
-                  src={image.url}
-                  alt={image.alt}
-                  sizes={GALLERY_SIZES}
-                  priority={index === 0}
-                  className="absolute inset-0"
-                  imageClassName="transition-transform duration-500 md:hover:scale-105 motion-reduce:transform-none"
-                  onClick={() => openZoom(index)}
-                />
+                {loadedSlideIndexSet.has(index) ? (
+                  <SafeImage
+                    src={image.url}
+                    alt={image.alt}
+                    sizes={GALLERY_SIZES}
+                    priority={index === 0}
+                    fetchPriority={index === 0 ? 'high' : 'low'}
+                    className="absolute inset-0"
+                    imageClassName="transition-transform duration-500 md:hover:scale-105 motion-reduce:transform-none"
+                    onClick={() => openZoom(index)}
+                  />
+                ) : (
+                  <div
+                    className="absolute inset-0 bg-gradient-to-r from-[#e6e6e8] via-[#f2f2f4] to-[#e6e6e8] animate-shimmer"
+                    aria-hidden="true"
+                  />
+                )}
                 <button
                   className="absolute right-4 top-4 hidden items-center gap-2 rounded-full border border-[#d2d2d7] bg-white/90 px-3 py-1 text-xs uppercase tracking-[0.2em] text-[#1d1d1f] transition-colors hover:bg-white md:flex"
                   onClick={() => openZoom(index)}
@@ -173,7 +213,13 @@ export default function ProductImageGallery({ images }: { images: ProductImage[]
             )}
             onClick={() => scrollTo(index)}
           >
-            <SafeImage src={image.url} alt={image.alt} sizes="120px" className="absolute inset-0" />
+            <SafeImage
+              src={image.url}
+              alt={image.alt}
+              sizes={THUMBNAIL_SIZES}
+              fetchPriority="low"
+              className="absolute inset-0"
+            />
           </button>
         ))}
       </div>

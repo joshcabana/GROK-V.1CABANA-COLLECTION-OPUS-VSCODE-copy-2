@@ -3,8 +3,7 @@ import Script from 'next/script'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import CartDrawer from '@/components/CartDrawer'
-import CookieConsent from '@/components/CookieConsent'
+import DeferredGlobalUi from '@/components/DeferredGlobalUi'
 
 export const metadata: Metadata = {
   title: 'Cabana Collections — Sustainable Modal Underwear',
@@ -20,12 +19,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
         <Header />
-        <CartDrawer />
         <div id="main-content" tabIndex={-1}>
           {children}
         </div>
         <Footer />
-        <CookieConsent />
+        <DeferredGlobalUi />
         <Script id="sw-register" strategy="afterInteractive">
           {`
             if ('serviceWorker' in navigator) {

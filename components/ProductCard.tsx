@@ -5,6 +5,7 @@ import { formatMoney } from '@/lib/utils'
 import type { Product } from '@/data/products'
 
 const CARD_SIZES = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+const HOVER_CARD_SIZES = '(max-width: 767px) 1px, (max-width: 1200px) 50vw, 33vw'
 
 export default function ProductCard({ product }: { product: Product }) {
   const primary = product.images[0]
@@ -23,7 +24,8 @@ export default function ProductCard({ product }: { product: Product }) {
           <SafeImage
             src={secondary?.url}
             alt={secondary?.alt || product.title}
-            sizes={CARD_SIZES}
+            sizes={HOVER_CARD_SIZES}
+            fetchPriority="low"
             className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:transition-none"
           />
         </div>
