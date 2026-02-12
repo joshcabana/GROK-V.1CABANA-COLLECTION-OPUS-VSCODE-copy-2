@@ -1,6 +1,8 @@
 const preset = process.env.CABANA_LHCI_PRESET || 'mobile';
 const isDesktop = preset === 'desktop';
 const chromePath = process.env.CHROME_PATH || process.env.LHCI_CHROME_PATH;
+const ciChromeFlags =
+  process.env.CI && process.platform === 'linux' ? '--no-sandbox --disable-dev-shm-usage' : undefined;
 const mobileSettings = {
   formFactor: 'mobile',
   screenEmulation: {
@@ -39,6 +41,7 @@ module.exports = {
         onlyCategories: ['performance', 'accessibility', 'seo', 'best-practices'],
         preset: isDesktop ? 'desktop' : undefined,
         ...(isDesktop ? {} : mobileSettings),
+        ...(ciChromeFlags ? {chromeFlags: ciChromeFlags} : {}),
         extraHeaders: {
           'x-lhci-preset': isDesktop ? 'desktop' : 'mobile',
         },
