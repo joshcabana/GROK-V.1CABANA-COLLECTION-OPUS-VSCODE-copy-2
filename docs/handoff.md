@@ -7,22 +7,26 @@
 - Reliable cart flow and polished PDP interactions.
 
 ## Current State Snapshot
-- Date: 2026-02-09 10:21:46 AEDT
-- Branch: grok
-- Latest commit: d966255 Summarize CABANA Collections project
+- Date: 2026-02-12 16:41:39 AEDT
+- Branch: codex/next-parity-followup-grok
+- Latest commit: 0a177f6 Handle localStorage failures
 - Build status (`pnpm build`): PASS
-- LHCI status (mobile/desktop): PASS for all budgets (`performance >= 0.90`, `accessibility >= 0.95`, `SEO >= 0.90`, `best-practices >= 0.90`)
-- Latest preview URL: https://skill-deploy-86skndwb5b-codex-agent-deploys.vercel.app
-- Latest claim URL: https://vercel.com/claim-deployment?code=d3d0ed3c-afd6-4e4b-a2e4-ded543916d01
-- Preview route smoke (`curl`): PASS (`200`) for `/`, `/products`, `/products/mens-boxer-brief-black`, `/products/womens-modal-set`, `/products/signature-starter-set`, `/cart`, `/privacy`, `/terms`, `/legal`
+- Smoke status (`PLAYWRIGHT_SKIP_WEBSERVER=1 PLAYWRIGHT_BASE_URL=<preview> pnpm run test:smoke`): PASS (`73/73`)
+- LHCI status (mobile/desktop): Not rerun in this pass (last recorded PASS in prior checkpoints)
+- Latest preview URL: https://skill-deploy-63bmk0evwq-codex-agent-deploys.vercel.app
+- Latest claim URL: https://vercel.com/claim-deployment?code=07cac1fc-e415-4d34-ba57-d1d5a569e8a9
+- Latest deployment ID: dpl_H4y6RD5HZdtQ1mEBN7R7qftyoTLx
+- Latest project ID: prj_YRQYTERrwwayCXUM5wAD4Yqn9cpP
+- Claim status: Pending user login (claim URL redirects to Vercel auth in this environment)
+- Preview route smoke (`curl -Ls`): PASS (`200`) for `/`, `/products`, `/products/mens-boxer-brief-black`, `/products/womens-modal-set`, `/products/signature-starter-set`, `/cart`, `/privacy`, `/terms`, `/legal`
 - Preview media smoke (`curl`): PASS (`200`) for `/assets/Images/CABANA-BOXERS-360-opt.{webm,mp4}`, `/assets/Images/Women-360-opt.{webm,mp4}`, `/assets/Images/Discover-360-opt.{webm,mp4}`
 
 ## Active Milestone
-- Name: Ship current media/perf deploy candidate
-- Scope: Ship `webm+mp4` PDP 360 media, tighten deploy packaging (`600k` guardrail + `.vercelignore` integration), refresh LHCI dashboards, and publish a claimable preview
-- Entry criteria: Product media contract updated and optimized media artifacts available in `public/assets/Images`
-- Exit criteria: `pnpm build`, `pnpm test:smoke`, and `pnpm run lhci:mobile && pnpm run lhci:desktop` pass; preview routes and optimized media return `200`; checkpoint saved
-- Risks: Vercel preview can return temporary `404` during build warmup before becoming fully ready
+- Name: Claim latest preview deployment and complete quick smoke
+- Scope: Generate fresh claimable preview, validate readiness/routes/media, capture checkpoint, and finalize handoff links
+- Entry criteria: Fresh preview+claim URLs generated from `scripts/deploy.sh`
+- Exit criteria: deployment claimed into target Vercel account and quick smoke validation captured in docs
+- Risks: claim flow needs authenticated Vercel session; `vercel.json` static `.html` rewrites cause two PDP routes to render "Product not found" in preview
 
 ## Milestone Log
 | Date | Milestone | What Changed | Validation | Open Risks | Owner |
@@ -32,16 +36,21 @@
 | 2026-02-06 | Preview handoff | Deployed latest verified build with local images and Gucci-style logo morph preserved | Preview URL + claim URL returned, local route smoke 200 on `/`, `/products`, `/products/[slug]`, `/cart`, `/privacy`, `/terms` | DNS variability may still occur on restricted networks | Codex |
 | 2026-02-06 | Live preview confirmation | Verified deployed routes directly against Vercel preview host | `curl` returned 200 on `/`, `/products`, `/products/mens-boxer-brief-black`, `/cart`, `/privacy`, `/terms` | None observed during this pass | Codex |
 | 2026-02-09 | Media/perf deploy candidate | Added dual-source PDP 360 media (`webm` preferred, `mp4` fallback), tightened deploy packaging with `.vercelignore` + `600k` cap, refreshed LHCI dashboards, and deployed preview | `pnpm build` PASS, `pnpm test:smoke` PASS, `pnpm run lhci:mobile && pnpm run lhci:desktop` PASS, preview routes/media `curl` checks PASS | Preview host may return transient 404 until build reaches ready state | Codex |
+| 2026-02-12 | Fresh claimable deploy + quick smoke | Deployed fresh preview (`dpl_H4y6RD5HZdtQ1mEBN7R7qftyoTLx`), polled readiness to 200, reran Playwright smoke, validated route/media HTTP checks, and saved checkpoint | `pnpm build` PASS, `pnpm run test:smoke` PASS (`73/73`), route/media `curl -Ls` checks PASS | Claim blocked pending Vercel login; `vercel.json` rewrite behavior causes `/products/mens-boxer-brief-black` and `/products/womens-set` to show "Product not found" | Codex |
 
 ## Next 3 Actions
-1. Claim deployment URL into Vercel project ownership.
-2. Browser-check the latest preview for PDP media toggle behavior on Chrome + Safari.
-3. Merge milestone commit and monitor first post-merge deploy logs for package size regressions.
+1. Complete deployment claim in an authenticated Vercel browser session using: https://vercel.com/claim-deployment?code=07cac1fc-e415-4d34-ba57-d1d5a569e8a9
+2. Fix `vercel.json` product rewrites that point to excluded static `.html` files, then redeploy.
+3. Re-run Chrome + Safari PDP 360 QA on mens/womens/signature routes after rewrite fix.
 
 ## Blockers
-- None.
+- Claim confirmation cannot be completed in this environment without a logged-in Vercel session.
+- Current preview has PDP parity regression on `/products/mens-boxer-brief-black` and `/products/womens-set` (renders "Product not found").
 
 ## Notes
 - Local image assets remain in `public/assets/Images`; product data currently references local paths.
 - Gucci-style morph-and-slide logo animation is active between hero logo and top nav.
 - PDP 360 media contract now uses `webm` with `mp4` fallback in `app/products/[slug]/ProductDetail.tsx`.
+- Browser media verification results this pass:
+  - Chromium: `signature-starter-set` selects `.webm` by default and falls back to `.mp4` when `.webm` is blocked.
+  - WebKit: `signature-starter-set` selects `.webm` by default; fallback could not be conclusively verified with interception in this environment.

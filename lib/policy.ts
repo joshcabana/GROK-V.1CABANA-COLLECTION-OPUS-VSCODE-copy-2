@@ -13,9 +13,9 @@ export interface SitePolicy {
 }
 
 export const sitePolicy: SitePolicy = {
-  impactPercent: 15,
+  impactPercent: 10,
   shippingScope: 'AU_ONLY',
-  supportEmail: 'Cabana.Collections2025@gmail.com',
+  supportEmail: 'support@cabanacollections.com.au',
   impactAllocation: {
     mens: "men's mental health",
     womens: "women's empowerment",

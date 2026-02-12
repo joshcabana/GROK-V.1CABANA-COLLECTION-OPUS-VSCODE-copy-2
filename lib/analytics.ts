@@ -10,7 +10,11 @@ function normalizeConsent(value: string | null): AnalyticsConsent {
 
 export function getStoredAnalyticsConsent(): AnalyticsConsent {
   if (typeof window === 'undefined') return 'unset'
-  return normalizeConsent(window.localStorage.getItem(ANALYTICS_CONSENT_KEY))
+  try {
+    return normalizeConsent(window.localStorage.getItem(ANALYTICS_CONSENT_KEY))
+  } catch {
+    return 'unset'
+  }
 }
 
 export function hasAnalyticsConsent(): boolean {
@@ -20,7 +24,11 @@ export function hasAnalyticsConsent(): boolean {
 export function setAnalyticsConsent(granted: boolean) {
   if (typeof window === 'undefined') return
   const consent: AnalyticsConsent = granted ? 'granted' : 'denied'
-  window.localStorage.setItem(ANALYTICS_CONSENT_KEY, consent)
+  try {
+    window.localStorage.setItem(ANALYTICS_CONSENT_KEY, consent)
+  } catch {
+    // Ignore storage write failures (for example blocked localStorage).
+  }
   window.dispatchEvent(
     new CustomEvent(ANALYTICS_CONSENT_EVENT, {
       detail: { consent },

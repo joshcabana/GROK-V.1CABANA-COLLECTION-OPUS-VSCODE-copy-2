@@ -39,6 +39,11 @@ export default function Header() {
 
   useEffect(() => {
     if (!isHomeRoute) {
+      heroWordmarkRef.current = null
+      heroSectionRef.current = null
+      startRectRef.current = null
+      endRectRef.current = null
+      measuredRef.current = false
       navDarkRef.current = true
       dockedRef.current = true
       setNavDark(true)
@@ -59,6 +64,13 @@ export default function Header() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const resolveTargets = () => {
+      if (heroWordmarkRef.current && !heroWordmarkRef.current.isConnected) {
+        heroWordmarkRef.current = null
+        measuredRef.current = false
+      }
+      if (heroSectionRef.current && !heroSectionRef.current.isConnected) {
+        heroSectionRef.current = null
+      }
       if (!heroWordmarkRef.current) {
         heroWordmarkRef.current = document.querySelector<HTMLElement>('[data-hero-wordmark]')
       }
@@ -208,6 +220,7 @@ export default function Header() {
     <>
       <div
         ref={overlayRef}
+        data-testid="brand-wordmark-overlay"
         className="pointer-events-none fixed left-0 top-0 z-50 flex items-center justify-center text-white opacity-0"
         style={{ transformOrigin: 'top left' }}
         aria-hidden="true"

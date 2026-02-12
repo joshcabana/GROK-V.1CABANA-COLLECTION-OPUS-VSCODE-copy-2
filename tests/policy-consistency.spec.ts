@@ -1,9 +1,9 @@
 import { expect, test } from '@playwright/test'
 
-const canonicalEmail = 'Cabana.Collections2025@gmail.com'
+const canonicalEmail = 'support@cabanacollections.com.au'
 
 test('shipping language is Australia-only on canonical policy pages', async ({ request }) => {
-  const routes = ['/contact', '/shipping', '/returns', '/privacy', '/terms']
+  const routes = ['/contact', '/shipping-policy', '/return-policy', '/privacy-policy', '/terms-of-service']
 
   for (const route of routes) {
     const response = await request.get(route)
@@ -14,7 +14,14 @@ test('shipping language is Australia-only on canonical policy pages', async ({ r
 })
 
 test('canonical support email is consistent', async ({ request }) => {
-  const routes = ['/contact', '/shipping', '/returns', '/privacy', '/terms', '/legal']
+  const routes = [
+    '/contact',
+    '/shipping-policy',
+    '/return-policy',
+    '/privacy-policy',
+    '/terms-of-service',
+    '/legal',
+  ]
 
   for (const route of routes) {
     const response = await request.get(route)
@@ -25,11 +32,11 @@ test('canonical support email is consistent', async ({ request }) => {
   }
 })
 
-test('impact messaging uses the 15% model on canonical impact surfaces', async ({ request }) => {
+test('impact messaging uses the 10% model on canonical impact surfaces', async ({ request }) => {
   const routes = [
     '/impact',
     '/products/mens-boxer-brief-black',
-    '/products/womens-modal-set',
+    '/products/womens-set',
     '/products/signature-starter-set',
   ]
 
@@ -37,7 +44,7 @@ test('impact messaging uses the 15% model on canonical impact surfaces', async (
     const response = await request.get(route)
     expect(response.status()).toBe(200)
     const body = await response.text()
-    expect(body).toContain('15%')
-    expect(body).not.toMatch(/10%\s+of\s+every\s+purchase|10%\s+gives?\s+back/i)
+    expect(body).toContain('10%')
+    expect(body).not.toContain('15%')
   }
 })
