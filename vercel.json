@@ -86,64 +86,6 @@
       "permanent": true
     }
   ],
-  "rewrites": [
-    {
-      "source": "/about",
-      "destination": "/about.html"
-    },
-    {
-      "source": "/impact",
-      "destination": "/impact.html"
-    },
-    {
-      "source": "/contact",
-      "destination": "/contact.html"
-    },
-    {
-      "source": "/faq",
-      "destination": "/faq.html"
-    },
-    {
-      "source": "/cart",
-      "destination": "/cart.html"
-    },
-    {
-      "source": "/size-guide",
-      "destination": "/size-guide.html"
-    },
-    {
-      "source": "/care-instructions",
-      "destination": "/care-instructions.html"
-    },
-    {
-      "source": "/privacy-policy",
-      "destination": "/privacy-policy.html"
-    },
-    {
-      "source": "/terms-of-service",
-      "destination": "/terms-of-service.html"
-    },
-    {
-      "source": "/shipping-policy",
-      "destination": "/shipping-policy.html"
-    },
-    {
-      "source": "/return-policy",
-      "destination": "/return-policy.html"
-    },
-    {
-      "source": "/legal",
-      "destination": "/legal/index.html"
-    },
-    {
-      "source": "/products/mens-boxer-brief-black",
-      "destination": "/products/mens-boxer-brief-black.html"
-    },
-    {
-      "source": "/products/womens-set",
-      "destination": "/products/womens-set.html"
-    }
-  ],
   "headers": [
     {
       "source": "/assets/(.*)",
