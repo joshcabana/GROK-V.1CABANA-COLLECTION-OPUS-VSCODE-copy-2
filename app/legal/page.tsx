@@ -1,5 +1,12 @@
-import Link from 'next/link'
-import { supportEmailHref, sitePolicy } from '@/lib/policy'
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { supportEmailHref, sitePolicy } from '@/lib/policy';
+
+export const metadata: Metadata = {
+  title: 'Legal — Cabana Collections',
+  description:
+    'Index of Cabana Collections legal and customer policies, including privacy, terms, shipping, and returns.',
+};
 
 const links = [
   { href: '/privacy-policy', label: 'Privacy Policy' },
@@ -8,7 +15,7 @@ const links = [
   { href: '/return-policy', label: 'Return Policy' },
   { href: '/size-guide', label: 'Size Guide' },
   { href: '/care-instructions', label: 'Care Instructions' },
-]
+];
 
 export default function LegalPage() {
   return (
@@ -43,5 +50,5 @@ export default function LegalPage() {
         </p>
       </div>
     </main>
-  )
+  );
 }

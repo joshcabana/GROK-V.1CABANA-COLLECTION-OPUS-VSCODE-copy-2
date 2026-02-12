@@ -1,4 +1,11 @@
-import { impactPercentLabel } from '@/lib/policy'
+import type { Metadata } from 'next';
+import { impactPercentLabel } from '@/lib/policy';
+
+export const metadata: Metadata = {
+  title: 'About — Cabana Collections',
+  description:
+    'CABANA creates understated essentials in premium modal with a focus on comfort, fit, and longevity. Designed in Australia.',
+};
 
 export default function AboutPage() {
   return (
@@ -39,5 +46,5 @@ export default function AboutPage() {
         </div>
       </div>
     </main>
-  )
+  );
 }

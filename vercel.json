@@ -84,6 +84,41 @@
       "source": "/products/womens-set.html",
       "destination": "/products/womens-set",
       "permanent": true
+    },
+    {
+      "source": "/products/womens-modal-set.html",
+      "destination": "/products/womens-set",
+      "permanent": true
+    },
+    {
+      "source": "/products/womens-modal-set",
+      "destination": "/products/womens-set",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms-of-service",
+      "permanent": true
+    },
+    {
+      "source": "/shipping",
+      "destination": "/shipping-policy",
+      "permanent": true
+    },
+    {
+      "source": "/returns",
+      "destination": "/return-policy",
+      "permanent": true
+    },
+    {
+      "source": "/care",
+      "destination": "/care-instructions",
+      "permanent": true
     }
   ],
   "headers": [
