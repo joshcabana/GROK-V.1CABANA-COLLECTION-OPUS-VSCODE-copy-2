@@ -1,104 +1,109 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
-import { useCartStore } from '@/lib/store'
-import { formatMoney } from '@/lib/utils'
-import { sitePolicy } from '@/lib/policy'
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+import { useCartStore } from '@/lib/store';
+import { formatMoney } from '@/lib/utils';
+import { sitePolicy } from '@/lib/policy';
 
-type LookupState = 'loading' | 'verified' | 'pending' | 'error'
+type LookupState = 'loading' | 'verified' | 'pending' | 'error';
 
 type VerifiedOrder = {
-  orderId: string
-  orderNumber: string
-  status: 'paid' | 'refunded' | 'failed'
-  currency: string
-  subtotalCents: number
-  shippingCents: number
-  taxCents: number
-  totalCents: number
-  impactCents: number
-  itemCount: number
-  customerEmailMasked: string
-  supportEmail: string
-  createdAt: string
-}
+  orderId: string;
+  orderNumber: string;
+  status: 'paid' | 'refunded' | 'failed';
+  currency: string;
+  subtotalCents: number;
+  shippingCents: number;
+  taxCents: number;
+  totalCents: number;
+  impactCents: number;
+  itemCount: number;
+  customerEmailMasked: string;
+  supportEmail: string;
+  createdAt: string;
+};
 
 export default function OrderSuccessContent({ sessionId }: { sessionId?: string }) {
-  const clearCart = useCartStore((state) => state.clear)
-  const clearedRef = useRef(false)
+  const clearCart = useCartStore((state) => state.clear);
+  const clearedRef = useRef(false);
 
-  const [lookupState, setLookupState] = useState<LookupState>(sessionId ? 'loading' : 'pending')
-  const [verifiedOrder, setVerifiedOrder] = useState<VerifiedOrder | null>(null)
-  const [statusMessage, setStatusMessage] = useState('')
+  const [lookupState, setLookupState] = useState<LookupState>(sessionId ? 'loading' : 'pending');
+  const [verifiedOrder, setVerifiedOrder] = useState<VerifiedOrder | null>(null);
+  const [statusMessage, setStatusMessage] = useState('');
 
   useEffect(() => {
     if (!sessionId) {
-      setLookupState('pending')
-      setStatusMessage('Missing checkout session reference. If you were charged, contact support.')
-      return
+      setLookupState('pending');
+      setStatusMessage('Missing checkout session reference. If you were charged, contact support.');
+      return;
     }
 
-    const controller = new AbortController()
+    const controller = new AbortController();
 
     async function verifyOrder() {
       try {
-        setLookupState('loading')
-        setStatusMessage('')
+        setLookupState('loading');
+        setStatusMessage('');
 
-        const response = await fetch(`/api/orders/by-session/${encodeURIComponent(sessionId)}`, {
+        const response = await fetch(`/api/orders/by-session/${encodeURIComponent(sessionId!)}`, {
           method: 'GET',
           cache: 'no-store',
           signal: controller.signal,
-        })
+        });
 
         const payload = (await response.json().catch(() => null)) as
           | (VerifiedOrder & { message?: string })
           | { message?: string; error?: string; status?: string }
-          | null
+          | null;
 
         if (response.ok && payload && 'orderId' in payload) {
           if (payload.status === 'paid') {
-            setVerifiedOrder(payload)
-            setLookupState('verified')
-            return
+            setVerifiedOrder(payload);
+            setLookupState('verified');
+            return;
           }
 
-          setLookupState('pending')
-          setStatusMessage('Your payment is still processing. Please refresh in a moment.')
-          return
+          setLookupState('pending');
+          setStatusMessage('Your payment is still processing. Please refresh in a moment.');
+          return;
         }
 
         if (response.status === 404) {
-          setLookupState('pending')
-          setStatusMessage(payload?.message || 'Order verification is pending. Please refresh shortly.')
-          return
+          setLookupState('pending');
+          setStatusMessage(
+            payload?.message || 'Order verification is pending. Please refresh shortly.'
+          );
+          return;
         }
 
-        setLookupState('error')
-        setStatusMessage(payload?.error || 'Unable to verify this order right now.')
+        setLookupState('error');
+        setStatusMessage(
+          (payload && 'error' in payload ? payload.error : undefined) ||
+            'Unable to verify this order right now.'
+        );
       } catch (error) {
-        if (controller.signal.aborted) return
-        setLookupState('error')
+        if (controller.signal.aborted) return;
+        setLookupState('error');
         setStatusMessage(
           error instanceof Error ? error.message : 'Unable to verify this order right now.'
-        )
+        );
       }
     }
 
-    verifyOrder()
+    verifyOrder();
 
     return () => {
-      controller.abort()
-    }
-  }, [sessionId])
+      controller.abort();
+    };
+  }, [sessionId]);
 
   useEffect(() => {
-    if (lookupState !== 'verified') return
-    if (clearedRef.current) return
-    clearCart()
-    clearedRef.current = true
-  }, [clearCart, lookupState])
+    if (lookupState !== 'verified') return;
+    if (clearedRef.current) return;
+    clearCart();
+    clearedRef.current = true;
+  }, [clearCart, lookupState]);
 
   return (
     <main className="min-h-screen py-16 md:py-24 lg:py-32">
@@ -133,10 +138,12 @@ export default function OrderSuccessContent({ sessionId }: { sessionId?: string 
                   Items: <span className="font-medium">{verifiedOrder.itemCount}</span>
                 </p>
                 <p>
-                  Total: <span className="font-medium">{formatMoney(verifiedOrder.totalCents)}</span>
+                  Total:{' '}
+                  <span className="font-medium">{formatMoney(verifiedOrder.totalCents)}</span>
                 </p>
                 <p>
-                  Impact contribution: <span className="font-medium">{formatMoney(verifiedOrder.impactCents)}</span>
+                  Impact contribution:{' '}
+                  <span className="font-medium">{formatMoney(verifiedOrder.impactCents)}</span>
                 </p>
               </div>
             </div>
@@ -145,7 +152,8 @@ export default function OrderSuccessContent({ sessionId }: { sessionId?: string 
 
         {lookupState === 'pending' && (
           <p className="mt-4 text-base leading-relaxed text-[#1d1d1f]">
-            {statusMessage || 'Order verification is still pending. Please refresh this page shortly.'}
+            {statusMessage ||
+              'Order verification is still pending. Please refresh this page shortly.'}
           </p>
         )}
 
@@ -185,5 +193,5 @@ export default function OrderSuccessContent({ sessionId }: { sessionId?: string 
         </div>
       </div>
     </main>
-  )
+  );
 }

@@ -16,6 +16,7 @@
     "lhci:all:baseline": "pnpm run lhci:mobile && pnpm run perf:baseline:mobile && pnpm run lhci:desktop && pnpm run perf:baseline:desktop",
     "lhci:all:dashboard": "pnpm run lhci:mobile && pnpm run perf:dashboard:mobile && pnpm run lhci:desktop && pnpm run perf:dashboard:desktop",
     "test:smoke": "pnpm exec playwright test tests/mobile.spec.ts tests/redirects.spec.ts tests/policy-consistency.spec.ts",
+    "test:payments": "pnpm exec playwright test tests/payments-apis.spec.ts",
     "check:static:content": "bash scripts/check-static-content.sh",
     "check:static:routes": "bash scripts/check-static-routes.sh",
     "check:static": "pnpm run check:static:content && pnpm run check:static:routes",

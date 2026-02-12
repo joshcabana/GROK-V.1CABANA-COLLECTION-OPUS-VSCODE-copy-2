@@ -5,6 +5,8 @@ import { EnvConfigError, requireServerEnv } from '@/lib/env'
 import { sendOrderConfirmationEmail } from '@/lib/email'
 import { sitePolicy } from '@/lib/policy'
 
+export const dynamic = 'force-dynamic'
+
 const SUPPORTED_EVENT_TYPE = 'checkout.session.completed'
 const STRIPE_SIGNATURE_TOLERANCE_SECONDS = 300
 
@@ -181,12 +183,47 @@ async function getOrPrepareStripeEventRow(event: StripeWebhookEvent): Promise<{ 
     `
     INSERT INTO stripe_events (stripe_event_id, event_type, payload_json, status)
     VALUES ($1, $2, $3::jsonb, 'ignored')
+    ON CONFLICT (stripe_event_id) DO NOTHING
     RETURNING id
     `,
     [event.id, event.type, JSON.stringify(event)]
   )
 
-  return { rowId: inserted.rows[0].id, alreadyProcessed: false }
+  if (inserted.rowCount) {
+    return { rowId: inserted.rows[0].id, alreadyProcessed: false }
+  }
+
+  // Race-safe retry path when another request inserted the same event concurrently.
+  const conflicted = await dbQuery<StripeEventRow>(
+    'SELECT id, status FROM stripe_events WHERE stripe_event_id = $1 LIMIT 1',
+    [event.id]
+  )
+
+  if (!conflicted.rowCount) {
+    throw new Error('Unable to resolve stripe event row after unique conflict')
+  }
+
+  const conflictedRow = conflicted.rows[0]
+  if (conflictedRow.status === 'processed') {
+    return { rowId: conflictedRow.id, alreadyProcessed: true }
+  }
+
+  await dbQuery(
+    `
+    UPDATE stripe_events
+    SET
+      event_type = $2,
+      payload_json = $3::jsonb,
+      received_at = NOW(),
+      processed_at = NULL,
+      status = 'ignored',
+      error_message = NULL
+    WHERE id = $1
+    `,
+    [conflictedRow.id, event.type, JSON.stringify(event)]
+  )
+
+  return { rowId: conflictedRow.id, alreadyProcessed: false }
 }
 
 function normalizeLineItem(item: StripeCheckoutLineItem, index: number, currency: string, subtotalCents: number) {
@@ -429,7 +466,6 @@ export async function POST(request: NextRequest) {
     const { STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET } = requireServerEnv([
       'STRIPE_SECRET_KEY',
       'STRIPE_WEBHOOK_SECRET',
-      'DATABASE_URL',
     ])
 
     const rawBody = await request.text()
@@ -452,25 +488,18 @@ export async function POST(request: NextRequest) {
 
     log('log', 'webhook_received', { eventId, eventType })
 
+    if (event.type !== SUPPORTED_EVENT_TYPE) {
+      log('log', 'event_ignored', { eventId, eventType })
+      return NextResponse.json({ received: true, ignored: true })
+    }
+
+    requireServerEnv(['DATABASE_URL'])
+
     const { rowId, alreadyProcessed } = await getOrPrepareStripeEventRow(event)
 
     if (alreadyProcessed) {
       log('log', 'duplicate_event_ignored', { eventId, eventType })
       return NextResponse.json({ received: true, duplicate: true })
-    }
-
-    if (event.type !== SUPPORTED_EVENT_TYPE) {
-      await dbQuery(
-        `
-        UPDATE stripe_events
-        SET status = 'ignored', processed_at = NOW(), error_message = NULL
-        WHERE id = $1
-        `,
-        [rowId]
-      )
-
-      log('log', 'event_ignored', { eventId, eventType })
-      return NextResponse.json({ received: true, ignored: true })
     }
 
     const session = event.data?.object

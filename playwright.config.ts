@@ -1,7 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const testPort = process.env.PLAYWRIGHT_PORT || '3000';
+const testPort = process.env.PLAYWRIGHT_PORT || '3101';
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || `http://127.0.0.1:${testPort}`;
+const testServerEnv =
+  'STRIPE_SECRET_KEY=sk_test_dummy STRIPE_WEBHOOK_SECRET=whsec_test ADMIN_EXPORT_TOKEN=test_admin_token';
 
 export default defineConfig({
   testDir: './tests',
@@ -23,9 +25,9 @@ export default defineConfig({
   webServer: process.env.PLAYWRIGHT_SKIP_WEBSERVER
     ? undefined
     : {
-        command: `pnpm build && pnpm exec next start --hostname 127.0.0.1 --port ${testPort}`,
+        command: `${testServerEnv} pnpm build && ${testServerEnv} pnpm exec next start --hostname 127.0.0.1 --port ${testPort}`,
         url: baseURL,
-        reuseExistingServer: true,
+        reuseExistingServer: false,
         timeout: 180000,
       },
 });

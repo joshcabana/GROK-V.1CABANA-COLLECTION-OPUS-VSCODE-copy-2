@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { dbQuery } from '@/lib/db'
 import { EnvConfigError, requireServerEnv } from '@/lib/env'
 
+export const dynamic = 'force-dynamic'
+
 type ExportRow = {
   created_at: string
   order_id: string
@@ -132,12 +134,14 @@ function toCsv(rows: ExportRow[]) {
 
 export async function GET(request: NextRequest) {
   try {
-    const { ADMIN_EXPORT_TOKEN } = requireServerEnv(['DATABASE_URL', 'ADMIN_EXPORT_TOKEN'])
+    const { ADMIN_EXPORT_TOKEN } = requireServerEnv(['ADMIN_EXPORT_TOKEN'])
 
     const incomingToken = request.headers.get('x-admin-export-token')?.trim() || ''
     if (!incomingToken || incomingToken !== ADMIN_EXPORT_TOKEN) {
       return NextResponse.json({ error: 'Unauthorized export token.' }, { status: 401 })
     }
+
+    requireServerEnv(['DATABASE_URL'])
 
     const forwardedFor = request.headers.get('x-forwarded-for') || 'unknown'
     const ip = forwardedFor.split(',')[0]?.trim() || 'unknown'

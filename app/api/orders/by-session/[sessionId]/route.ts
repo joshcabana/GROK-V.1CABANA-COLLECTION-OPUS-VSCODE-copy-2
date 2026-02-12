@@ -3,6 +3,8 @@ import { dbQuery } from '@/lib/db'
 import { EnvConfigError, requireServerEnv } from '@/lib/env'
 import { sitePolicy } from '@/lib/policy'
 
+export const dynamic = 'force-dynamic'
+
 type OrderBySessionRow = {
   id: string
   status: 'paid' | 'refunded' | 'failed'
