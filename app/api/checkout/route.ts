@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { EnvConfigError, requireServerEnv } from '@/lib/env'
 
 type CheckoutLine = {
   title?: unknown
@@ -54,14 +55,6 @@ function resolveOrigin(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const stripeSecret = process.env.STRIPE_SECRET_KEY
-  if (!stripeSecret) {
-    return NextResponse.json(
-      { error: 'Checkout is temporarily unavailable.' },
-      { status: 503 }
-    )
-  }
-
   const body = await request.json().catch(() => null)
   const inputLines = Array.isArray(body?.lines) ? (body.lines as CheckoutLine[]) : []
 
@@ -76,6 +69,23 @@ export async function POST(request: NextRequest) {
 
   if (!lines.length) {
     return NextResponse.json({ error: 'Unable to process cart items.' }, { status: 400 })
+  }
+
+  let stripeSecret = ''
+  try {
+    stripeSecret = requireServerEnv(['STRIPE_SECRET_KEY']).STRIPE_SECRET_KEY
+  } catch (error) {
+    if (error instanceof EnvConfigError) {
+      return NextResponse.json(
+        { error: 'Checkout is temporarily unavailable.', missingEnv: error.missing },
+        { status: 503 }
+      )
+    }
+
+    return NextResponse.json(
+      { error: 'Checkout is temporarily unavailable.' },
+      { status: 503 }
+    )
   }
 
   const origin = resolveOrigin(request)
