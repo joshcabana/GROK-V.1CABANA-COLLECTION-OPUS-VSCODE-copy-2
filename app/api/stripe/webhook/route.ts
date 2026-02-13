@@ -1,102 +1,102 @@
-import { createHmac, timingSafeEqual } from 'crypto'
-import { NextRequest, NextResponse } from 'next/server'
-import { withDbTransaction, dbQuery } from '@/lib/db'
-import { EnvConfigError, requireServerEnv } from '@/lib/env'
-import { sendOrderConfirmationEmail } from '@/lib/email'
-import { sitePolicy } from '@/lib/policy'
+import { createHmac, timingSafeEqual } from 'crypto';
+import { NextRequest, NextResponse } from 'next/server';
+import { withDbTransaction, dbQuery } from '@/lib/db';
+import { EnvConfigError, requireServerEnv } from '@/lib/env';
+import { sendOrderConfirmationEmail } from '@/lib/email';
+import { sitePolicy } from '@/lib/policy';
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 
-const SUPPORTED_EVENT_TYPE = 'checkout.session.completed'
-const STRIPE_SIGNATURE_TOLERANCE_SECONDS = 300
+const SUPPORTED_EVENT_TYPE = 'checkout.session.completed';
+const STRIPE_SIGNATURE_TOLERANCE_SECONDS = 300;
 
 type StripeWebhookEvent = {
-  id: string
-  type: string
+  id: string;
+  type: string;
   data?: {
-    object?: StripeCheckoutSession
-  }
-}
+    object?: StripeCheckoutSession;
+  };
+};
 
 type StripeCheckoutSession = {
-  id?: string
-  payment_intent?: string | null
-  customer_email?: string | null
+  id?: string;
+  payment_intent?: string | null;
+  customer_email?: string | null;
   customer_details?: {
-    email?: string | null
-    name?: string | null
-  } | null
+    email?: string | null;
+    name?: string | null;
+  } | null;
   shipping_details?: {
-    name?: string | null
-    address?: Record<string, unknown> | null
-  } | null
-  currency?: string | null
-  amount_subtotal?: number | null
-  amount_total?: number | null
+    name?: string | null;
+    address?: Record<string, unknown> | null;
+  } | null;
+  currency?: string | null;
+  amount_subtotal?: number | null;
+  amount_total?: number | null;
   total_details?: {
-    amount_shipping?: number | null
-    amount_tax?: number | null
-  } | null
-  payment_status?: string | null
-}
+    amount_shipping?: number | null;
+    amount_tax?: number | null;
+  } | null;
+  payment_status?: string | null;
+};
 
 type StripeCheckoutLineItem = {
-  id?: string
-  description?: string
-  quantity?: number
-  amount_subtotal?: number | null
+  id?: string;
+  description?: string;
+  quantity?: number;
+  amount_subtotal?: number | null;
   price?: {
-    id?: string
-    unit_amount?: number | null
+    id?: string;
+    unit_amount?: number | null;
     product?:
       | {
-          id?: string
-          images?: string[]
-          metadata?: Record<string, unknown>
+          id?: string;
+          images?: string[];
+          metadata?: Record<string, unknown>;
         }
       | string
-      | null
-    metadata?: Record<string, unknown>
-  } | null
-}
+      | null;
+    metadata?: Record<string, unknown>;
+  } | null;
+};
 
 type StripeLineItemsResponse = {
-  data?: StripeCheckoutLineItem[]
+  data?: StripeCheckoutLineItem[];
   error?: {
-    message?: string
-  }
-}
+    message?: string;
+  };
+};
 
 type StripeEventRow = {
-  id: string
-  status: 'processed' | 'ignored' | 'failed'
-}
+  id: string;
+  status: 'processed' | 'ignored' | 'failed';
+};
 
 type PersistedOrder = {
-  id: string
-  stripeCheckoutSessionId: string
-  customerEmail: string
-  customerName: string | null
-  currency: string
-  totalCents: number
-  impactCents: number
-  itemCount: number
-  createdAt: string
-}
+  id: string;
+  stripeCheckoutSessionId: string;
+  customerEmail: string;
+  customerName: string | null;
+  currency: string;
+  totalCents: number;
+  impactCents: number;
+  itemCount: number;
+  createdAt: string;
+};
 
 type OrderRow = {
-  id: string
-  customer_email: string
-  customer_name: string | null
-  currency: string
-  total_cents: number
-  impact_cents: number
-  created_at: string
-}
+  id: string;
+  customer_email: string;
+  customer_name: string | null;
+  currency: string;
+  total_cents: number;
+  impact_cents: number;
+  created_at: string;
+};
 
 type InsertedEventRow = {
-  id: string
-}
+  id: string;
+};
 
 function log(level: 'log' | 'warn' | 'error', message: string, details: Record<string, unknown>) {
   console[level](
@@ -105,60 +105,62 @@ function log(level: 'log' | 'warn' | 'error', message: string, details: Record<s
       message,
       ...details,
     })
-  )
+  );
 }
 
 function parseSignatureHeader(signatureHeader: string) {
-  const values = signatureHeader.split(',')
-  let timestamp = 0
-  const signatures: string[] = []
+  const values = signatureHeader.split(',');
+  let timestamp = 0;
+  const signatures: string[] = [];
 
   for (const value of values) {
-    const [key, raw] = value.split('=')
-    if (!key || !raw) continue
+    const [key, raw] = value.split('=');
+    if (!key || !raw) continue;
     if (key === 't') {
-      const parsed = Number(raw)
-      if (Number.isInteger(parsed)) timestamp = parsed
+      const parsed = Number(raw);
+      if (Number.isInteger(parsed)) timestamp = parsed;
     }
     if (key === 'v1') {
-      signatures.push(raw)
+      signatures.push(raw);
     }
   }
 
-  return { timestamp, signatures }
+  return { timestamp, signatures };
 }
 
 function compareDigest(a: string, b: string) {
-  if (a.length !== b.length) return false
-  return timingSafeEqual(Buffer.from(a), Buffer.from(b))
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(Buffer.from(a), Buffer.from(b));
 }
 
 function verifyStripeSignature(rawBody: string, signatureHeader: string, webhookSecret: string) {
-  const { timestamp, signatures } = parseSignatureHeader(signatureHeader)
+  const { timestamp, signatures } = parseSignatureHeader(signatureHeader);
 
-  if (!timestamp || !signatures.length) return false
+  if (!timestamp || !signatures.length) return false;
 
-  const now = Math.floor(Date.now() / 1000)
-  if (Math.abs(now - timestamp) > STRIPE_SIGNATURE_TOLERANCE_SECONDS) return false
+  const now = Math.floor(Date.now() / 1000);
+  if (Math.abs(now - timestamp) > STRIPE_SIGNATURE_TOLERANCE_SECONDS) return false;
 
-  const signedPayload = `${timestamp}.${rawBody}`
+  const signedPayload = `${timestamp}.${rawBody}`;
   const expectedDigest = createHmac('sha256', webhookSecret)
     .update(signedPayload, 'utf8')
-    .digest('hex')
+    .digest('hex');
 
-  return signatures.some((signature) => compareDigest(signature, expectedDigest))
+  return signatures.some((signature) => compareDigest(signature, expectedDigest));
 }
 
-async function getOrPrepareStripeEventRow(event: StripeWebhookEvent): Promise<{ rowId: string; alreadyProcessed: boolean }> {
+async function getOrPrepareStripeEventRow(
+  event: StripeWebhookEvent
+): Promise<{ rowId: string; alreadyProcessed: boolean }> {
   const existing = await dbQuery<StripeEventRow>(
     'SELECT id, status FROM stripe_events WHERE stripe_event_id = $1 LIMIT 1',
     [event.id]
-  )
+  );
 
   if (existing.rowCount) {
-    const row = existing.rows[0]
+    const row = existing.rows[0];
     if (row.status === 'processed') {
-      return { rowId: row.id, alreadyProcessed: true }
+      return { rowId: row.id, alreadyProcessed: true };
     }
 
     await dbQuery(
@@ -174,9 +176,9 @@ async function getOrPrepareStripeEventRow(event: StripeWebhookEvent): Promise<{ 
       WHERE id = $1
       `,
       [row.id, event.type, JSON.stringify(event)]
-    )
+    );
 
-    return { rowId: row.id, alreadyProcessed: false }
+    return { rowId: row.id, alreadyProcessed: false };
   }
 
   const inserted = await dbQuery<InsertedEventRow>(
@@ -187,25 +189,29 @@ async function getOrPrepareStripeEventRow(event: StripeWebhookEvent): Promise<{ 
     RETURNING id
     `,
     [event.id, event.type, JSON.stringify(event)]
-  )
+  );
 
   if (inserted.rowCount) {
-    return { rowId: inserted.rows[0].id, alreadyProcessed: false }
+    return { rowId: inserted.rows[0].id, alreadyProcessed: false };
   }
 
   // Race-safe retry path when another request inserted the same event concurrently.
   const conflicted = await dbQuery<StripeEventRow>(
     'SELECT id, status FROM stripe_events WHERE stripe_event_id = $1 LIMIT 1',
     [event.id]
-  )
+  );
 
   if (!conflicted.rowCount) {
-    throw new Error('Unable to resolve stripe event row after unique conflict')
+    log('error', 'stripe_event_resolution_failed', {
+      stripe_event_id: event.id,
+      reason: 'Row disappeared or was deleted after unique conflict',
+    });
+    throw new Error(`Unable to resolve stripe event row for id ${event.id} after unique conflict`);
   }
 
-  const conflictedRow = conflicted.rows[0]
+  const conflictedRow = conflicted.rows[0];
   if (conflictedRow.status === 'processed') {
-    return { rowId: conflictedRow.id, alreadyProcessed: true }
+    return { rowId: conflictedRow.id, alreadyProcessed: true };
   }
 
   await dbQuery(
@@ -221,21 +227,29 @@ async function getOrPrepareStripeEventRow(event: StripeWebhookEvent): Promise<{ 
     WHERE id = $1
     `,
     [conflictedRow.id, event.type, JSON.stringify(event)]
-  )
+  );
 
-  return { rowId: conflictedRow.id, alreadyProcessed: false }
+  return { rowId: conflictedRow.id, alreadyProcessed: false };
 }
 
-function normalizeLineItem(item: StripeCheckoutLineItem, index: number, currency: string, subtotalCents: number) {
-  const quantity = Number.isInteger(item.quantity) && (item.quantity || 0) > 0 ? (item.quantity as number) : 1
-  const unitAmountFromPrice = item.price?.unit_amount
-  const unitAmountFromSubtotal = Math.round((Number(item.amount_subtotal) || subtotalCents || 0) / quantity)
-  const unitAmountCents = Math.max(0, Number(unitAmountFromPrice ?? unitAmountFromSubtotal) || 0)
-  const productName = (item.description?.trim() || `CABANA Item ${index + 1}`).slice(0, 160)
+function normalizeLineItem(
+  item: StripeCheckoutLineItem,
+  index: number,
+  currency: string,
+  subtotalCents: number
+) {
+  const quantity =
+    Number.isInteger(item.quantity) && (item.quantity || 0) > 0 ? (item.quantity as number) : 1;
+  const unitAmountFromPrice = item.price?.unit_amount;
+  const unitAmountFromSubtotal = Math.round(
+    (Number(item.amount_subtotal) || subtotalCents || 0) / quantity
+  );
+  const unitAmountCents = Math.max(0, Number(unitAmountFromPrice ?? unitAmountFromSubtotal) || 0);
+  const productName = (item.description?.trim() || `CABANA Item ${index + 1}`).slice(0, 160);
 
   const expandedProduct =
-    item.price?.product && typeof item.price.product === 'object' ? item.price.product : null
-  const imageUrl = expandedProduct?.images?.[0] || null
+    item.price?.product && typeof item.price.product === 'object' ? item.price.product : null;
+  const imageUrl = expandedProduct?.images?.[0] || null;
 
   return {
     productName,
@@ -250,31 +264,31 @@ function normalizeLineItem(item: StripeCheckoutLineItem, index: number, currency
       stripe_product_id: expandedProduct?.id || null,
       stripe_product_metadata: expandedProduct?.metadata || null,
     },
-  }
+  };
 }
 
 async function fetchCheckoutSessionLineItems(
   sessionId: string,
   stripeSecretKey: string
 ): Promise<StripeCheckoutLineItem[]> {
-  const url = new URL(`https://api.stripe.com/v1/checkout/sessions/${sessionId}/line_items`)
-  url.searchParams.set('limit', '100')
-  url.searchParams.append('expand[]', 'data.price.product')
+  const url = new URL(`https://api.stripe.com/v1/checkout/sessions/${sessionId}/line_items`);
+  url.searchParams.set('limit', '100');
+  url.searchParams.append('expand[]', 'data.price.product');
 
   const response = await fetch(url, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${stripeSecretKey}`,
     },
-  })
+  });
 
-  const payload = (await response.json().catch(() => null)) as StripeLineItemsResponse | null
+  const payload = (await response.json().catch(() => null)) as StripeLineItemsResponse | null;
 
   if (!response.ok) {
-    throw new Error(payload?.error?.message || 'Failed to fetch checkout session line items')
+    throw new Error(payload?.error?.message || 'Failed to fetch checkout session line items');
   }
 
-  return Array.isArray(payload?.data) ? payload!.data! : []
+  return Array.isArray(payload?.data) ? payload!.data! : [];
 }
 
 async function persistOrderFromSession(
@@ -282,18 +296,21 @@ async function persistOrderFromSession(
   session: StripeCheckoutSession,
   lineItems: StripeCheckoutLineItem[]
 ) {
-  const sessionId = session.id
-  if (!sessionId) throw new Error('Stripe checkout session id missing on webhook payload')
+  const sessionId = session.id;
+  if (!sessionId) throw new Error('Stripe checkout session id missing on webhook payload');
 
-  const customerEmail = session.customer_details?.email || session.customer_email || null
-  if (!customerEmail) throw new Error('Stripe checkout session missing customer email')
+  const customerEmail = session.customer_details?.email || session.customer_email || null;
+  if (!customerEmail) throw new Error('Stripe checkout session missing customer email');
 
-  const subtotalCents = Math.max(0, Number(session.amount_subtotal) || 0)
-  const shippingCents = Math.max(0, Number(session.total_details?.amount_shipping) || 0)
-  const taxCents = Math.max(0, Number(session.total_details?.amount_tax) || 0)
-  const totalCents = Math.max(0, Number(session.amount_total) || subtotalCents + shippingCents + taxCents)
-  const impactCents = Math.round(subtotalCents * (sitePolicy.impactPercent / 100))
-  const currency = (session.currency || 'aud').toLowerCase()
+  const subtotalCents = Math.max(0, Number(session.amount_subtotal) || 0);
+  const shippingCents = Math.max(0, Number(session.total_details?.amount_shipping) || 0);
+  const taxCents = Math.max(0, Number(session.total_details?.amount_tax) || 0);
+  const totalCents = Math.max(
+    0,
+    Number(session.amount_total) || subtotalCents + shippingCents + taxCents
+  );
+  const impactCents = Math.round(subtotalCents * (sitePolicy.impactPercent / 100));
+  const currency = (session.currency || 'aud').toLowerCase();
 
   const normalizedLineItems =
     lineItems.length > 0
@@ -308,11 +325,11 @@ async function persistOrderFromSession(
               source: 'fallback',
             },
           },
-        ]
+        ];
 
   const order = await withDbTransaction(async (client) => {
-    const status = session.payment_status === 'paid' ? 'paid' : 'failed'
-    const shippingAddress = session.shipping_details?.address || null
+    const status = session.payment_status === 'paid' ? 'paid' : 'failed';
+    const shippingAddress = session.shipping_details?.address || null;
 
     const upsertOrder = await client.query<OrderRow>(
       `
@@ -361,11 +378,11 @@ async function persistOrderFromSession(
         status,
         JSON.stringify(shippingAddress),
       ]
-    )
+    );
 
-    const orderRow = upsertOrder.rows[0]
+    const orderRow = upsertOrder.rows[0];
 
-    await client.query('DELETE FROM order_items WHERE order_id = $1', [orderRow.id])
+    await client.query('DELETE FROM order_items WHERE order_id = $1', [orderRow.id]);
 
     for (const item of normalizedLineItems) {
       await client.query(
@@ -387,7 +404,7 @@ async function persistOrderFromSession(
           item.imageUrl,
           JSON.stringify(item.metadataJson),
         ]
-      )
+      );
     }
 
     await client.query(
@@ -397,7 +414,7 @@ async function persistOrderFromSession(
       WHERE id = $1
       `,
       [eventRowId]
-    )
+    );
 
     return {
       id: orderRow.id,
@@ -409,14 +426,14 @@ async function persistOrderFromSession(
       impactCents: orderRow.impact_cents,
       itemCount: normalizedLineItems.reduce((sum, item) => sum + item.quantity, 0),
       createdAt: orderRow.created_at,
-    } satisfies PersistedOrder
-  })
+    } satisfies PersistedOrder;
+  });
 
-  return order
+  return order;
 }
 
 async function markEventFailed(eventRowId: string, error: unknown) {
-  const message = error instanceof Error ? error.message : 'Unknown webhook processing error'
+  const message = error instanceof Error ? error.message : 'Unknown webhook processing error';
 
   await dbQuery(
     `
@@ -425,7 +442,7 @@ async function markEventFailed(eventRowId: string, error: unknown) {
     WHERE id = $1
     `,
     [eventRowId, message]
-  )
+  );
 }
 
 async function recordEmailResult(orderId: string, result: { id?: string; error?: string }) {
@@ -441,8 +458,8 @@ async function recordEmailResult(orderId: string, result: { id?: string; error?:
       WHERE id = $1
       `,
       [orderId, result.id]
-    )
-    return
+    );
+    return;
   }
 
   await dbQuery(
@@ -455,60 +472,60 @@ async function recordEmailResult(orderId: string, result: { id?: string; error?:
     WHERE id = $1
     `,
     [orderId, result.error || 'Unknown email delivery error']
-  )
+  );
 }
 
 export async function POST(request: NextRequest) {
-  let eventId = 'unknown'
-  let eventType = 'unknown'
+  let eventId = 'unknown';
+  let eventType = 'unknown';
 
   try {
     const { STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET } = requireServerEnv([
       'STRIPE_SECRET_KEY',
       'STRIPE_WEBHOOK_SECRET',
-    ])
+    ]);
 
-    const rawBody = await request.text()
-    const signatureHeader = request.headers.get('stripe-signature') || ''
+    const rawBody = await request.text();
+    const signatureHeader = request.headers.get('stripe-signature') || '';
 
     if (!signatureHeader) {
-      log('warn', 'missing_signature', {})
-      return NextResponse.json({ error: 'Missing Stripe-Signature header' }, { status: 400 })
+      log('warn', 'missing_signature', {});
+      return NextResponse.json({ error: 'Missing Stripe-Signature header' }, { status: 400 });
     }
 
-    const isValidSignature = verifyStripeSignature(rawBody, signatureHeader, STRIPE_WEBHOOK_SECRET)
+    const isValidSignature = verifyStripeSignature(rawBody, signatureHeader, STRIPE_WEBHOOK_SECRET);
     if (!isValidSignature) {
-      log('warn', 'signature_verification_failed', {})
-      return NextResponse.json({ error: 'Invalid Stripe signature' }, { status: 400 })
+      log('warn', 'signature_verification_failed', {});
+      return NextResponse.json({ error: 'Invalid Stripe signature' }, { status: 400 });
     }
 
-    const event = JSON.parse(rawBody) as StripeWebhookEvent
-    eventId = event.id || 'unknown'
-    eventType = event.type || 'unknown'
+    const event = JSON.parse(rawBody) as StripeWebhookEvent;
+    eventId = event.id || 'unknown';
+    eventType = event.type || 'unknown';
 
-    log('log', 'webhook_received', { eventId, eventType })
+    log('log', 'webhook_received', { eventId, eventType });
 
     if (event.type !== SUPPORTED_EVENT_TYPE) {
-      log('log', 'event_ignored', { eventId, eventType })
-      return NextResponse.json({ received: true, ignored: true })
+      log('log', 'event_ignored', { eventId, eventType });
+      return NextResponse.json({ received: true, ignored: true });
     }
 
-    requireServerEnv(['DATABASE_URL'])
+    requireServerEnv(['DATABASE_URL']);
 
-    const { rowId, alreadyProcessed } = await getOrPrepareStripeEventRow(event)
+    const { rowId, alreadyProcessed } = await getOrPrepareStripeEventRow(event);
 
     if (alreadyProcessed) {
-      log('log', 'duplicate_event_ignored', { eventId, eventType })
-      return NextResponse.json({ received: true, duplicate: true })
+      log('log', 'duplicate_event_ignored', { eventId, eventType });
+      return NextResponse.json({ received: true, duplicate: true });
     }
 
-    const session = event.data?.object
+    const session = event.data?.object;
     if (!session?.id) {
-      throw new Error('Stripe checkout.session.completed payload missing session id')
+      throw new Error('Stripe checkout.session.completed payload missing session id');
     }
 
-    const lineItems = await fetchCheckoutSessionLineItems(session.id, STRIPE_SECRET_KEY)
-    const order = await persistOrderFromSession(rowId, session, lineItems)
+    const lineItems = await fetchCheckoutSessionLineItems(session.id, STRIPE_SECRET_KEY);
+    const order = await persistOrderFromSession(rowId, session, lineItems);
 
     log('log', 'order_upserted', {
       eventId,
@@ -516,7 +533,7 @@ export async function POST(request: NextRequest) {
       stripeCheckoutSessionId: order.stripeCheckoutSessionId,
       totalCents: order.totalCents,
       itemCount: order.itemCount,
-    })
+    });
 
     try {
       const emailResult = await sendOrderConfirmationEmail({
@@ -528,55 +545,56 @@ export async function POST(request: NextRequest) {
         totalCents: order.totalCents,
         impactCents: order.impactCents,
         currency: order.currency,
-      })
+      });
 
-      await recordEmailResult(order.id, { id: emailResult.id })
+      await recordEmailResult(order.id, { id: emailResult.id });
       log('log', 'email_sent', {
         eventId,
         orderId: order.id,
         resendMessageId: emailResult.id,
-      })
+      });
     } catch (emailError) {
-      const errorMessage = emailError instanceof Error ? emailError.message : 'Unknown email send failure'
-      await recordEmailResult(order.id, { error: errorMessage })
+      const errorMessage =
+        emailError instanceof Error ? emailError.message : 'Unknown email send failure';
+      await recordEmailResult(order.id, { error: errorMessage });
       log('error', 'email_failed', {
         eventId,
         orderId: order.id,
         error: errorMessage,
-      })
+      });
     }
 
-    return NextResponse.json({ received: true })
+    return NextResponse.json({ received: true });
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unexpected webhook error'
-    const missing = error instanceof EnvConfigError ? error.missing : []
+    const message = error instanceof Error ? error.message : 'Unexpected webhook error';
+    const missing = error instanceof EnvConfigError ? error.missing : [];
 
     log('error', 'webhook_processing_failed', {
       eventId,
       eventType,
       error: message,
       missingEnv: missing,
-    })
+    });
 
     if (error instanceof EnvConfigError) {
       return NextResponse.json(
         { error: 'Webhook configuration is incomplete.', missingEnv: error.missing },
         { status: 503 }
-      )
+      );
     }
 
     if (eventId !== 'unknown') {
       const existing = await dbQuery<{ id: string }>(
         'SELECT id FROM stripe_events WHERE stripe_event_id = $1 LIMIT 1',
         [eventId]
-      ).catch(() => null)
+      ).catch(() => null);
 
-      const eventRowId = existing?.rows?.[0]?.id
+      const eventRowId = existing?.rows?.[0]?.id;
       if (eventRowId) {
-        await markEventFailed(eventRowId, error).catch(() => null)
+        await markEventFailed(eventRowId, error).catch(() => null);
       }
     }
 
-    return NextResponse.json({ error: 'Webhook processing failed.' }, { status: 500 })
+    return NextResponse.json({ error: 'Webhook processing failed.' }, { status: 500 });
   }
 }
