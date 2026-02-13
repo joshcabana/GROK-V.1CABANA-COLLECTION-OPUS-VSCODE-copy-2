@@ -14,7 +14,7 @@ No rebases, force pushes, or deletions were performed on non-focused branches.
 | --- | --- | --- | --- |
 | `codex/next-parity-followup` | `origin/codex/next-parity-followup` | `=` | Synced |
 | `codex/next-parity-followup-grok` | `origin/codex/next-parity-followup-grok` | `=` | Synced |
-| `codex/repo-hygiene-pass-1` | _none_ | _none_ | Active cleanup branch |
+| `codex/repo-hygiene-pass-1` | `origin/codex/repo-hygiene-pass-1` | `=` | Active cleanup branch (synced) |
 | `codex/static-policy-release` | _none_ | _none_ | Linked worktree (`prunable`) |
 | `codex/static-policy-release-scope` | `origin/codex/static-policy-release-scope` | `=` | Synced |
 | `grok` | `origin/grok` | `<` | Behind upstream |

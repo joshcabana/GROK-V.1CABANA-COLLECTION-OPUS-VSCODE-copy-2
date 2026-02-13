@@ -75,8 +75,60 @@ Conservative hygiene pass focused on:
 
 ## Post-Change Verification (Final)
 
-_To be updated after full post-change matrix run._
+- `pnpm install`: PASS
+- `pnpm build`: PASS (Next `15.5.12`)
+- `pnpm run test:smoke`: PASS (`73/73`)
+- `PLAYWRIGHT_PORT=3102 pnpm run test:payments`: PASS (`6/6`)
+- `pnpm run check:static`: PASS
+- `pnpm audit --prod --audit-level=high`: PASS (`No known vulnerabilities found`)
+
+## Post-Change Outcomes
+
+- Redirect ownership consolidated:
+  - source-of-truth in `next.config.js`
+  - `vercel.json` now contains only caching headers
+- Canonical metadata ownership consolidated to `public/`:
+  - `public/robots.txt`
+  - `public/sitemap.xml`
+  - `public/site.webmanifest`
+  - `public/favicon.ico`
+- Removed duplicate root metadata files:
+  - `robots.txt`
+  - `sitemap.xml`
+  - `site.webmanifest`
+  - `favicon.ico`
+- `public/sitemap.xml` updated to canonical route set:
+  - includes `/products/signature-starter-set`
+  - includes current policy/contact/cart routes
+  - removes obsolete `/products/signature-set`
+- Empty placeholder directories removed:
+  - `products/`
+  - `dist/`
+  - `public/images/`
+- Security remediation completed in the target line:
+  - `next` upgraded from `14.2.35` to `15.5.12`
+  - high/critical advisories cleared per production audit
 
 ## Updated Files
 
-_To be updated after full post-change matrix run._
+- Added:
+  - `README.md`
+  - `docs/branch-hygiene.md`
+  - `docs/repo-hygiene-audit.md`
+- Updated:
+  - `app/api/orders/by-session/[sessionId]/route.ts`
+  - `app/order/success/page.tsx`
+  - `app/products/[slug]/page.tsx`
+  - `docs/handoff.md`
+  - `docs/milestone-checklist.md`
+  - `next-env.d.ts`
+  - `package.json`
+  - `pnpm-lock.yaml`
+  - `public/sitemap.xml`
+  - `scripts/check-static-routes.sh`
+  - `vercel.json`
+- Deleted:
+  - `favicon.ico`
+  - `robots.txt`
+  - `site.webmanifest`
+  - `sitemap.xml`
