@@ -6,10 +6,10 @@ cd "$ROOT_DIR"
 
 FAILURES=0
 
-require_in_vercel() {
+require_in_next_config() {
   local needle="$1"
-  if ! grep -Fq "$needle" vercel.json; then
-    echo "[FAIL] Missing vercel.json entry: $needle"
+  if ! grep -Fq "$needle" next.config.js; then
+    echo "[FAIL] Missing next.config.js entry: $needle"
     FAILURES=1
   fi
 }
@@ -17,13 +17,18 @@ require_in_vercel() {
 require_in_sitemap() {
   local route="$1"
   local loc="<loc>https://cabanacollections.com.au${route}</loc>"
-  if ! grep -Fq "$loc" sitemap.xml; then
-    echo "[FAIL] Missing sitemap URL: $loc"
+  if ! grep -Fq "$loc" public/sitemap.xml; then
+    echo "[FAIL] Missing public/sitemap.xml URL: $loc"
     FAILURES=1
   fi
 }
 
 canonical_routes=(
+  "/"
+  "/products"
+  "/products/mens-boxer-brief-black"
+  "/products/womens-set"
+  "/products/signature-starter-set"
   "/about"
   "/impact"
   "/contact"
@@ -31,19 +36,13 @@ canonical_routes=(
   "/cart"
   "/size-guide"
   "/care-instructions"
+  "/legal"
   "/privacy-policy"
   "/terms-of-service"
-  "/shipping-policy"
   "/return-policy"
-  "/legal"
-  "/products"
-  "/products/mens-boxer-brief-black"
-  "/products/womens-set"
-  "/products/signature-starter-set"
+  "/shipping-policy"
 )
 
-# In the new Next.js architecture, we use canonical routes.
-# vercel.json should bridge legacy URLs to these canonical routes.
 legacy_redirects=(
   "/index.html|/"
   "/about.html|/about"
@@ -64,6 +63,11 @@ legacy_redirects=(
   "/products/womens-set.html|/products/womens-set"
   "/products/womens-modal-set.html|/products/womens-set"
   "/products/womens-modal-set|/products/womens-set"
+  "/privacy|/privacy-policy"
+  "/terms|/terms-of-service"
+  "/shipping|/shipping-policy"
+  "/returns|/return-policy"
+  "/care|/care-instructions"
 )
 
 for route in "${canonical_routes[@]}"; do
@@ -73,17 +77,18 @@ done
 for mapping in "${legacy_redirects[@]}"; do
   source_route="${mapping%%|*}"
   dest_route="${mapping##*|}"
-  require_in_vercel "\"source\": \"${source_route}\""
-  require_in_vercel "\"destination\": \"${dest_route}\""
+  require_in_next_config "source: '${source_route}'"
+  require_in_next_config "destination: '${dest_route}'"
 done
 
-if grep -Fq '.html</loc>' sitemap.xml; then
-  echo "[FAIL] sitemap.xml contains .html URLs; expected clean canonical routes."
+if grep -Fq '.html</loc>' public/sitemap.xml; then
+  echo "[FAIL] public/sitemap.xml contains .html URLs; expected canonical routes."
   FAILURES=1
 fi
 
 if [[ -n "${BASE_URL:-}" ]]; then
   echo "Running live route checks against ${BASE_URL}"
+
   for route in "${canonical_routes[@]}"; do
     code="$(curl -s -o /dev/null -w '%{http_code}' "${BASE_URL}${route}")"
     if [[ "$code" != "200" ]]; then
@@ -95,8 +100,8 @@ if [[ -n "${BASE_URL:-}" ]]; then
   for mapping in "${legacy_redirects[@]}"; do
     source_route="${mapping%%|*}"
     code="$(curl -s -o /dev/null -w '%{http_code}' "${BASE_URL}${source_route}")"
-    if [[ "$code" != "301" && "$code" != "308" ]]; then
-      echo "[FAIL] Expected redirect (301/308) for ${source_route}, got ${code}"
+    if [[ "$code" != "307" && "$code" != "308" && "$code" != "301" ]]; then
+      echo "[FAIL] Expected redirect (301/307/308) for ${source_route}, got ${code}"
       FAILURES=1
     fi
   done

@@ -28,12 +28,13 @@ function maskEmail(email: string) {
 
 export async function GET(
   _request: NextRequest,
-  context: { params: { sessionId: string } }
+  context: { params: Promise<{ sessionId: string }> }
 ) {
   try {
     requireServerEnv(['DATABASE_URL'])
 
-    const sessionId = decodeURIComponent(context.params.sessionId || '').trim()
+    const { sessionId: rawSessionId } = await context.params
+    const sessionId = decodeURIComponent(rawSessionId || '').trim()
     if (!sessionId || sessionId.length > 255) {
       return NextResponse.json({ error: 'Invalid session id.' }, { status: 400 })
     }

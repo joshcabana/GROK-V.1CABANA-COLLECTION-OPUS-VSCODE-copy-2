@@ -5,7 +5,7 @@ import { products } from '@/data/products';
 import ProductDetail from './ProductDetail';
 
 interface PageProps {
-  params: { slug: string } | Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
@@ -13,7 +13,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const resolvedParams = params instanceof Promise ? await params : params;
+  const resolvedParams = await params;
   const product = products.find((p) => p.slug === resolvedParams.slug);
   if (!product) {
     return { title: 'Product Not Found — Cabana Collections' };
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ProductPage({ params }: PageProps) {
-  const resolvedParams = params instanceof Promise ? await params : params;
+  const resolvedParams = await params;
   if (resolvedParams.slug === 'womens-modal-set') {
     redirect('/products/womens-set');
   }
