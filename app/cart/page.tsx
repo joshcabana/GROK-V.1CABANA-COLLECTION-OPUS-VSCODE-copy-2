@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { ShoppingBag } from 'lucide-react'
+import { useMemo, useState } from 'react'
 import { useCartStore } from '@/lib/store'
 import CartItem from '@/components/CartItem'
 import { formatMoney } from '@/lib/utils'
@@ -9,6 +10,50 @@ import { formatMoney } from '@/lib/utils'
 export default function CartPage() {
   const items = useCartStore((state) => state.items)
   const subtotal = useCartStore((state) => state.subtotal())
+  const [isCheckingOut, setIsCheckingOut] = useState(false)
+  const [error, setError] = useState('')
+
+  const checkoutLines = useMemo(
+    () =>
+      items.map((item) => ({
+        title: item.title,
+        priceCents: item.price,
+        quantity: item.quantity,
+        image: item.image,
+      })),
+    [items]
+  )
+
+  async function beginCheckout() {
+    if (!checkoutLines.length || isCheckingOut) return
+    setIsCheckingOut(true)
+    setError('')
+
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lines: checkoutLines }),
+      })
+
+      const payload = (await response.json().catch(() => null)) as
+        | { url?: string; error?: string }
+        | null
+
+      if (!response.ok || !payload?.url) {
+        throw new Error(payload?.error || 'Checkout is currently unavailable.')
+      }
+
+      window.location.assign(payload.url)
+    } catch (checkoutError) {
+      setError(
+        checkoutError instanceof Error
+          ? checkoutError.message
+          : 'Checkout is currently unavailable.'
+      )
+      setIsCheckingOut(false)
+    }
+  }
 
   return (
     <main className="min-h-screen py-16 md:py-24 lg:py-32">
@@ -52,11 +97,14 @@ export default function CartPage() {
                 </span>
               </div>
               <button
-                className="mt-4 w-full rounded-full border border-[#d2d2d7] bg-white py-3 text-xs uppercase tracking-[0.2em] text-[#6e6e73]"
-                disabled
+                className="mt-4 w-full rounded-full bg-[#1d1d1f] py-3 text-xs uppercase tracking-[0.2em] text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-60"
+                disabled={isCheckingOut}
+                onClick={beginCheckout}
               >
-                Checkout unavailable while payments are being finalized
+                {isCheckingOut ? 'Redirecting to secure checkout...' : 'Checkout securely'}
               </button>
+              {error && <p className="mt-3 text-xs text-[#b3261e]">{error}</p>}
+              <p className="mt-3 text-xs text-[#6e6e73]">Secure payment powered by Stripe.</p>
             </div>
           </div>
         )}

@@ -1,19 +1,36 @@
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
-import { products } from '@/data/products'
-import ProductDetail from './ProductDetail'
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import type { Metadata } from 'next';
+import { products } from '@/data/products';
+import ProductDetail from './ProductDetail';
 
 interface PageProps {
-  params: { slug: string } | Promise<{ slug: string }>
+  params: { slug: string } | Promise<{ slug: string }>;
+}
+
+export function generateStaticParams() {
+  return products.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = params instanceof Promise ? await params : params;
+  const product = products.find((p) => p.slug === resolvedParams.slug);
+  if (!product) {
+    return { title: 'Product Not Found — Cabana Collections' };
+  }
+  return {
+    title: `${product.title} — Cabana Collections`,
+    description: product.description,
+  };
 }
 
 export default async function ProductPage({ params }: PageProps) {
-  const resolvedParams = params instanceof Promise ? await params : params
+  const resolvedParams = params instanceof Promise ? await params : params;
   if (resolvedParams.slug === 'womens-modal-set') {
-    redirect('/products/womens-set')
+    redirect('/products/womens-set');
   }
 
-  const product = products.find((p) => p.slug === resolvedParams.slug)
+  const product = products.find((p) => p.slug === resolvedParams.slug);
 
   if (!product) {
     return (
@@ -26,8 +43,8 @@ export default async function ProductPage({ params }: PageProps) {
           Back to Shop
         </Link>
       </main>
-    )
+    );
   }
 
-  return <ProductDetail product={product} />
+  return <ProductDetail product={product} />;
 }

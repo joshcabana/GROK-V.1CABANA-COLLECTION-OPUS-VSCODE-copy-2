@@ -36,38 +36,14 @@ canonical_routes=(
   "/shipping-policy"
   "/return-policy"
   "/legal"
+  "/products"
   "/products/mens-boxer-brief-black"
   "/products/womens-set"
+  "/products/signature-starter-set"
 )
 
-rewrite_mappings=(
-  "/about|/about.html"
-  "/impact|/impact.html"
-  "/contact|/contact.html"
-  "/faq|/faq.html"
-  "/cart|/cart.html"
-  "/size-guide|/size-guide.html"
-  "/care-instructions|/care-instructions.html"
-  "/privacy-policy|/privacy-policy.html"
-  "/terms-of-service|/terms-of-service.html"
-  "/shipping-policy|/shipping-policy.html"
-  "/return-policy|/return-policy.html"
-  "/legal|/legal/index.html"
-  "/products/mens-boxer-brief-black|/products/mens-boxer-brief-black.html"
-  "/products/womens-set|/products/womens-set.html"
-)
-
-for mapping in "${rewrite_mappings[@]}"; do
-  route="${mapping%%|*}"
-  destination="${mapping##*|}"
-  require_in_vercel "\"source\": \"${route}\""
-  require_in_vercel "\"destination\": \"${destination}\""
-done
-
-for route in "${canonical_routes[@]}"; do
-  require_in_sitemap "$route"
-done
-
+# In the new Next.js architecture, we use canonical routes.
+# vercel.json should bridge legacy URLs to these canonical routes.
 legacy_redirects=(
   "/index.html|/"
   "/about.html|/about"
@@ -86,7 +62,13 @@ legacy_redirects=(
   "/products/mens-underwear|/products/mens-boxer-brief-black"
   "/products/mens-boxer-brief-black.html|/products/mens-boxer-brief-black"
   "/products/womens-set.html|/products/womens-set"
+  "/products/womens-modal-set.html|/products/womens-set"
+  "/products/womens-modal-set|/products/womens-set"
 )
+
+for route in "${canonical_routes[@]}"; do
+  require_in_sitemap "$route"
+done
 
 for mapping in "${legacy_redirects[@]}"; do
   source_route="${mapping%%|*}"

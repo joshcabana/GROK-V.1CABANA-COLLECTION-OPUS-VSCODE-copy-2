@@ -1,4 +1,11 @@
-import { supportEmailHref, sitePolicy } from '@/lib/policy'
+import type { Metadata } from 'next';
+import { supportEmailHref, sitePolicy } from '@/lib/policy';
+
+export const metadata: Metadata = {
+  title: 'Contact — Cabana Collections',
+  description:
+    'Get in touch with Cabana Collections for support, returns, order questions, or wholesale enquiries.',
+};
 
 export default function ContactPage() {
   return (
@@ -33,5 +40,5 @@ export default function ContactPage() {
         </section>
       </div>
     </main>
-  )
+  );
 }

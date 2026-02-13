@@ -1,5 +1,12 @@
-import Link from 'next/link'
-import { supportEmailHref, sitePolicy } from '@/lib/policy'
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { supportEmailHref, sitePolicy } from '@/lib/policy';
+
+export const metadata: Metadata = {
+  title: 'FAQ — Cabana Collections',
+  description:
+    'Common questions about Cabana Collections shipping, returns, sizing, and impact initiatives.',
+};
 
 const faqs = [
   {
@@ -15,7 +22,7 @@ const faqs = [
     answer:
       "CABANA allocates 10% of each purchase, mapped by product category to men's mental health or women's empowerment initiatives.",
   },
-]
+];
 
 export default function FaqPage() {
   return (
@@ -28,7 +35,10 @@ export default function FaqPage() {
 
         <div className="mt-8 space-y-4">
           {faqs.map((item) => (
-            <section key={item.question} className="rounded-2xl border border-[#d2d2d7] bg-white p-5">
+            <section
+              key={item.question}
+              className="rounded-2xl border border-[#d2d2d7] bg-white p-5"
+            >
               <h2 className="text-base font-medium text-[#1d1d1f]">{item.question}</h2>
               <p className="mt-2 text-sm text-[#6e6e73]">{item.answer}</p>
             </section>
@@ -40,9 +50,13 @@ export default function FaqPage() {
           <a href={supportEmailHref} className="underline hover:no-underline">
             {sitePolicy.supportEmail}
           </a>{' '}
-          or use the <Link href="/contact" className="underline hover:no-underline">contact page</Link>.
+          or use the{' '}
+          <Link href="/contact" className="underline hover:no-underline">
+            contact page
+          </Link>
+          .
         </p>
       </div>
     </main>
-  )
+  );
 }

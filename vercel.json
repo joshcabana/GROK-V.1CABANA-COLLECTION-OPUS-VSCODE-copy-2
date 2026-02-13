@@ -84,64 +84,41 @@
       "source": "/products/womens-set.html",
       "destination": "/products/womens-set",
       "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/about",
-      "destination": "/about.html"
     },
     {
-      "source": "/impact",
-      "destination": "/impact.html"
+      "source": "/products/womens-modal-set.html",
+      "destination": "/products/womens-set",
+      "permanent": true
     },
     {
-      "source": "/contact",
-      "destination": "/contact.html"
+      "source": "/products/womens-modal-set",
+      "destination": "/products/womens-set",
+      "permanent": true
     },
     {
-      "source": "/faq",
-      "destination": "/faq.html"
+      "source": "/privacy",
+      "destination": "/privacy-policy",
+      "permanent": true
     },
     {
-      "source": "/cart",
-      "destination": "/cart.html"
+      "source": "/terms",
+      "destination": "/terms-of-service",
+      "permanent": true
     },
     {
-      "source": "/size-guide",
-      "destination": "/size-guide.html"
+      "source": "/shipping",
+      "destination": "/shipping-policy",
+      "permanent": true
     },
     {
-      "source": "/care-instructions",
-      "destination": "/care-instructions.html"
+      "source": "/returns",
+      "destination": "/return-policy",
+      "permanent": true
     },
     {
-      "source": "/privacy-policy",
-      "destination": "/privacy-policy.html"
-    },
-    {
-      "source": "/terms-of-service",
-      "destination": "/terms-of-service.html"
-    },
-    {
-      "source": "/shipping-policy",
-      "destination": "/shipping-policy.html"
-    },
-    {
-      "source": "/return-policy",
-      "destination": "/return-policy.html"
-    },
-    {
-      "source": "/legal",
-      "destination": "/legal/index.html"
-    },
-    {
-      "source": "/products/mens-boxer-brief-black",
-      "destination": "/products/mens-boxer-brief-black.html"
-    },
-    {
-      "source": "/products/womens-set",
-      "destination": "/products/womens-set.html"
+      "source": "/care",
+      "destination": "/care-instructions",
+      "permanent": true
     }
   ],
   "headers": [

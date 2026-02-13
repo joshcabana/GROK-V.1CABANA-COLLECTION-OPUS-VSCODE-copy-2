@@ -1,4 +1,11 @@
-import { impactPercentLabel, sitePolicy } from '@/lib/policy'
+import type { Metadata } from 'next';
+import { impactPercentLabel, sitePolicy } from '@/lib/policy';
+
+export const metadata: Metadata = {
+  title: 'Impact — Cabana Collections',
+  description:
+    "10% of every Cabana Collections purchase supports men's mental health and women's empowerment initiatives.",
+};
 
 export default function ImpactPage() {
   return (
@@ -21,7 +28,9 @@ export default function ImpactPage() {
             </p>
           </article>
           <article className="rounded-2xl border border-[#d2d2d7] bg-white p-4">
-            <p className="text-xs uppercase tracking-[0.2em] text-[#6e6e73]">Women&apos;s products</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-[#6e6e73]">
+              Women&apos;s products
+            </p>
             <p className="mt-2 text-sm text-[#1d1d1f]">
               {impactPercentLabel()} supports {sitePolicy.impactAllocation.womens}.
             </p>
@@ -43,5 +52,5 @@ export default function ImpactPage() {
         </section>
       </div>
     </main>
-  )
+  );
 }

@@ -1,4 +1,11 @@
-import { supportEmailHref, sitePolicy } from '@/lib/policy'
+import type { Metadata } from 'next';
+import { supportEmailHref, sitePolicy } from '@/lib/policy';
+
+export const metadata: Metadata = {
+  title: 'Size Guide — Cabana Collections',
+  description:
+    'Cabana Collections size guide with waist and hip measurements for all available sizes.',
+};
 
 const sizeRows = [
   { size: 'XS', waist: '65-70 cm', hips: '85-90 cm' },
@@ -6,7 +13,7 @@ const sizeRows = [
   { size: 'M', waist: '77-82 cm', hips: '97-102 cm' },
   { size: 'L', waist: '83-88 cm', hips: '103-108 cm' },
   { size: 'XL', waist: '89-95 cm', hips: '109-115 cm' },
-]
+];
 
 export default function SizeGuidePage() {
   return (
@@ -50,5 +57,5 @@ export default function SizeGuidePage() {
         </p>
       </div>
     </main>
-  )
+  );
 }
